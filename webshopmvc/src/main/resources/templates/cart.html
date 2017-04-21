@@ -13,6 +13,30 @@
   
     <!-- content -->
     <div align="center"><h2>Uw winkelwagen</h2></div>
+    <br><br>
+    <table class="table table-bordered">
+        <thead>
+        <tr class="center middle">
+            <th>Productnummer</th>
+            <th>Product</th>
+            <th>Aantal</th>
+            <th>Stukprijs</th>
+            <th>Totaalprijs</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="element : ${cart.getSubOrders()}">
+            <td class="center middle" th:text="${element.product.getId()}"></td>
+            <td class="center middle" th:text="${element.product.getName()}"></td>
+            <td class="center middle" th:text="${element.getQuantity()}"></td>
+            <td class="center middle" th:text="${element.product.getPrice()}"></td>
+            <td class="center middle" th:text="${element.getSubTotal()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
 
     <!-- javascript import -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

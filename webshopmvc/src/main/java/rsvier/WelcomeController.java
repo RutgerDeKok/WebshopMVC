@@ -10,7 +10,7 @@ class WelcomeController {
 
 	@RequestMapping("/")
 	public String welcome() {
-		return "cart";
+		return "welcome";
 	}
         
         @RequestMapping("/boerPiet")
@@ -18,10 +18,4 @@ class WelcomeController {
 		return "BoerPiet";
 	}
 
-	//
-	// @RequestMapping("/")
-	// public RedirectView redirect() {
-	//
-	// return new RedirectView("/welcome.html");
-	// }
 }

@@ -34,6 +34,10 @@ public class CartSubOrder {
 	public CartSubOrder() {
 	}
 
+	public CartSubOrder(long id, Product product, int quantity) {
+		this.id = id; this.product = product; this.quantity = quantity;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -58,7 +62,7 @@ public class CartSubOrder {
 		this.quantity = quantity;
 	}
 
-	public BigDecimal getTotalPrice() {
+	public BigDecimal getSubTotal() {
 		return subTotal;
 	}
 
