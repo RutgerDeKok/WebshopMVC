@@ -12,6 +12,11 @@ class WelcomeController {
 	public String welcome() {
 		return "cart";
 	}
+        
+        @RequestMapping("/boerPiet")
+	public String contact() {
+		return "BoerPiet";
+	}
 
 	//
 	// @RequestMapping("/")

@@ -8,31 +8,9 @@
     <title>Boer Piet - Winkelwagen</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <!-- nav bar -->
-    <nav class="navbar navbar-inverse navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="welcome.html" th:href="@{/}">Boer Piet</a>
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Informatie</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a><span class="glyphicon glyphicon-option-vertical icon-white" aria-hidden="true"</span></a></li>
-                    <li><a href="#" th:href="@{/}"><span class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></span></a></li>
-                    <li><a href="#" th:href="@{/}">Inloggen</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+<body background = "/images/background-cheese.jpg">
+           <header th:replace = "Navigator :: header" />
+  
     <!-- content -->
     <div align="center"><h2>Uw winkelwagen</h2></div>
 
