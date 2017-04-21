@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>DropDown</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+                <div class="dropdown">
+             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+               Dropdown
+               <span class="caret"></span>
+             </button>
+             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+               <li><a href="/">Kazen Kijken</a></li>
+               <li><a href="localhost:8080/">Kazen Bestellen</a></li>
+               <li><a href="localhost:8080/">Inloggen (Harry,, klopt deze layout wel)</a></li>
+               <li><a href="localhost:8080/">Uitloggen (Je doet echt wat fout Harry)</a></li>
+             </ul>
+           </div>
+           <h2>
+                <span id="firstName" th:text="${currentUser.firstName}">DuyHai</span> 
+                <span id="lastName" th:text="${currentUser.lastName}">DOAN</span>
+            </h2>
+    </body>
+</html>
