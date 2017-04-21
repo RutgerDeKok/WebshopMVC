@@ -2,13 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+
+
 <title>Welkom</title>
 </head>
 <body>
 <h2>Welkom in de Piet's Kaas Winkel</h2>
 
+
 <p>Een lijst met opties</p>
-<p>Hier kan een tabel komen oid</p>
+<p>
+<table class="table table-bordered">
+    <thead>
+        <tr class="center middle">
+            <th>Name</th>
+            <th>Row count</th>
+            <th>Row index</th>
+            <th>List size</th>
+            <th>Even count</th>
+            <th>Odd count</th>
+        </tr>
+    </thead>
+    <tbody>
+    
+        <tr th:each="element : ${lijst}">
+            <td th:text=" ${element.name}" class="center middle">John Woo</td>
+            <td th:text=" ${element.category.getNL()}" class="center middle">1</td>
+            <td th:text=" ${element.price}" class="center middle" >0</td>
+            <td class="center middle"><a href = "http://www.google.com">link</a></td>
+            <td class="center middle" >false</td>
+            <td class="center middle" >true</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+</p>
 
 </body>
 </html>
