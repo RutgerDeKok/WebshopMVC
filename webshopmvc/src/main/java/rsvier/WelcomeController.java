@@ -38,5 +38,8 @@ class WelcomeController {
 		model.put("lijst", products);
 		return "welcome";
 	}
+        
+        
+        
 
 }
