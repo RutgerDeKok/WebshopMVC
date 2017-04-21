@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+
+
+<title>Producten</title>
+</head>
+<body>
+<h2>Producten Overzicht</h2>
+
+
+<p>
+<table class="table table-bordered" cellpadding="10" border="1">
+    <thead>
+        <tr>
+            <th width="150" align="left">Naam</th>
+            <th width="150" align="left">Categorie</th>
+            <th width="150" align="left">Merk</th>
+            <th width="30" align="right">Prijs</th>
+            <th width="30" align="right">Voorraad</th>
+            <th width="300" align="left">Informatie</th>
+            
+            
+        </tr>
+    </thead>
+    <tbody>
+    
+        <tr th:each="element : ${lijst}">
+            <td th:text=" ${element.name}" align="left">naam</td>
+            <td th:text=" ${element.category.getNL()}" align="categorie">1</td>
+            <td th:text=" ${element.brand}" align="left" >merk</td>
+            <td th:text=" ${element.price}" align="right" >prijs</td>
+            <td th:text=" ${element.stockCount}" align="right" >voorraad</td>
+          	<td th:text=" ${element.info}" align="left">info</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+</p>
+
+</body>
+</html>

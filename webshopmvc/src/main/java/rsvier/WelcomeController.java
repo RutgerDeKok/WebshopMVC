@@ -28,7 +28,7 @@ class WelcomeController {
 		product1.setCategory(ProductCategory.GOAT);
 		product1.setPrice(new BigDecimal("12.30"));
 
-		List<String> list = Arrays.asList(new String[] { "een", "twee", "drie", "vier", "vijf" });
+		
 		List<Product> products = new ArrayList<>();
 		products.add(product1);
 		products.add(product1);
