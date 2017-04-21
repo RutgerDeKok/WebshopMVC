@@ -16,5 +16,27 @@
 <p>Dit is slechts het welkommenu</p>
 <p>Later komt hier kaas te staan, goed hè</p>
 
+<table class="table table-bordered">
+        <thead>
+        <tr class="center middle">
+            <th>Productnummer</th>
+            <th>Product</th>
+            <th>Aantal</th>
+            <th>Stukprijs</th>
+            <th>Totaalprijs</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="element : ${productlist}">
+            <td class="center middle" th:text="${element.getId()}">Id</td>
+            <td class="center middle" th:text="${element.getName()}">Naam</td>
+            <td class="center middle" th:text="${element.getBrand()}">Merk</td>
+            <td class="center middle" th:text="${element.getInfo()}">Info</td>
+            <td class="center middle" th:text="${element.getPrice()}">Prijs</td>
+            
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>
