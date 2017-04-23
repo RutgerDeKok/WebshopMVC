@@ -7,15 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Boer Piet - Winkelwagen</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="Kaasmenu.css" rel="stylesheet">
 </head>
 <body background = "/images/background-cheese.jpg">
-           <header th:replace = "Navigator :: header" />
-  
+          <header th:replace = "Navigator :: header" />
+        
 <h2>Welkom in de Piet's Kaas Winkel</h2>
 
 <p>Dit is slechts het welkommenu</p>
 <p>Later komt hier kaas te staan, goed hè</p>
 
+        <<header th:replace = "KaasKeuzeMenu :: kaasmenu" />
+<div>
 <table class="table table-bordered">
         <thead>
         <tr class="center middle">
@@ -38,5 +41,7 @@
         </tr>
         </tbody>
     </table>
+   </div>
+
 </body>
 </html>

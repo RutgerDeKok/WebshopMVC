@@ -29,5 +29,10 @@ class WelcomeController {
 	public String contact() {
 		return "BoerPiet";
 	}
+        
+        @RequestMapping("/Kaas")
+	public String Keuze() {
+		return "KaasKeuzeMenu";
+	}
 
 }
