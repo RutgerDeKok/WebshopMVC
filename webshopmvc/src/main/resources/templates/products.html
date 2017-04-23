@@ -7,7 +7,7 @@
 <title>Producten</title>
 </head>
 <body>
-<h2>Producten Overzicht</h2>
+	<h2>Producten Overzicht</h2>
 
 
 	<p>
@@ -21,13 +21,9 @@
 				<th width="30" align="right">Prijs</th>
 				<th width="30" align="right">Voorraad</th>
 				<th width="300" align="left">Informatie</th>
-            
-            
-        </tr>
-    </thead>
-    <tbody>
-
-
+			</tr>
+		</thead>
+		<tbody>
 			<tr
 				th:each="element: ${lijst.?[category.getNL() == '__${catf}__' OR 'Alles' == '__${catf}__']}">
 
@@ -49,15 +45,40 @@
 
 	<h3>Categorien:</h3>
 
+<!-- 
+	<form action="">
+
+		<input type="text" th:field="${cat.getNL()}" />
+	</form>
+	<form>
+		<input type="text" id="adresBalk2" name="adresBalk2"
+			th:value="hiertekst" />
+	</form>
+ -->
+
+	<!--  <form  action="#" th:action="@{${action}}" th:object="${filter}" method="get"> -->
+	 <form  action="/products/f" method="post">
+		<br>
+		<input type="radio" name="filter" value="ALL">Alles</imput>
+		<br>
+		<input type="radio" name="filter" value="MEDIUM_HARD">Medium-Hard</imput>
+		<br>
+		<input type="radio" name="filter" value="GOAT">Geiten</imput>
+		<br>
+		<input type="submit" value="Filter"/>
+	</form>
+
+
+
 	<!-- 
-	--------check box ding wat niet werkt-----------
-<form role="form" action="#" th:action="@{${action}}" th:object="${Category}" method="post">
+	--------check box ding wat niet werkt----------- 
+<form role="form" action="#" th:action="@{${action}}" th:object="${categoryFilter}" method="post">
 	<div th:each="each="category : ${categories}">
-    <input type="checkbox" th:id="${{shippingType}}" th:value="${{shippingType}}" th:field="*{supportedShippingTypes}" />
-    <label th:for="${{shippingType}}">Shipping Types</label>
+    <input type="checkbox" th:id="${{category}}" th:value="${{category}}" th:field="*{category}" />
+    <label th:for="${{category}}">Shipping Types</label>
        <button type="submit" value="submit"/>
-    </form>
-</div>   -->
+    </form> -->
+	</div>
 
 	<!-- 
 	--------radio button ding wat niet werkt-----------

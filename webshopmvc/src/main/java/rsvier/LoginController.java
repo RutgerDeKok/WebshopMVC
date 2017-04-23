@@ -40,21 +40,7 @@ public class LoginController {
         return "login";
         }
         
-//	public String welcomeInlog(Map<String, Object> model) {
-//
-//		Product product1 = new Product();
-//		product1.setName("kaas");
-//		product1.setCategory(ProductCategory.GOAT);
-//		product1.setPrice(new BigDecimal("12.30"));
-//
-//		
-//		List<Product> products = new ArrayList<>();
-//		products.add(product1);
-//		products.add(product1);
-//		products.add(product1);
-//		products.add(product1);
-//
-//		model.put("lijst", products);
+
 		
 		
 	}
