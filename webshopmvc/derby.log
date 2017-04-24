@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Fri Apr 21 11:42:39 CEST 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-015b-8fe4-5a0c-000006c75c88 
-on database directory memory:C:\Users\Jellie\Documents\NetBeansProjects\WebshopMVC\webshopmvc\testdb with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Mon Apr 24 11:00:29 CEST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-015b-9f30-d417-000006cf4758 
+on database directory memory:C:\Users\Jellie\Documents\NetBeansProjects\WebshopMVC2\webshopmvc\testdb with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
 Loaded from file:/C:/Users/Jellie/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_121-b13
-user.dir=C:\Users\Jellie\Documents\NetBeansProjects\WebshopMVC\webshopmvc
+user.dir=C:\Users\Jellie\Documents\NetBeansProjects\WebshopMVC2\webshopmvc
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0

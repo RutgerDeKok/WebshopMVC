@@ -7,41 +7,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Boer Piet - Winkelwagen</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="Kaasmenu.css" rel="stylesheet">
+    <link href="css/Kaasmenu.css" rel="stylesheet">
+    <link href="css/welcome.css" rel="stylesheet">
 </head>
 <body background = "/images/background-cheese.jpg">
           <header th:replace = "Navigator :: header" />
-        
-<h2>Welkom in de Piet's Kaas Winkel</h2>
+        <div id = "hoofd">
+                <h2>Welkom in de Piet's Kaas Winkel</h2>
 
-<p>Dit is slechts het welkommenu</p>
-<p>Later komt hier kaas te staan, goed hè</p>
+                <p>Dit is slechts het welkommenu</p>
+                <p>Later komt hier kaas te staan, goed hè</p>
+        </div>
+        <section> 
+            <div class= "menu">
+                    <header th:replace = "KaasKeuzeMenu :: kaasmenu" />
+            </div>
+        <div class="menu"  id="table">
+        <table class="table table-bordered">
+                <thead>
+                <tr class="center middle">
+                    <th>Productnummer</th>
+                    <th>Product</th>
+                    <th>Aantal</th>
+                    <th>Stukprijs</th>
+                    <th>Totaalprijs</th>
+                </tr>
+                </thead>
+                <tbody>
 
-        <<header th:replace = "KaasKeuzeMenu :: kaasmenu" />
-<div>
-<table class="table table-bordered">
-        <thead>
-        <tr class="center middle">
-            <th>Productnummer</th>
-            <th>Product</th>
-            <th>Aantal</th>
-            <th>Stukprijs</th>
-            <th>Totaalprijs</th>
-        </tr>
-        </thead>
-        <tbody>
+                <tr th:each="element : ${productlist}">
+                    <td class="center middle" th:text="${element.getId()}">Id</td>
+                    <td class="center middle" th:text="${element.getName()}">Naam</td>
+                    <td class="center middle" th:text="${element.getBrand()}">Merk</td>
+                    <td class="center middle" th:text="${element.getInfo()}">Info</td>
+                    <td class="center middle" th:text="${element.getPrice()}">Prijs</td>
 
-        <tr th:each="element : ${productlist}">
-            <td class="center middle" th:text="${element.getId()}">Id</td>
-            <td class="center middle" th:text="${element.getName()}">Naam</td>
-            <td class="center middle" th:text="${element.getBrand()}">Merk</td>
-            <td class="center middle" th:text="${element.getInfo()}">Info</td>
-            <td class="center middle" th:text="${element.getPrice()}">Prijs</td>
-            
-        </tr>
-        </tbody>
-    </table>
-   </div>
-
+                </tr>
+                </tbody>
+            </table>
+           </div>
+    <section>
+        <br/> <br/> <br/> <br/> <br/> <br/><br/> <br/> <br/><br/>
+                
+        <footer>
+            copyright Boer Piet
+        </footer>
 </body>
 </html>
