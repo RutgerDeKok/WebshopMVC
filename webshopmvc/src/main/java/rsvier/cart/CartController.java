@@ -33,6 +33,7 @@ public class CartController {
         cso2.setSubTotal(product.getPrice(), cso2.getQuantity());
         cart.addSubOrder(cso);
         cart.addSubOrder(cso2);
+        cart.calculateTotalPrice();
         model.addAttribute("cart", cart);
         return cart;
     }

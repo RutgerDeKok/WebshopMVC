@@ -16,7 +16,7 @@
     <div align="center"><h2>Uw winkelwagen</h2></div>
     <br><br>
     <div id="table">
-    <table class="table table-bordered">
+    <table class="table table-hover">
         <thead>
         <tr class="center middle">
             <th>Productnummer</th>
@@ -35,9 +35,15 @@
             <td class="center middle" th:text="${element.product.getPrice()}"></td>
             <td class="center middle" th:text="${element.getSubTotal()}"></td>
             <td class="center middle"> <a href="/cart/${element.product.getId()}"><span class="glyphicon glyphicon-remove icon-red" aria-hidden="true"></span></a></td>
-            
         </tr>
         </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3"></td>
+            <td class="text-right"><strong>Totaal: </strong></td>
+            <td class="text-left" th:text="${cart.getTotalPrice()}"></td>
+        </tr>
+        </tfoot>
     </div> 
     </table>
 
