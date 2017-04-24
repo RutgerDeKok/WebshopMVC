@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    
+    <body bgcolor=#edd6c0>
     <style>
 form {
     border: 3px solid #f1f1f1;
@@ -16,7 +16,7 @@ input[type=text], input[type=password] {
 }
 
 button {
-    background-color: #e5d716;
+    background-color: #058401;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -41,12 +41,13 @@ button:hover {
 }
 
 img.avatar {
-    width: 40%;
-    border-radius: 50%;
+    width: 15%;
+    border-radius: 55%;
+    border: 3px solid #058401;
 }
 
 .container {
-    padding: 16px;
+    padding: 30px;
 }
 
 span.psw {
@@ -69,26 +70,26 @@ span.psw {
 
 <form action="/login/" method="post">
   <div class="imgcontainer">
-    <img src="img_avatar2.png" alt="Boer Piet" class="avatar">
+    <img src="/images/Edwin.png" alt="Boer Piet" class="avatar">
   </div>
 
   <div class="container">
     <label><b>Gebruikersnaam</b></label>
-    <input type="text" placeholder="Enter bv abc@mail.nl" name="uname" required>
+    <input type="text" placeholder=" bijvoorbeeld abc@mail.nl" name="uname" required>
 
     <label><b>Wachtwoord</b></label>
-    <input type="password" placeholder="Enter Wachtwoord" name="psw" required>
+    <input type="password" placeholder="vul hier uw wachtwoord in" name="psw" required>
        <form action="/products.html" method="post">
    <button type="submit">Login</button>
        </form>
 
-    <input type="checkbox" checked="checked"> Remember me
+    <input type="checkbox" checked="checked"> Onthoud mij
   </div>
 
   <div class="container" style="background-color:#eaeaea">
       
       <a href="http://localhost:8080/" target="blank">
-<button type="button" class="cancelbtn">Annuleer</button>
+<button type="button" class="cancelbtn"> Annuleer </button>
       </a>
 vergeten <a href="http://localhost:8080/">wachtwoord</a></span>
   </div>
