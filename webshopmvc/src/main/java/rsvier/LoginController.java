@@ -84,7 +84,7 @@ public class LoginController {
 		this.UserService = iets;
 	}
 
-	@RequestMapping(value = { "/login.html" })
+	@RequestMapping(value = { "/login" })
 	public String inlog() {
 		return "login";
 	}
