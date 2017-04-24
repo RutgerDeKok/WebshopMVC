@@ -68,8 +68,6 @@ public class LoginController {
 		
 		}
 
-	
-
 		//
 		// try {
 		// response.sendRedirect("/products");
