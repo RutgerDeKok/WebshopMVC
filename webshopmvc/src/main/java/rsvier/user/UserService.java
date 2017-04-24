@@ -6,35 +6,36 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class UserService {
-	
+
 	private List<User> users;
 	@Autowired
 	private UserRepository userRepository;
-	
-	public List<User> getAllUsers(){
-		users =  new ArrayList<>();
+
+	public List<User> getAllUsers() {
+		users = new ArrayList<>();
 		userRepository.findAll().forEach(users::add);
 		return users;
 	}
-	
-	public User getUser(Long id){
+
+	public User getUser(Long id) {
 		return userRepository.findOne(id);
 	}
-	
-	public void addUser(User user){
+
+	public void addUser(User user) {
 		userRepository.save(user);
 	}
-	
-	public void updateUser(User user){
+
+	public void updateUser(User user) {
 		userRepository.save(user);
 	}
-	
-	public void deleteUser(Long id){
+
+	public void deleteUser(Long id) {
 		userRepository.delete(id);
 	}
-	
 
+	public User findUserByEmail(String email) {
+		return userRepository.findUserByEmail(email);
+	}
 }

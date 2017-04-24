@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    
+    <style>
+form {
+    border: 3px solid #f1f1f1;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #e5d716;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 50px;
+    background-color: #f44336;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+</style>
+    
+
+<form action="/login/" method="post">
+  <div class="imgcontainer">
+    <img src="img_avatar2.png" alt="Boer Piet" class="avatar">
+  </div>
+
+  <div class="container">
+    <label><b>Gebruikersnaam</b></label>
+    <input type="text" placeholder="Enter bv abc@mail.nl" name="uname" required>
+
+    <label><b>Wachtwoord</b></label>
+    <input type="password" placeholder="Enter Wachtwoord" name="psw" required>
+       <form action="/products.html" method="post">
+   <button type="submit">Login</button>
+       </form>
+
+    <input type="checkbox" checked="checked"> Remember me
+  </div>
+
+  <div class="container" style="background-color:#eaeaea">
+      
+      <a href="http://localhost:8080/" target="blank">
+<button type="button" class="cancelbtn">Annuleer</button>
+      </a>
+vergeten <a href="http://localhost:8080/">wachtwoord</a></span>
+  </div>
+
+
+
+
+        
+    </body>
+</html>
+

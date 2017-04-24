@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+
+
+<title>Producten</title>
+</head>
+<body>
+	<h2>Producten Overzicht</h2>
+
+
+	<p>
+	<table class="table table-bordered" cellpadding="10" border="1"
+		th:with="catf=${cat.getNL()}, brandf=${brand}">
+		<thead>
+			<tr>
+				<th width="150" align="left">Naam</th>
+				<th width="150" align="left">Categorie</th>
+				<th width="150" align="left">Merk</th>
+				<th width="30" align="right">Prijs</th>
+				<th width="30" align="right">Voorraad</th>
+				<th width="300" align="left">Informatie</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr
+				th:each="element: ${lijst.?[category.getNL() == '__${catf}__' OR 'Alles' == '__${catf}__']}">
+
+				<td th:text=" ${element.name}" align="left">naam</td>
+				<td th:text=" ${element.category.getNL()}" align="left">1</td>
+				<td th:text=" ${element.brand}" align="left">merk</td>
+				<td th:text=" ${element.price}" align="right">prijs</td>
+				<td th:text=" ${element.stockCount}" align="right">voorraad</td>
+				<td th:text=" ${element.info}" align="left">info</td>
+			</tr>
+		</tbody>
+	</table>
+	</p>
+
+
+	<div th:each="category : ${categories}">
+		<span th:text=" ${category} +' '+ ${category.getNL()}">
+	</div>
+
+	<h3>Categorien:</h3>
+
+<!-- 
+	<form action="">
+
+		<input type="text" th:field="${cat.getNL()}" />
+	</form>
+	<form>
+		<input type="text" id="adresBalk2" name="adresBalk2"
+			th:value="hiertekst" />
+	</form>
+ -->
+
+	<!--  <form  action="#" th:action="@{${action}}" th:object="${filter}" method="get"> -->
+	 <form  action="/products/f" method="post">
+		<br>
+		<input type="radio" name="filter" value="ALL">Alles</imput>
+		<br>
+		<input type="radio" name="filter" value="MEDIUM_HARD">Medium-Hard</imput>
+		<br>
+		<input type="radio" name="filter" value="GOAT">Geiten</imput>
+		<br>
+		<input type="submit" value="Filter"/>
+	</form>
+
+
+
+	<!-- 
+	--------check box ding wat niet werkt----------- 
+<form role="form" action="#" th:action="@{${action}}" th:object="${categoryFilter}" method="post">
+	<div th:each="each="category : ${categories}">
+    <input type="checkbox" th:id="${{category}}" th:value="${{category}}" th:field="*{category}" />
+    <label th:for="${{category}}">Shipping Types</label>
+       <button type="submit" value="submit"/>
+    </form> -->
+	</div>
+
+	<!-- 
+	--------radio button ding wat niet werkt-----------
+	<div th:each="category : ${categories}" class="radio">
+		<input type="radio" th:value="${category}" th:field="*{category}" />
+		<label th:for="${#ids.prev('category')}" th:text="${category.getNL}">Hard</label>
+	</div>
+	<div th:remove="all" class="radio">
+		<input type="radio" /> <label>Zacht</label>
+	</div>
+</div>   -->
+
+
+</body>
+</html>

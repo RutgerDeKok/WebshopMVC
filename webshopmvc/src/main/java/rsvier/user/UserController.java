@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 public class UserController {
+
 	
 	@Autowired
 	private UserService userService;
@@ -17,7 +18,8 @@ public class UserController {
 	public List<User> getAllUsers(){
 		return userService.getAllUsers();
 	}
-	
+
+
 	@RequestMapping("/users/{id}")
 	public User getUser(@PathVariable Long id){
 		return userService.getUser(id);
@@ -37,5 +39,6 @@ public class UserController {
 	public void deleteUser(@RequestBody Long id){
 	 userService.deleteUser(id);
 	}
+	
 
 }
