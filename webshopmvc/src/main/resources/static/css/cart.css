@@ -1,0 +1,16 @@
+.glyphicon{
+    
+    -webikit-transition: -webkit-box-shadow 0.5s;
+}
+
+.glyphicon:hover{
+    -webkit-box-shadow: rgb(50,50,50) 5px 5px 5px;
+    
+}
+.icon-red {
+  color: #FF0000
+}
+
+#table{
+    background: whitesmoke;  
+}

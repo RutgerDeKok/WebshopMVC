@@ -65,6 +65,13 @@
 			<version>1.5.1</version>
 			<type>jar</type>
 		</dependency>
+                <!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
+                <dependency>
+                  <groupId>org.apache.derby</groupId>
+                  <artifactId>derby</artifactId>
+                  <version>10.10.1.1</version>
+                </dependency>
+
 
 		<!-- appache-commos -->
 		<dependency>

@@ -96,7 +96,7 @@ public class Cart {
         
         public void calculateTotalPrice() {
             for (CartSubOrder cso : subOrders) {
-                BigDecimal subTotal = cso.getTotalPrice();
+                BigDecimal subTotal = cso.getSubTotal();
                 setTotalPrice(subTotal);
             }
         }
