@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Component;
+import rsvier.cartsuborder.CartSubOrder;
 
 @Service
 public class CartService {
@@ -13,27 +14,33 @@ public class CartService {
     @Autowired
     CartRepository dao;
     
-     public List<Cart> getAllCarts(){
-     List<Cart> list = new ArrayList<>();
-     dao.findAll().forEach(list::add);
-     return list;
-  }
+    public List<Cart> getAllCarts(){
+         List<Cart> list = new ArrayList<>();
+         dao.findAll().forEach(list::add);
+         return list;
+    }
     
     public Cart getCart(Long id){
         return dao.findOne(id);
-    
     }
     
-    public void updateCart(Long id, Cart cart){
+    public void updateCart(Cart cart){
        dao.save(cart);
-        
     }
     
-     public void deleteCart(Cart cart){
+    public void deleteCart(Cart cart){
          dao.delete(cart);
     }
-     
-      public void createCart(Cart cart){
+
+    public void createCart(Cart cart){
          dao.save(cart);
     }
+
+    public void removeFromCart(Cart cart, CartSubOrder cso) {
+        List<CartSubOrder> updatedList = cart.getSubOrders();
+        updatedList.remove(cso);
+        cart.setSubOrders(updatedList);
+        updateCart(cart);
+    }
+
 }
