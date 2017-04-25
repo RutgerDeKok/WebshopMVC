@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
+import rsvier.product.ProductService;
 import org.springframework.web.bind.annotation.ResponseBody;
 import rsvier.address.Address;
 import rsvier.user.User;
