@@ -8,6 +8,7 @@
     <title>Boer Piet - Winkelwagen</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/cart.css" rel="stylesheet"/>
+    
 </head>
 <body background = "/images/background-cheese.jpg">
            <header th:replace = "Navigator :: header" />
@@ -24,7 +25,7 @@
             <th>Aantal</th>
             <th>Stukprijs</th>
             <th>Totaalprijs</th>
-            <th>Verijwder Bestelling</th>
+            <th>Verwijder Bestelling</th>
         </tr>
         </thead>
         <tbody>
@@ -34,7 +35,7 @@
             <td class="center middle" th:text="${element.getQuantity()}"></td>
             <td class="center middle" th:text="${element.product.getPrice()}"></td>
             <td class="center middle" th:text="${element.getSubTotal()}"></td>
-            <td class="center middle"> <a href="/cart/${element.product.getId()}"><span class="glyphicon glyphicon-remove icon-red" aria-hidden="true"></span></a></td>
+            <td class="center middle"> <a th:href="@{/welcome}"><span class="glyphicon glyphicon-remove icon-red" aria-hidden="true"></span></a></td>
         </tr>
         </tbody>
         <tfoot>
@@ -44,10 +45,12 @@
             <td class="text-left" th:text="${cart.getTotalPrice()}"></td>
         </tr>
         </tfoot>
-    </div> 
-    </table>
+           </table>
+         </div>
 
-
+        <div id="button">
+        <a id="button" href="/checkout">Afrekenen</a>
+        </div>
 
 
     <!-- javascript import -->
