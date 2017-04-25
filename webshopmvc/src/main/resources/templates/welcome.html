@@ -31,6 +31,8 @@
                     <th>Aantal</th>
                     <th>Stukprijs</th>
                     <th>Totaalprijs</th>
+                    <th>Amount</th>
+                    <th>Confirm</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,6 +43,8 @@
                     <td class="center middle" th:text="${element.getBrand()}">Merk</td>
                     <td class="center middle" th:text="${element.getInfo()}">Info</td>
                     <td class="center middle" th:text="${element.getPrice()}">Prijs</td>
+                    <td class="center middle"> <input type="text" name="amount"></td>
+                    <td class="center middle">  <a href="/cart"> <span class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></span></a></td>
 
                 </tr>
                 </tbody>

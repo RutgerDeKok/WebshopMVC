@@ -28,15 +28,15 @@ public class CartController {
     CartService cartService;
 
     @RequestMapping("/cart")
-    public Cart shoppingCart(Model model) {
-        Cart cart = cartService.getCart(1L);
+    public String shoppingCart(Model model) {
+        Cart cart = cartService.getCart(0L);
         model.addAttribute("cart", cart);
-        return cart;
+        return "cart";
     }
 
     @RequestMapping(value="/cart/delete", method = RequestMethod.GET)
     public String removeFromCart(@RequestParam long cartId, @RequestParam long subOrderId) {
-        Cart cart = cartService.getCart(cartId);
+        Cart cart = cartService.getCart(0L);
         CartSubOrder cso = cartSubOrderService.getCartSubOrder(subOrderId);
         cartService.removeFromCart(cart, cso);
         return "redirect:/cart";
