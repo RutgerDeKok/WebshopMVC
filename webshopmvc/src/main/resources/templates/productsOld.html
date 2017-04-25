@@ -11,7 +11,8 @@
 
 
 	<p>
-	<table class="table table-bordered" cellpadding="10" border="1">
+	<table class="table table-bordered" cellpadding="10" border="1"
+		th:with="catf=${cat.getNL()}, brandf=${brand}">
 		<thead>
 			<tr>
 				<th width="150" align="left">Naam</th>
@@ -23,7 +24,8 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="element: ${lijst}">
+			<tr
+				th:each="element: ${lijst.?[category.getNL() == '__${catf}__' OR 'Alles' == '__${catf}__']}">
 
 				<td th:text=" ${element.name}" align="left">naam</td>
 				<td th:text=" ${element.category.getNL()}" align="left">1</td>
@@ -36,23 +38,14 @@
 	</table>
 	</p>
 
+
+	<div th:each="category : ${categories}">
+		<span th:text=" ${category} +' '+ ${category.getNL()}">
+	</div>
+
 	<h3>Categorien:</h3>
 
-<!--  
-		<div th:each="category : ${categories}">
-		<span th:text=" ${category} +' '+ ${category.getNL()}">
-	</div> -->
-	
-<!--  
-	<div th:each="category : ${categories}">
-    <input type="checkbox" th:id="${{category}}" th:value="${{category}}" th:field="*{filter}" />
-    <label th:for="${{category}}">Shipping Types</label>
-</div> -->
-
-
-	
-
-	<!-- 
+<!-- 
 	<form action="">
 
 		<input type="text" th:field="${cat.getNL()}" />
@@ -63,17 +56,18 @@
 	</form>
  -->
 
-	<!--  <form  action="#" th:action="@{${action}}" th:object="${filter}" method="get"> 
-	<form action="/products/f" method="post">
-		<br> <input type="radio" name="filter" value="ALL">Alles
-		</imput>
-		<br> <input type="radio" name="filter" value="MEDIUM_HARD">Medium-Hard
-		</imput>
-		<br> <input type="radio" name="filter" value="GOAT">Geiten
-		</imput>
-		<br> <input type="submit" value="Filter" />
+	<!--  <form  action="#" th:action="@{${action}}" th:object="${filter}" method="get"> -->
+	 <form  action="/products/f" method="post">
+		<br>
+		<input type="radio" name="filter" value="ALL">Alles</imput>
+		<br>
+		<input type="radio" name="filter" value="MEDIUM_HARD">Medium-Hard</imput>
+		<br>
+		<input type="radio" name="filter" value="GOAT">Geiten</imput>
+		<br>
+		<input type="submit" value="Filter"/>
 	</form>
--->
+
 
 
 	<!-- 
@@ -84,38 +78,18 @@
     <label th:for="${{category}}">Shipping Types</label>
        <button type="submit" value="submit"/>
     </form> -->
-	
+	</div>
 
 	<!-- 
-	<form action="/products/f" method="post">
-	--------radio button ding wat niet werkt--------- -->
-	<form action="#" th:action="@{/product/f}" th:object="${formobject}" method="post">
-	
-		<div th:each="category : ${categories}" class="radio">
-			<input type="radio" th:value="${category}" th:field="*{filter2}" />
-			<label  th:text="${category.getNL()}">Hard</label>
-		</div>
-		<br> <input type="submit" value="OK" />
-	</form>
-	
-	
-	
-	<!-- 
+	--------radio button ding wat niet werkt-----------
 	<div th:each="category : ${categories}" class="radio">
 		<input type="radio" th:value="${category}" th:field="*{category}" />
 		<label th:for="${#ids.prev('category')}" th:text="${category.getNL}">Hard</label>
 	</div>
-		<div th:remove="all" class="radio">
+	<div th:remove="all" class="radio">
 		<input type="radio" /> <label>Zacht</label>
 	</div>
-
-
-<c:forEach var="enum" items="${enums}">
- <form:radiobutton path="myPath" value="${enum}"/>${enum.description}
-</c:forEach>
-
-
- -->
+</div>   -->
 
 
 </body>
