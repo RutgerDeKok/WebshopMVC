@@ -33,12 +33,13 @@ public class LoginController {
 	// }
 
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public @ResponseBody void filterProducts(HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody void loginCheck(HttpServletRequest request, HttpServletResponse response) {
 		String uname = request.getParameter("uname");
 		String pass = request.getParameter("psw");
 
 		char[] passChars = pass.toCharArray();
-
+//                System.out.println(pass);
+//                System.out.println(passChars.toString());
 		User user = null;
 
 		// get user by email
@@ -46,12 +47,16 @@ public class LoginController {
 
 			Validator validator = Validator.getInstance();
 			if (validator.validateEmail(uname)) {
+                            System.out.println("valid email");
 				user = userService.findUserByEmail(uname);
 			} else {
 				System.out.println("Not a valid user");
 			}
 
 			// check password
+//                        System.out.println(user.getId());
+//                        System.out.println(user.getPassHash());
+                       
 			if (PassHasher.check(passChars, user.getPassHash())) {
 				System.out.println("login succesful!");
 				// current user set
@@ -60,11 +65,12 @@ public class LoginController {
 				System.out.println("login incorrect!");
 			}
 			
-			System.out.println("user email" + user.getEmail());
-			System.out.println("user id" + user.getId());
+//			System.out.println("user email" + user.getEmail());
+//			System.out.println("user id" + user.getId());
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+                        
 		
 		}
 
