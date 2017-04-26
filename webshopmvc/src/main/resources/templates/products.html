@@ -6,7 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Producten</title>
 
-<!--  
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/Kaasmenu.css" rel="stylesheet">
+<link href="css/welcome.css" rel="stylesheet">
+
+<!-- 
 <style>
 form.radios {
 	input[type="radio"]:checked{
@@ -15,13 +20,7 @@ form.radios {
 	
 }
 </style>
-
-<link href="css/bootstrap.min.css" rel="stylesheet">
 -->
-
-
-<link href="css/Kaasmenu.css" rel="stylesheet">
-<link href="css/welcome.css" rel="stylesheet">
 
 </head>
 
@@ -65,19 +64,35 @@ form.radios {
 
 
 	<!-- 
+	
 	<form action="/products/f" method="post">
 	--------radio button ding wat niet werkt--------- -->
-	<form class="radios" action="#" th:action="@{/products/filter}"
-		th:object="${formobject}" method="post">
+	<form class="form-inline" role="form" action="#"
+		th:action="@{/products/filter}" th:object="${formobject}"
+		method="post">
 
-		<div th:each="category : ${categories}" class="radio">
-			<input type="radio" th:value="${category}" th:field="*{filter2}" />
-			<label th:text="${category.getNL()}">Hard</label>
+		<div class="form-group">
+			<div th:each="category : ${categories}" class="radio">
+				<input type="radio" th:value="${category}" th:field="*{filter2}" />
+				<label th:text="${category.getNL()}">Hard</label>
+			</div>
+			<br> <input type="submit" value="OK" />
 		</div>
-		<br> <input type="submit" value="OK" />
 	</form>
 
 
+	<!--
+	<div class="radio">
+		<label><input type="radio" name="optradio">Option 1</label>
+	</div>
+	<div class="radio">
+		<label><input type="radio" name="optradio">Option 2</label>
+	</div>
+	<div class="radio disabled">
+		<label><input type="radio" name="optradio" disabled>Option
+			3</label>
+	</div>
+-->
 
 
 
