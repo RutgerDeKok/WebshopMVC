@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import rsvier.Source;
 
 @Controller
 public class ProductController {
@@ -35,23 +34,18 @@ public class ProductController {
 		System.out.println("categoryFilter from session is null?:"+categoryFilter==null);
 		
 		if(categoryFilter ==null){
-			System.out.println("cat is null");
 			categoryFilter = ProductCategory.ALL;
-			
 		}
 
-		List<Product> products = productService.getfilterProductenByCat(categoryFilter);
+		List<Product> products = productService.getProductsByCat(categoryFilter);
 
-		if (products.isEmpty()) {
-			products.addAll(productService.getAllProducts());
-		}
-
+//		if (products.isEmpty()) {
+//			products.addAll(productService.getAllProducts());
+//		}
 
 		System.out.println("De filter in controller is:" + categoryFilter.getNL());
 		model.put("formobject", new FormObject());
 		model.put("lijst", products);
-//		model.put("cat", categoryFilter);
-//		model.put("brand", brandFilter);
 		model.put("categories", ProductCategory.values());
 		return "products";
 	}
@@ -59,15 +53,11 @@ public class ProductController {
 	
 
 	
-	@RequestMapping(value = "products/f", method = RequestMethod.POST)
-	public @ResponseBody void filterProducts(HttpServletRequest request, HttpServletResponse response) {
-//		@ModelAttribute FormObject formobject
-//		System.out.println("filter2 is: "+formobject.getFilter2().getNL());
-		ProductCategory categoryFilter = ProductCategory.valueOf(request.getParameter("filter"));
-		System.out.println("De filter in filterProducts methos is:" + categoryFilter.getNL());
+	@RequestMapping(value = "products/filter", method = RequestMethod.POST)
+	public @ResponseBody void filterProducts(@ModelAttribute FormObject formobject, HttpServletRequest request, HttpServletResponse response) {		
 		
-		ProductCategory categoryFilter2 = ProductCategory.valueOf(request.getParameter("filter2"));
-		System.out.println("De filter2 in filterProducts methos is:" + categoryFilter2.getNL());
+		ProductCategory categoryFilter = formobject.getFilter2();
+		System.out.println("De filter in filterProducts methos is:" + categoryFilter.getNL());
 		
 		request.getSession().setAttribute("categoryFilter", categoryFilter);
 

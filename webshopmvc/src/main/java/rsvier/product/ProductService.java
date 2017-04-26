@@ -10,14 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductService {
 
-	Product product = new Product(1, "Groene kaas", "Groen", ProductCategory.CREAM, "informatie",
-			(new BigDecimal("2.50")), 200);
-	Product product1 = new Product(2, "Gele kaas", "geel", ProductCategory.GOAT, "info", (new BigDecimal("4.99")), 200);
-	Product product2 = new Product(3, "Kaas de la kaas", "uberkaas", ProductCategory.MEDIUM_HARD, "info",
-			(new BigDecimal("1.99")), 50);
-
 	private List<Product> products;
-	private List<Product> filteredProducts;
 	
 	@Autowired
 	private ProductRepository productRepository;
@@ -25,15 +18,15 @@ public class ProductService {
 	public List<Product> getAllProducts() {
 		products = new ArrayList<>();
 		productRepository.findAll().forEach(products::add);
-		filteredProducts=getfilterProductenByCat(ProductCategory.ALL);
-		return filteredProducts;
+		return products;
 	}
 
-	public List<Product> getfilterProductenByCat(ProductCategory filterCategory) {
-		if(filteredProducts==null){
-			System.out.println("creating new array list");
-			filteredProducts = new ArrayList<>(products);
+	public List<Product> getProductsByCat(ProductCategory filterCategory) {
+		
+		if(products==null){
+			getAllProducts();
 		}
+		List<Product> filteredProducts = new ArrayList<>(products);
 		filteredProducts.clear();
 		for (Product prod : products) {
 			if (filterCategory == ProductCategory.ALL || prod.getCategory() == filterCategory) {
@@ -41,7 +34,6 @@ public class ProductService {
 			}
 		}
 		return filteredProducts;
-
 	}
 
 	public Product getProduct(Long id) {
@@ -59,8 +51,17 @@ public class ProductService {
 	public void deleteproduct(Long id) {
 		productRepository.delete(id);
 	}
-
+	
+	
+	
+	//mock
 	public List<Product> getAllProductsMock() {
+		Product product = new Product(1, "Groene kaas", "Groen", ProductCategory.CREAM, "informatie",
+				(new BigDecimal("2.50")), 200);
+		Product product1 = new Product(2, "Gele kaas", "geel", ProductCategory.GOAT, "info", 
+				(new BigDecimal("4.99")), 200);
+		Product product2 = new Product(3, "Kaas de la kaas", "uberkaas", ProductCategory.MEDIUM_HARD, "info",
+				(new BigDecimal("1.99")), 50);
 		List<Product> list = new ArrayList<>();
 		list.add(product);
 		list.add(product1);
