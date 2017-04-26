@@ -73,7 +73,7 @@ form.radios {
 
 		<div class="form-group">
 			<div th:each="category : ${categories}" class="radio">
-				<input type="radio" th:value="${category}" th:field="*{filter2}" />
+				<input type="radio" th:value="${category}" name="filter" />
 				<label th:text="${category.getNL()}">Hard</label>
 			</div>
 			<br> <input type="submit" value="OK" />

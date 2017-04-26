@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -54,9 +55,12 @@ public class ProductController {
 
 	
 	@RequestMapping(value = "products/filter", method = RequestMethod.POST)
-	public @ResponseBody void filterProducts(@ModelAttribute FormObject formobject, HttpServletRequest request, HttpServletResponse response) {		
-		
-		ProductCategory categoryFilter = formobject.getFilter2();
+	public @ResponseBody void filterProducts(@RequestParam("filter") String radioWaarde,  HttpServletRequest request, HttpServletResponse response) {		
+//		System.out.println(request.getAttribute("filter"));
+//		ProductCategory categoryFilter = ProductCategory.valueOf((String) request.getAttribute("filter"));
+//		categoryFilter = formobject.getFilter2();
+		System.out.println(radioWaarde);
+		ProductCategory categoryFilter = ProductCategory.valueOf(radioWaarde);
 		System.out.println("De filter in filterProducts methos is:" + categoryFilter.getNL());
 		
 		request.getSession().setAttribute("categoryFilter", categoryFilter);
