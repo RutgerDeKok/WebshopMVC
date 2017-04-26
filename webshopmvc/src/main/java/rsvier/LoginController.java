@@ -60,7 +60,8 @@ public class LoginController {
 			if (PassHasher.check(passChars, user.getPassHash())) {
 				System.out.println("login succesful!");
 				// current user set
-				currentUser = user;
+                                request.getSession().setAttribute("currentUser", user);
+				
 			} else {
 				System.out.println("login incorrect!");
 			}
@@ -83,20 +84,21 @@ public class LoginController {
 		// }
 	}
 
-	private final UserService UserService;
-
-	@Autowired
-	public LoginController(UserService iets) {
-		this.UserService = iets;
-	}
+//	private final UserService UserService;
+//
+//	@Autowired
+//	public LoginController(UserService iets) {
+//		this.UserService = iets;
+//	}
 
 	@RequestMapping(value = { "/login" })
 	public String inlog() {
 		return "login";
 	}
 	
-	public User getCurrentUser() {
-		return currentUser;
+	public User getCurrentUser(HttpServletRequest request) {
+            return (User) request.getSession().getAttribute("currentUser");
+		
 	}
 
 
