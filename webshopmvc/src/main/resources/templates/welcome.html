@@ -10,11 +10,12 @@
     <link href="css/Kaasmenu.css" rel="stylesheet">
     <link href="css/welcome.css" rel="stylesheet">
 </head>
-<body background = "/images/background-cheese.jpg">
-          <header th:replace = "Navigator :: header" />
-        <div id = "hoofd">
-                <h2>Welkom in de Piet's Kaas Winkel</h2>
+<body background="/images/background-cheese.jpg">
+	<header th:replace="Navigator :: header" />
+	<div id="hoofd">
+		<h2>Welkom in de Piet's Kaas Winkel</h2>
 
+<<<<<<< HEAD
                 <p>Dit is slechts het welkommenu</p>
                 <p>Later komt hier kaas te staan, goed hè</p>
         </div>
@@ -45,16 +46,46 @@
                     <td class="center middle" th:text="${element.getPrice()}">Prijs</td>
                     <td class="center middle"> <input type="text" name="amount"></td>
                     <td class="center middle">  <a href="/cart"> <span class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></span></a></td>
+=======
+		<p>Dit is slechts het welkommenu</p>
+		<p>Later komt hier kaas te staan, goed hè</p>
 
-                </tr>
-                </tbody>
-            </table>
-           </div>
-    <section>
-        <br/> <br/> <br/> <br/> <br/> <br/><br/> <br/> <br/><br/>
-                
-        <footer>
-            copyright Boer Piet
-        </footer>
+>>>>>>> Rutger
+
+	</div>
+	<section>
+		<div class="menu">
+			<header th:replace="KaasKeuzeMenu :: kaasmenu" />
+		</div>
+		<div class="menu" id="table">
+			<table class="table table-bordered">
+				<thead>
+					<tr class="center middle">
+						<th>Productnummer</th>
+						<th>Product</th>
+						<th>Aantal</th>
+						<th>Stukprijs</th>
+						<th>Totaalprijs</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr th:each="element : ${productlist}">
+						<td class="center middle" th:text="${element.getId()}">Id</td>
+						<td class="center middle" th:text="${element.getName()}">Naam</td>
+						<td class="center middle" th:text="${element.getBrand()}">Merk</td>
+						<td class="center middle" th:text="${element.getInfo()}">Info</td>
+						<td class="center middle" th:text="${element.getPrice()}">Prijs</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<section>
+			<br /> <br /> <br /> <br /> <br /> <br />
+			<br /> <br /> <br />
+			<br />
+
+			<footer> copyright Boer Piet </footer>
 </body>
 </html>
