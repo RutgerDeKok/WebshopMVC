@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Boer Piet - Winkelwagen</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/cart.css" rel="stylesheet"/>
+    <link href="css/CheckOut.css" rel="stylesheet"/>
+</head>
+<body background = "/images/background-cheese.jpg">
+           <header th:replace = "Navigator :: header" />
+  
+    <!-- content -->
+    <div align="center"><h2>Afrekenen</h2></div>
+    <br><br>
+    <div id="table">
+    <table class="table table-hover">
+        <thead>
+        <tr class="center middle">
+            <th>Productnummer</th>
+            <th>Product</th>
+            <th>Aantal</th>
+            <th>Stukprijs</th>
+            <th>Totaalprijs</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="element : ${cart.getSubOrders()}">
+            <td class="center middle" th:text="${element.product.getId()}"></td>
+            <td class="center middle" th:text="${element.product.getName()}"></td>
+            <td class="center middle" th:text="${element.getQuantity()}"></td>
+            <td class="center middle" th:text="${element.product.getPrice()}"></td>
+            <td class="center middle" th:text="${element.getSubTotal()}"></td>
+         </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3"></td>
+              <td class="text-right"><strong>Totaal: </strong></td>
+              <td class="text-left" th:text="${cart.getTotalPrice()}"></td>
+             </tr>
+            </tfoot>
+      </table>
+    </div>
+    <div id="gegevens">
+            
+            Voornaam: <span class="center middle" th:text="${user.getBillingAddress().getFirstName()}">Tjeerd</span><br/>
+            Middelnaam: <span class="center middle" th:text="${user.getBillingAddress().getInsertion()}">Boomstraat</span><br/>
+            Achternaam: <span class="center middle" th:text="${user.getBillingAddress().getFamilyName()}">56</span><br/>
+            Adres: <span class="center middle" th:text="${user.getBillingAddress().getStreet()}">7209 LS</span><br/>
+            Huisnummer: <span class="center middle" th:text="${user.getBillingAddress().getNumber()}">>27</span><br/>
+            toevoeging: <span class="center middle" th:text="${user.getBillingAddress().getNumAddition()}">>27</span><br/>
+            Postcode: <span class="center middle" th:text="${user.getBillingAddress().getZipCode()}">27</span><br/>
+            Stad: <span class="center middle" th:text="${user.getBillingAddress().getCity()}">27</span><br/>
+        <div id="button">
+            <a href="/wijzigAdres">Wijzig</a>
+        </div>
+    </div>   
+        <div id="button">
+            <a  href="/cart">Terug naar Winkelwagen</a>
+        </div>
+    
+    <div id="button">
+            <a href="/welcome">Afrekenen</a>
+        </div>
+
+    <!-- javascript import -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>

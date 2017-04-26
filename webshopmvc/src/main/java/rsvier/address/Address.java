@@ -33,7 +33,21 @@ public class Address {
 
 	public Address(){
 	}
+
+    public Address(long id, String firstName, String insertion, String familyName, String street, int number, String numAddition, String zipCode, String city) {
+        this.id = id;
+        this.firstName = firstName;
+        this.insertion = insertion;
+        this.familyName = familyName;
+        this.street = street;
+        this.number = number;
+        this.numAddition = numAddition;
+        this.zipCode = zipCode;
+        this.city = city;
+    }
 	
+         
+       
         public long getId() {
 		return id;
 	}

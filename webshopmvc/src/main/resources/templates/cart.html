@@ -8,6 +8,7 @@
     <title>Boer Piet - Winkelwagen</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/cart.css" rel="stylesheet"/>
+    
 </head>
 <body background = "/images/background-cheese.jpg">
            <header th:replace = "Navigator :: header" />
@@ -16,7 +17,7 @@
     <div align="center"><h2>Uw winkelwagen</h2></div>
     <br><br>
     <div id="table">
-    <table class="table table-bordered">
+    <table class="table table-hover">
         <thead>
         <tr class="center middle">
             <th>Productnummer</th>
@@ -24,7 +25,7 @@
             <th>Aantal</th>
             <th>Stukprijs</th>
             <th>Totaalprijs</th>
-            <th>Verijwder Bestelling</th>
+            <th>Verwijder Bestelling</th>
         </tr>
         </thead>
         <tbody>
@@ -34,14 +35,22 @@
             <td class="center middle" th:text="${element.getQuantity()}"></td>
             <td class="center middle" th:text="${element.product.getPrice()}"></td>
             <td class="center middle" th:text="${element.getSubTotal()}"></td>
-            <td class="center middle"> <a href="/cart/${element.product.getId()}"><span class="glyphicon glyphicon-remove icon-red" aria-hidden="true"></span></a></td>
-            
+            <td class="center middle"> <a href="/cart.html" th:href=@{/cart/delete?cartId={cartId}&amp;subOrderId={subOrderId}(cartId=${cart.getId()},subOrderId=${element.getId()})}><span class="glyphicon glyphicon-remove icon-red" aria-hidden="true"></span></a></td>
         </tr>
         </tbody>
-    </div> 
-    </table>
+        <tfoot>
+        <tr>
+            <td colspan="3"></td>
+            <td class="text-right"><strong>Totaal: </strong></td>
+            <td class="text-left" th:text="${cart.getTotalPrice()}"></td>
+        </tr>
+        </tfoot>
+           </table>
+         </div>
 
-
+        <div id="button">
+        <a href="/checkout">Afrekenen</a>
+        </div>
 
 
     <!-- javascript import -->
