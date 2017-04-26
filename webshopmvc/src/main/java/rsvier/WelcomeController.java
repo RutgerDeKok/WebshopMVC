@@ -39,10 +39,7 @@ class WelcomeController {
 		return "KaasKeuzeMenu";
 	}
         
-         @RequestMapping("/wijzigAdres")
-	public String AddressThing() {
-		return "wijzigAdres";
-	}
+      
 
           /*  @RequestMapping("/error")
 	public String Error() {

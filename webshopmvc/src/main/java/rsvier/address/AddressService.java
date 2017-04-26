@@ -24,7 +24,7 @@ public class AddressService {
     
     }
     
-    public void updateCartSubOrder(Long id, Address address){
+    public void updateAddress(Long id, Address address){
        dao.save(address);
         
     }

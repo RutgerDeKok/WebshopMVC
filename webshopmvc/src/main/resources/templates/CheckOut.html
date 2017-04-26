@@ -46,14 +46,14 @@
     </div>
     <div id="gegevens">
             
-            Voornaam: <span class="center middle" th:text="${user.getBillingAddress().getFirstName()}">Tjeerd</span><br/>
-            Middelnaam: <span class="center middle" th:text="${user.getBillingAddress().getInsertion()}">Boomstraat</span><br/>
-            Achternaam: <span class="center middle" th:text="${user.getBillingAddress().getFamilyName()}">56</span><br/>
-            Adres: <span class="center middle" th:text="${user.getBillingAddress().getStreet()}">7209 LS</span><br/>
-            Huisnummer: <span class="center middle" th:text="${user.getBillingAddress().getNumber()}">>27</span><br/>
-            toevoeging: <span class="center middle" th:text="${user.getBillingAddress().getNumAddition()}">>27</span><br/>
-            Postcode: <span class="center middle" th:text="${user.getBillingAddress().getZipCode()}">27</span><br/>
-            Stad: <span class="center middle" th:text="${user.getBillingAddress().getCity()}">27</span><br/>
+            Voornaam: <span class="center middle" th:text="${address.getFirstName()}">Tjeerd</span><br/>
+            Middelnaam: <span class="center middle" th:text="${address.getInsertion()}">Boomstraat</span><br/>
+            Achternaam: <span class="center middle" th:text="${address.getFamilyName()}">56</span><br/>
+            Adres: <span class="center middle" th:text="${address.getStreet()}">7209 LS</span><br/>
+            Huisnummer: <span class="center middle" th:text="${address.getNumber()}">>27</span><br/>
+            toevoeging: <span class="center middle" th:text="${address.getNumAddition()}">>27</span><br/>
+            Postcode: <span class="center middle" th:text="${address.getZipCode()}">27</span><br/>
+            Stad: <span class="center middle" th:text="${address.getCity()}">27</span><br/>
         <div id="button">
             <a href="/wijzigAdres">Wijzig</a>
         </div>

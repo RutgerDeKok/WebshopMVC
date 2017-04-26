@@ -10,11 +10,14 @@ import rsvier.product.Product;
 import rsvier.product.ProductCategory;
 
 import java.math.BigDecimal;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMethod;
 import rsvier.product.ProductService;
 import rsvier.address.Address;
+import rsvier.address.AddressService;
 import rsvier.user.User;
+import rsvier.user.UserService;
 
 
 @Controller
@@ -26,6 +29,10 @@ public class CartController {
     CartSubOrderService cartSubOrderService;
     @Autowired
     CartService cartService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    AddressService addressService;
 
     @RequestMapping("/cart")
     public String shoppingCart(Model model) {
@@ -54,9 +61,12 @@ public class CartController {
         cart.addSubOrder(cso2);
         cart.calculateTotalPrice();
         model.addAttribute("cart", cart);
-        Address address = new Address(2, "Tjeerd", "van", "Santema", "hiero", 22, "b", "9283 AG", "Groningen");
-        User user = new User();
-        user.setBillingAdress(address);
+        
+        
+        User user = userService.getUser(1L);
+        Address address = user.getBillingAddresses().get(0);
+        model.addAttribute("address", address);
+        //Address address = user.getBillingAddress();
         model.addAttribute("user", user);
         return "Checkout";
     }

@@ -4,13 +4,54 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
     <head>
         <title>WijzigAdresPagina</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>Hier moet een pagina waar klant adres kan wijzigen</div>
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/cart.css" rel="stylesheet"/>
+        <link href="css/CheckOut.css" rel="stylesheet"/>
+</head>
+<body background = "/images/background-cheese.jpg">
+     <header th:replace = "Navigator :: header" />
+        <h1> Hier kunt u uw adres wijzigen </h1>
+        <div id="table">
+            <table class="table table-hover">
+        <thead>
+        <tr class="center middle">
+            <th>Voornaam</th>
+            <th>MiddelNaam</th>
+            <th>Achternaam</th>
+            <th>Adres</th>
+            <th>Huisnummer</th>
+            <th>Toevoeging</th>
+            <th>Postcode</th>
+            <th>Stad</th>
+            <th>Kies deze</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="element : ${addressList}">
+            <td class="center middle" th:text="${element.getFirstName()}"></td>
+            <td class="center middle" th:text="${element.getInsertion()}"></td>
+            <td class="center middle" th:text="${element.getFamilyName()}"></td>
+            <td class="center middle" th:text="${element.getStreet()}"></td>
+            <td class="center middle" th:text="${element.getNumber()}"></td>
+            <td class="center middle" th:text="${element.getNumAddition()}"></td>
+            <td class="center middle" th:text="${element.getZipCode()}"></td>
+            <td class="center middle" th:text="${element.getCity()}"></td>
+            <td id="smallbutton "class="center middle"> <a href="/cart"> Kies deze </a></td>
+        </tr>
+        </tbody>
+            </table>
+        </div>
+        
+        <br/><br/><br/><br/>
+        <a id="button" href="/maakAdres">
+            Voeg een nieuw adres toe
+            
+        </a>
     </body>
 </html>
