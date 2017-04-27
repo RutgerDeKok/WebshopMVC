@@ -7,15 +7,6 @@ form {
 	border: 3px solid #f1f1f1;
 }
 
-input[type=text], input[type=password] {
-	width: 100%;
-	padding: 12px 20px;
-	margin: 8px 0;
-	display: inline-block;
-	border: 1px solid #ccc;
-	box-sizing: border-box;
-}
-
 button {
 	background-color: #058401;
 	color: white;
@@ -28,12 +19,6 @@ button {
 
 button:hover {
 	opacity: 0.8;
-}
-
-.cancelbtn {
-	width: auto;
-	padding: 10px 50px;
-	background-color: #f44336;
 }
 
 .imgcontainer {
@@ -69,6 +54,18 @@ span.psw {
 </style>
 
 
+<script>
+	window.onunload = function() {
+		window.opener.location.reload();
+	};
+
+	function Success() {
+		window.close();
+	}
+	
+	
+</script>
+
 
 </head>
 <body bgcolor=#edd6c0>
@@ -83,28 +80,28 @@ span.psw {
 
 
 	<div class="container">
-		<form  method="post" >
-			<label><b>Gebruikersnaam</b></label> <input type="text"
-				placeholder=" bijvoorbeeld abc@mail.nl" name="uname" required>
+		
+			<h2 style = "align:center; vertical-align:middle;" th:if="${session.currentUser==null}">
+				<!-- if login failed--> Login onjuist
+			</h2>
 
-			<label><b>Wachtwoord</b></label> <input type="password"
-				placeholder="vul hier uw wachtwoord in" name="psw" required>
+			<h2 style = "align:center; vertical-align:middle;" th:unless="${session.currentUser==null}">
+				<!-- if login is success--> Login succesvol
+			</h2>
 
 
-
-			<button type="submit">Login</button>
-		</form>
-
-		<input type="checkbox" checked="checked"> Onthoud mij
 	</div>
 
 
 
 	<div class="container" style="background-color: #eaeaea">
 
-		<a href="http://localhost:8080/" target="blank">
-			<button type="button" class="cancelbtn">Annuleer</button>
-		</a> vergeten <a href="http://localhost:8080/">wachtwoord</a>
+
+		<button th:if="${session.currentUser==null}" onclick="window.location.href='/login'">Probeer
+			Opnieuw</button>
+
+
+		<button th:unless="${session.currentUser==null}" onclick="Success()">OK </button>
 	</div>
 
 

@@ -45,7 +45,6 @@ public class ProductController {
 //		}
 
 		System.out.println("De filter in controller is:" + categoryFilter.getNL());
-		model.put("formobject", new FormObject());
 		model.put("lijst", products);
 		model.put("categories", ProductCategory.values());
 		return "products";

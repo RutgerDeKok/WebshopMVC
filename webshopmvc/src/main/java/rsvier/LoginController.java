@@ -1,5 +1,7 @@
 package rsvier;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import rsvier.infrastructure.PassHasher;
 import rsvier.infrastructure.Validator;
@@ -25,21 +27,16 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 	
-	private User currentUser;
+	
 
-	// @RequestMapping("/")
-	// public String welcome() {
-	// return "welcome";
-	// }
 
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public @ResponseBody void loginCheck(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String loginCheck(HttpServletRequest request, HttpServletResponse response) {
 		String uname = request.getParameter("uname");
 		String pass = request.getParameter("psw");
 
 		char[] passChars = pass.toCharArray();
-//                System.out.println(pass);
-//                System.out.println(passChars.toString());
+
 		User user = null;
 
 		// get user by email
@@ -53,53 +50,57 @@ public class LoginController {
 				System.out.println("Not a valid user");
 			}
 
-			// check password
-//                        System.out.println(user.getId());
-//                        System.out.println(user.getPassHash());
                        
 			if (PassHasher.check(passChars, user.getPassHash())) {
 				System.out.println("login succesful!");
 				// current user set
-                                request.getSession().setAttribute("currentUser", user);
+				request.getSession().setAttribute("currentUser", user);
 				
 			} else {
 				System.out.println("login incorrect!");
 			}
 			
-//			System.out.println("user email" + user.getEmail());
-//			System.out.println("user id" + user.getId());
+
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-                        
-		
+                       
 		}
+	
+		return "success";
 
-		//
-		// try {
-		// response.sendRedirect("/products");
-		// } catch (IOException e) {
-		//
-		// e.printStackTrace();
-		// }
 	}
 
-//	private final UserService UserService;
-//
-//	@Autowired
-//	public LoginController(UserService iets) {
-//		this.UserService = iets;
-//	}
+	@RequestMapping("/logout")
+	public void Logout(HttpServletRequest request, HttpServletResponse response) {
+		User anonymus = new User();
+      request.getSession().removeAttribute("currentUser");
+      System.out.println("logging out");
+		
+      try {
+			response.sendRedirect("/");
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	
 
-	@RequestMapping(value = { "/login" })
+	
+
+	@RequestMapping(value = { "/login" } , method = RequestMethod.GET)
 	public String inlog() {
 		return "login";
 	}
+	
+
 	
 	public User getCurrentUser(HttpServletRequest request) {
             return (User) request.getSession().getAttribute("currentUser");
 		
 	}
+	
+
 
 
 }
