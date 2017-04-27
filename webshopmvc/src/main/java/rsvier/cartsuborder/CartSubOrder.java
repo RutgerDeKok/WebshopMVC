@@ -71,6 +71,8 @@ public class CartSubOrder {
 		subTotal.setScale(2);
 	}
 
+	//@Jurjen: waarom berekeningen in een toString?
+
 	@Override
 	public String toString() {
 		// Product - Aantal - Prijs - Subtotaal",

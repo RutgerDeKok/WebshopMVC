@@ -42,6 +42,8 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    //@RequestMapping(value="/cart/add", method = R)
+
     @RequestMapping("/checkout")
     public String checkout(Model model) {
        Product product = new Product(1, "kaas", "merk", ProductCategory.GOAT, "info", (new BigDecimal("2.50")), 200);

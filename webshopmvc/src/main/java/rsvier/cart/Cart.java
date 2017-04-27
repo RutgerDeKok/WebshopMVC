@@ -1,22 +1,28 @@
 package rsvier.cart;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 import rsvier.address.Address;
 import rsvier.cartsuborder.CartSubOrder;
 import rsvier.user.User;
 
-
-
 @Entity
 @Table(name = "carts")
-public class Cart {
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS, value = "session")
+public class Cart implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +38,14 @@ public class Cart {
 	@Column(length = 10)
 	private BigDecimal totalPrice;
 
+
 	public Cart() {
 	}
 
+	@Override
+	public String toString() {
+		return "Aantal producten: " + subOrders.size() + ", totaal: " + totalPrice;
+	}
 
 	public User getUser() {
 		return user;
@@ -76,23 +87,19 @@ public class Cart {
 		return totalPrice;
 	}
 
-	/*
-	 * @Jurjen Volgens mij is setTotalPrice niet nodig, maar kan het beter
-	 * vervangen worden door een functie die de totaalprijs berekent
-	 */
 	public void setTotalPrice(BigDecimal totalPrice) {
-            if (this.totalPrice == null) {
-                this.totalPrice = new BigDecimal(0);
-            }
-            this.totalPrice = this.totalPrice.add(totalPrice);
+        if (this.totalPrice == null) {
+            this.totalPrice = new BigDecimal(0);
         }
+		this.totalPrice = this.totalPrice.add(totalPrice);
+	}
         
-        public void calculateTotalPrice() {
-            for (CartSubOrder cso : subOrders) {
-                BigDecimal subTotal = cso.getSubTotal();
-                setTotalPrice(subTotal);
-            }
-        }
+    public void calculateTotalPrice() {
+         for (CartSubOrder cso : subOrders) {
+			 BigDecimal subTotal = cso.getSubTotal();
+             setTotalPrice(subTotal);
+         }
+	}
 
 	protected void emptyCart() {
 		subOrders.clear();
