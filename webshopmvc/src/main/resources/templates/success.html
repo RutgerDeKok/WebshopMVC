@@ -81,11 +81,11 @@ span.psw {
 
 	<div class="container">
 		
-			<h2 style = "align:center; vertical-align:middle;" th:if="${session.currentUser==null}">
+			<h2 style = "align:center; vertical-align:middle;" th:if="${session.currentUser.id==0}">
 				<!-- if login failed--> Login onjuist
 			</h2>
 
-			<h2 style = "align:center; vertical-align:middle;" th:unless="${session.currentUser==null}">
+			<h2 style = "align:center; vertical-align:middle;" th:unless="${session.currentUser.id==0}">
 				<!-- if login is success--> Login succesvol
 			</h2>
 
@@ -97,11 +97,11 @@ span.psw {
 	<div class="container" style="background-color: #eaeaea">
 
 
-		<button th:if="${session.currentUser==null}" onclick="window.location.href='/login'">Probeer
+		<button th:if="${session.currentUser.id==0}" onclick="window.location.href='/login'">Probeer
 			Opnieuw</button>
 
 
-		<button th:unless="${session.currentUser==null}" onclick="Success()">OK </button>
+		<button th:unless="${session.currentUser.id==0}" onclick="Success()">OK </button>
 	</div>
 
 

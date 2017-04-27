@@ -27,7 +27,11 @@ class WelcomeController {
         List<Product> list = productService.getAllProducts();
         User test = (User)request.getSession().getAttribute("currentUser");
         if(test==null){
-        	System.out.println("no test user");
+        	User dummyUser = new User();
+        	dummyUser.setId(0);
+        	request.getSession().setAttribute("currentUser",dummyUser);
+        	System.out.println("no test user, dummy created");
+        	
         }else{
         System.out.println("naam van test user is: "+test.getEmail());
         }
