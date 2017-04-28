@@ -76,8 +76,11 @@ public class User {
 		return billingAddresses;
 	}
 
-	public void setBillingAdress(List<Address> billingAddresses) {
+	public void setBillingAdresses(List<Address> billingAddresses) {
 		this.billingAddresses = billingAddresses;
 	}
-
+        
+        public void addBillingAdresses(Address billingAddress) {
+                this.billingAddresses.add(billingAddress);
+	}
 }

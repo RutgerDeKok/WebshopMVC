@@ -77,11 +77,9 @@ public class LoginController {
 		// }
 	}
 
-	private final UserService UserService;
-
 	@Autowired
-	public LoginController(UserService iets) {
-		this.UserService = iets;
+	public LoginController(UserService userService) {
+		this.userService = userService;
 	}
 
 	@RequestMapping(value = { "/login" })
