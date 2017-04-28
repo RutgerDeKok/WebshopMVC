@@ -52,9 +52,10 @@ public class CartController {
         Product p = productService.getProduct(productId);
         CartSubOrder cso = new CartSubOrder((Long)null, p, Integer.parseInt(quantity));
         cso.calculateSubTotal();
-        if (session.getAttribute("cart") == null) {
-            cart = new AnonymousCart(session.getId());
-        }
+        //if (session.getAttribute("cart") == null) {
+        //    cart = new AnonymousCart(session.getId());
+        //}
+        cart = cartService.getCart(1L);
         cart.addSubOrder(cso);
         return "redirect:/products";
     }
