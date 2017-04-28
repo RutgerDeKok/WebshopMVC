@@ -33,6 +33,8 @@ class WelcomeController {
 
 
 	@RequestMapping(value ="/")
+
+	/*  cookie methode jurjen
 	public String welcome(@CookieValue(value="sessionId", required = false) String sessionId, Model model, HttpSession session, HttpServletResponse response) {
 		System.out.println(sessionId);
 		if (sessionId == null || sessionId.isEmpty()) {
@@ -45,6 +47,25 @@ class WelcomeController {
 		System.out.println(cart.toString());
 		List<Product> list = productService.getAllProducts();
         return "welcome";
+		*/
+	
+	public String welcome(Model model, HttpServletRequest request) {
+        List<Product> list = productService.getAllProducts();
+        User test = (User)request.getSession().getAttribute("currentUser");
+        if(test==null){
+        	User dummyUser = new User();
+        	dummyUser.setId(0);
+        	request.getSession().setAttribute("currentUser",dummyUser);
+        	System.out.println("no test user, dummy created");
+        	
+        }else{
+        System.out.println("naam van test user is: "+test.getEmail());
+        }
+    
+        
+		model.addAttribute("productlist", list);
+		return "welcome";
+
 	}
 
     @RequestMapping("/boerPiet")

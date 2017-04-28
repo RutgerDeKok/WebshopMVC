@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:insert="template :: head">
-	<title>Producten</title>
-	<link href="css/Kaasmenu.css" rel="stylesheet">
-	<link href="css/welcome.css" rel="stylesheet">
+
+<!--  
+<head>
+<meta charset="ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+-->
+<title>Producten</title>
+
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/Kaasmenu.css" rel="stylesheet">
+<link href="css/welcome.css" rel="stylesheet">
+
 </head>
 
 <body bgcolor="#E6E6FA">
 	<header th:replace="Navigator :: header" />
+
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-2 navbar-left">
@@ -40,7 +53,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="element: ${lijst}">
+						<tr th:each="element, status: ${lijst}">
 							<td th:text="${element.name}" align="left">naam</td>
 							<td th:text="${element.category.getNL()}" align="left">1</td>
 							<td th:text="${element.brand}" align="left">merk</td>
@@ -54,12 +67,34 @@
 									<button type="submit" class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></button>
 								</td>
 								</form>
+								
+								<!--
+								Jurjen
+								<form method="post" action="/cart/add" th:action=@{/cart/add?productId={productId}(productId=${element.id})}>
+									<input type="text" style="text-align: right" size="5" placeholder="1" name="quantity"/>
+								<td>
+									<button type="submit" class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></button>
+								</td>
+								</form>
+								
+								
+								Rutger  
+								<form action="#" th:action="@{/cart/add/}"  method="post">
+									<button name="choice" th:value= "${status.index}" type="submit">
+									<span class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"> </span>
+									<i> &nbsp; Voeg toe</i>
+									</button>
+								</form>
+				
+								-->							
+								
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-	</div>
+	</div>			
+	
 </body>
 </html>
