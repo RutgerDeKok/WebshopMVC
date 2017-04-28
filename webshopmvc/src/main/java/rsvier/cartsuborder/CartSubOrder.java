@@ -71,6 +71,10 @@ public class CartSubOrder {
 		subTotal.setScale(2);
 	}
 
+	public void calculateSubTotal() {
+		subTotal = product.getPrice().multiply(new BigDecimal(quantity));
+	}
+
 	//@Jurjen: waarom berekeningen in een toString?
 
 	@Override

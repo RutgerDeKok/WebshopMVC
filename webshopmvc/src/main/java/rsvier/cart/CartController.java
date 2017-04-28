@@ -16,6 +16,7 @@ import rsvier.product.ProductService;
 import rsvier.address.Address;
 import rsvier.user.User;
 
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class CartController {
@@ -26,23 +27,37 @@ public class CartController {
     CartSubOrderService cartSubOrderService;
     @Autowired
     CartService cartService;
+    @Autowired
+    CartInterface cart;
 
     @RequestMapping("/cart")
     public String shoppingCart(Model model) {
-        Cart cart = cartService.getCart(1L);
+        cart = cartService.getCart(1L);
         model.addAttribute("cart", cart);
         return "cart";
     }
 
     @RequestMapping(value="/cart/delete", method = RequestMethod.GET)
     public String removeFromCart(@RequestParam long cartId, @RequestParam long subOrderId) {
-        Cart cart = cartService.getCart(1L);
+        cart = cartService.getCart(1L);
         CartSubOrder cso = cartSubOrderService.getCartSubOrder(subOrderId);
-        cartService.removeFromCart(cart, cso);
+        cartService.removeFromCart((Cart) cart, cso);
         return "redirect:/cart";
     }
 
-    //@RequestMapping(value="/cart/add", method = R)
+    @RequestMapping(value="/cart/add", method = RequestMethod.POST)
+    public String addToCart(@RequestParam long productId,
+                            @RequestParam String quantity,
+                            HttpSession session) {
+        Product p = productService.getProduct(productId);
+        CartSubOrder cso = new CartSubOrder((Long)null, p, Integer.parseInt(quantity));
+        cso.calculateSubTotal();
+        if (session.getAttribute("cart") == null) {
+            cart = new AnonymousCart(session.getId());
+        }
+        cart.addSubOrder(cso);
+        return "redirect:/products";
+    }
 
     @RequestMapping("/checkout")
     public String checkout(Model model) {

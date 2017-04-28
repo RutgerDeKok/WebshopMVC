@@ -36,7 +36,7 @@
 							<th align="left">Voorraad</th>
 							<th align="left">Informatie</th>
 							<th width="5" align="left" style="text-align: right">Aantal</th>
-							<th width="15" align="left"></th>
+							<th width="15" align="left">&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -47,10 +47,14 @@
 							<td th:text="${element.price}" align="left">prijs</td>
 							<td th:text="${element.stockCount}" align="left">voorraad</td>
 							<td th:text="${element.info}" align="left">info</td>
-							<td align="left"><input type="text" style="text-align: right" size="5" placeholder="1" name="quantity"</td>
-							<td class="center middle"><a href="/cart/add" th:href=@{/cart/add?productId={productId}(productId=${element.id})}> <span
-									class="glyphicon glyphicon-shopping-cart icon-white"
-									aria-hidden="true"></span></a></td>
+							<td align="left">
+								<form method="post" action="/cart/add" th:action=@{/cart/add?productId={productId}(productId=${element.id})}>
+									<input type="text" style="text-align: right" size="5" placeholder="1" name="quantity"/>
+								<td>
+									<button type="submit" class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></button>
+								</td>
+								</form>
+							</td>
 						</tr>
 					</tbody>
 				</table>

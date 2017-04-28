@@ -6,11 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -22,7 +20,7 @@ import rsvier.user.User;
 @Table(name = "carts")
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS, value = "session")
-public class Cart implements Serializable {
+public class Cart implements Serializable, CartInterface {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +38,10 @@ public class Cart implements Serializable {
 
 
 	public Cart() {
+	}
+
+	public Cart(long id, User user) {
+		this.id = id; this.user = user;
 	}
 
 	@Override
@@ -71,6 +73,7 @@ public class Cart implements Serializable {
 		this.deliveryAdress = deliveryAdress;
 	}
 
+	@Override
 	public void addSubOrder(CartSubOrder subOrder) {
 		subOrders.add(subOrder);
 	}

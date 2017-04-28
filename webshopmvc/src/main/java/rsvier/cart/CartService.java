@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 import rsvier.cartsuborder.CartSubOrder;
 import rsvier.cartsuborder.CartSubOrderService;
 
+import javax.servlet.http.HttpSession;
+
 @Service
 public class CartService {
     
     @Autowired
     CartRepository dao;
-
+    @Autowired
+    AnonCartRepository anondao;
     @Autowired
     CartSubOrderService cartSubOrderService;
     
@@ -46,4 +49,7 @@ public class CartService {
         cartSubOrderService.deleteCartSubOrder(cso);
     }
 
+    public AnonymousCart getCartBySessionId(String sessionId) {
+        return anondao.getAnonymousCartBySessionId(sessionId);
+    }
 }
