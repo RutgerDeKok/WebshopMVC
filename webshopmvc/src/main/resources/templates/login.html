@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <style>
 form {
@@ -67,47 +67,32 @@ span.psw {
 	}
 }
 </style>
-
-
-
 </head>
 <body bgcolor=#edd6c0>
-
-	<!--Dit is het plaatje-->
-
 	<div class="imgcontainer">
 		<img src="/images/Edwin.png" alt="Boer Piet" class="avatar">
 	</div>
-
-
-
-
+	<div th:if="${param.error}">
+		Invalid username and password.
+	</div>
+	<div th:if="${param.logout}">
+		You have been logged out.
+	</div>
 	<div class="container">
 		<form  method="post" >
 			<label><b>Gebruikersnaam</b></label> <input type="text"
 				placeholder=" bijvoorbeeld abc@mail.nl" name="uname" required>
-
 			<label><b>Wachtwoord</b></label> <input type="password"
 				placeholder="vul hier uw wachtwoord in" name="psw" required>
-
-
-
 			<button type="submit">Login</button>
 		</form>
-
-		<input type="checkbox" checked="checked"> Onthoud mij
+		<input type="checkbox" checked="checked"> Onthoud mijn gegevens
 	</div>
-
-
-
 	<div class="container" style="background-color: #eaeaea">
-
 		<a href="http://localhost:8080/" target="blank">
 			<button type="button" class="cancelbtn">Annuleer</button>
 		</a> vergeten <a href="http://localhost:8080/">wachtwoord</a>
 	</div>
-
-
 </body>
 </html>
 

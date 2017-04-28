@@ -4,14 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
 	private List<User> users;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private UserRoleRepository userRoleRepository;
 
 	public List<User> getAllUsers() {
 		users = new ArrayList<>();
@@ -37,5 +42,15 @@ public class UserService {
 
 	public User findUserByEmail(String email) {
 		return userRepository.findUserByEmail(email);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = userRepository.findUserByEmail(email);
+		if (user == null) {
+			throw new UsernameNotFoundException("E-mail ongeldig.");
+		} else {
+			List<String> userRoles = userRoleRepository.findRoleByEmail(email);
+		}
 	}
 }

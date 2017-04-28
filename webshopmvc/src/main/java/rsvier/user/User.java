@@ -30,8 +30,16 @@ public class User {
 	private UserType UserType; // Enum
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address billingAddress;
+	private boolean enabled;
 
 	public User() {
+	}
+
+	public User(User user) {
+		this.id = user.id;
+		this.email = user.email;
+		this.passHash = user.passHash;
+		this.enabled = user.enabled;
 	}
 
 	public long getId() {
@@ -78,4 +86,11 @@ public class User {
 		this.billingAddress = billingAddress;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 }

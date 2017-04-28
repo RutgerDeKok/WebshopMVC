@@ -53,6 +53,7 @@ public class LoginController {
                        
 			if (PassHasher.check(passChars, user.getPassHash())) {
 				System.out.println("login succesful!");
+
 				// current user set
 				request.getSession().setAttribute("currentUser", user);
 				
