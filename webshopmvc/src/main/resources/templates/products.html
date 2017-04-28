@@ -11,16 +11,12 @@
 <link href="css/Kaasmenu.css" rel="stylesheet">
 <link href="css/welcome.css" rel="stylesheet">
 
-<!-- 
-<style>
-form.radios {
-	input[type="radio"]:checked{
-    visibility:visible;
-	}
-	
+<script>
+function myFunction(x) {
+    alert("Row index is: ?"+x);
 }
-</style>
--->
+</script>
+
 
 </head>
 
@@ -43,7 +39,7 @@ form.radios {
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="element: ${lijst}">
+			<tr th:each="element, status: ${session.lijst}">
 
 				<td th:text=" ${element.name}" align="left">naam</td>
 				<td th:text=" ${element.category.getNL()}" align="left">1</td>
@@ -51,9 +47,17 @@ form.radios {
 				<td th:text=" ${element.price}" align="right">prijs</td>
 				<td th:text=" ${element.stockCount}" align="right">voorraad</td>
 				<td th:text=" ${element.info}" align="left">info</td>
-				<td class="center middle"><a href="/cart"> <span
-						class="glyphicon glyphicon-shopping-cart icon-white"
-						aria-hidden="true"></span></a></td>
+				<td>
+					<form action="#"
+						th:action="@{/cart/add/}"  method="post">
+						<button name="choice" th:value= "${status.index}"
+							type="submit"><span
+					class="glyphicon glyphicon-shopping-cart icon-white"
+					aria-hidden="true"> </span>
+							<i> &nbsp; Voeg toe</i>
+						</button>
+					</form>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -63,106 +67,19 @@ form.radios {
 
 
 
-	<!-- 
-	
-	<form action="/products/f" method="post">
-	--------radio button ding wat niet werkt--------- -->
-	<form class="form-inline" role="form" action="#"
-		th:action="@{/products/filter}" th:object="${formobject}"
+	<form class="form-inline" role="form" action="#" 
+		th:action="@{/products/filter}" 
 		method="post">
 
 		<div class="form-group">
 			<div th:each="category : ${categories}" class="radio">
-				<input type="radio" th:value="${category}" name="filter" />
-				<label th:text="${category.getNL()}">Hard</label>
+				<input type="radio" th:value="${category}" name="filter"
+					checked="checked" /> <label th:text="${category.getNL()}">Hard</label>
 			</div>
 			<br> <input type="submit" value="OK" />
 		</div>
 	</form>
 
-
-	<!--
-	<div class="radio">
-		<label><input type="radio" name="optradio">Option 1</label>
-	</div>
-	<div class="radio">
-		<label><input type="radio" name="optradio">Option 2</label>
-	</div>
-	<div class="radio disabled">
-		<label><input type="radio" name="optradio" disabled>Option
-			3</label>
-	</div>
--->
-
-
-
-	<!--  
-		<div th:each="category : ${categories}">
-		<span th:text=" ${category} +' '+ ${category.getNL()}">
-	</div> -->
-
-	<!--  
-	<div th:each="category : ${categories}">
-    <input type="checkbox" th:id="${{category}}" th:value="${{category}}" th:field="*{filter}" />
-    <label th:for="${{category}}">Shipping Types</label>
-</div> -->
-
-
-
-
-	<!-- 
-	<form action="">
-
-		<input type="text" th:field="${cat.getNL()}" />
-	</form>
-	<form>
-		<input type="text" id="adresBalk2" name="adresBalk2"
-			th:value="hiertekst" />
-	</form>
- -->
-
-	<!--  <form  action="#" th:action="@{${action}}" th:object="${filter}" method="get"> 
-	<form action="/products/f" method="post">
-		<br> <input type="radio" name="filter" value="ALL">Alles
-		</imput>
-		<br> <input type="radio" name="filter" value="MEDIUM_HARD">Medium-Hard
-		</imput>
-		<br> <input type="radio" name="filter" value="GOAT">Geiten
-		</imput>
-		<br> <input type="submit" value="Filter" />
-	</form>
--->
-
-
-	<!-- 
-	--------check box ding wat niet werkt----------- 
-<form role="form" action="#" th:action="@{${action}}" th:object="${categoryFilter}" method="post">
-	<div th:each="each="category : ${categories}">
-    <input type="checkbox" th:id="${{category}}" th:value="${{category}}" th:field="*{category}" />
-    <label th:for="${{category}}">Shipping Types</label>
-       <button type="submit" value="submit"/>
-    </form> -->
-
-
-
-
-
-	<!-- 
-	<div th:each="category : ${categories}" class="radio">
-		<input type="radio" th:value="${category}" th:field="*{category}" />
-		<label th:for="${#ids.prev('category')}" th:text="${category.getNL}">Hard</label>
-	</div>
-		<div th:remove="all" class="radio">
-		<input type="radio" /> <label>Zacht</label>
-	</div>
-
-
-<c:forEach var="enum" items="${enums}">
- <form:radiobutton path="myPath" value="${enum}"/>${enum.description}
-</c:forEach>
-
-
- -->
 
 
 </body>
