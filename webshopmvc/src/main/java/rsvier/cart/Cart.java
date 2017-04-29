@@ -20,7 +20,7 @@ import rsvier.user.User;
 @Table(name = "carts")
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS, value = "session")
-public class Cart implements Serializable, CartInterface {
+public class Cart implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,13 +35,15 @@ public class Cart implements Serializable, CartInterface {
 	private List<CartSubOrder> subOrders = new ArrayList<>();
 	@Column(length = 10)
 	private BigDecimal totalPrice;
+	@Column(name="session_id")
+	private String sessionId;
 
 
 	public Cart() {
 	}
 
-	public Cart(long id, User user) {
-		this.id = id; this.user = user;
+	public Cart(String sessionId) {
+		this.setSessionId(sessionId);
 	}
 
 	@Override
@@ -73,7 +75,6 @@ public class Cart implements Serializable, CartInterface {
 		this.deliveryAdress = deliveryAdress;
 	}
 
-	@Override
 	public void addSubOrder(CartSubOrder subOrder) {
 		subOrders.add(subOrder);
 	}
@@ -109,4 +110,11 @@ public class Cart implements Serializable, CartInterface {
 		subOrders.clear();
 	}
 
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
 }

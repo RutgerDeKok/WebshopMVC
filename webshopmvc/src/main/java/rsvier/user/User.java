@@ -11,13 +11,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 import rsvier.address.Address;
 
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "users")
-public class User {
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS, value = "session")
+public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +37,8 @@ public class User {
 	private UserType UserType; // Enum
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address billingAddress;
+	@Type(type="true_false")
+	private boolean enabled;
 
 	public User() {
 	}
@@ -75,7 +84,19 @@ public class User {
 	}
 
 	public void setBillingAdress(Address billingAddress) {
+		this.setBillingAddress(billingAddress);
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setBillingAddress(Address billingAddress) {
 		this.billingAddress = billingAddress;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 }

@@ -2,9 +2,7 @@ package rsvier.cart;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import rsvier.cartsuborder.CartSubOrder;
 import rsvier.cartsuborder.CartSubOrderService;
@@ -17,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMethod;
 import rsvier.product.ProductService;
 import rsvier.address.Address;
 import rsvier.user.User;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -35,6 +33,23 @@ public class CartController {
 	CartSubOrderService cartSubOrderService;
 	@Autowired
 	CartService cartService;
+	@Autowired
+	Cart cart;
+	@Autowired
+	User user;
+
+	public void init(HttpSession session) {
+		if (session.getAttribute("cart") == null) {
+			if (user.isEnabled()) {
+				cart = cartService.getCartByUserId(user.getId());
+			} else {
+				cart = new Cart(session.getId());
+				session.setAttribute("cart", cart);
+			}
+		} else {
+			cart = (Cart) session.getAttribute("cart");
+		}
+	}
 
 	@RequestMapping (value =  { "/cart" })
 	public String shoppingCart(HttpServletRequest request) {
@@ -61,6 +76,9 @@ public class CartController {
 		@SuppressWarnings("unchecked")
 		List<Product> lijst = (ArrayList<Product>) request.getSession().getAttribute("lijst");
 		int prodIndex = (Integer.parseInt(choice[1]));
+		if (choice[0].isEmpty()) {
+			choice[0] = "1";
+		}
 		int quantity = (Integer.parseInt(choice[0]));
 		System.out.println("prodIndex is: " + prodIndex);
 		System.out.println("aantal is: " + quantity);

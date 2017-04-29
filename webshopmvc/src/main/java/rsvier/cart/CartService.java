@@ -15,8 +15,6 @@ public class CartService {
     @Autowired
     CartRepository dao;
     @Autowired
-    AnonCartRepository anondao;
-    @Autowired
     CartSubOrderService cartSubOrderService;
     
     public List<Cart> getAllCarts(){
@@ -49,7 +47,8 @@ public class CartService {
         cartSubOrderService.deleteCartSubOrder(cso);
     }
 
-    public AnonymousCart getCartBySessionId(String sessionId) {
-        return anondao.getAnonymousCartBySessionId(sessionId);
+    public Cart getCartByUserId(long userId) {
+        return dao.getCartByUserId(userId);
     }
+
 }
