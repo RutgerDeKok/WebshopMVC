@@ -11,6 +11,7 @@ import rsvier.product.ProductCategory;
 
 import java.math.BigDecimal;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMethod;
 import rsvier.product.ProductService;
@@ -50,7 +51,7 @@ public class CartController {
     }
 
     @RequestMapping("/checkout")
-    public String checkout(Model model) {
+    public String checkout(Model model, HttpSession session) {
        Product product = new Product(1, "kaas", "merk", ProductCategory.GOAT, "info", (new BigDecimal("2.50")), 200);
         CartSubOrder cso = new CartSubOrder(1, product, 5);
         cso.setSubTotal(product.getPrice(), cso.getQuantity());
@@ -60,13 +61,22 @@ public class CartController {
         cart.addSubOrder(cso);
         cart.addSubOrder(cso2);
         cart.calculateTotalPrice();
-        model.addAttribute("cart", cart);
+       
         
         
         User user = userService.getUser(1L);
-        Address address = user.getBillingAddresses().get(0);
-        model.addAttribute("address", address);
-        //Address address = user.getBillingAddress();
+        Address address;
+        
+        // als er geen sessieObject voor address aanwezig is, pakt hij het eerste adres
+        if (session.getAttribute("addressId")==null)
+            address = user.getBillingAddresses().get(0);
+        else {
+            long addressId = (long)session.getAttribute("addressId");
+            address = addressService.getAddress(addressId);
+        }
+        
+        model.addAttribute("address",  address);
+        model.addAttribute("cart", cart);
         model.addAttribute("user", user);
         return "Checkout";
     }

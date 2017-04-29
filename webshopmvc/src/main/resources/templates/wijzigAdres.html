@@ -43,9 +43,9 @@ and open the template in the editor.
             <td class="center middle" th:text="${element.getNumAddition()}"></td>
             <td class="center middle" th:text="${element.getZipCode()}"></td>
             <td class="center middle" th:text="${element.getCity()}"></td>
-            <td class="center middle">  <a th:text="${element.getId()}" name = "id" href="/wijzigAdres" th:href="@{/wijzigAdres/choose?addressId=${element.getId()}}" >Eh,,</a></td>
-                                                                                                         
-            <td class="center middle"> <a href="/wijzigAdres" th:href=@{/wijzigAdres/delete?addressId={element.getId()}}><span class="glyphicon glyphicon-remove icon-red" aria-hidden="true"></span></a></td>
+            <td class="center middle">  <a th:text="${element.getId()}" name = "id" href="/wijzigAdres" th:href="@{/wijzigAdres/choose(addressId=${element.getId()})}" >Eh,,</a></td>
+                                                                                                            
+            <td class="center middle"> <a href="/wijzigAdres" th:href="@{/wijzigAdres/delete(addressId=${element.getId()})}"><span class="glyphicon glyphicon-remove icon-red" aria-hidden="true"></span></a></td>
         </tr>
         </tbody>
             </table>

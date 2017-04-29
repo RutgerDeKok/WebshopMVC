@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import rsvier.address.Address;
 import rsvier.product.ProductService;
 import rsvier.address.AddressService;
+import rsvier.cart.Cart;
 import rsvier.user.User;
 import rsvier.user.UserService;
 
@@ -81,19 +82,16 @@ public class AddressController {
 
         return "wijzigAdres";
     }
-    @RequestMapping(value = "/wijzigAdres/choose", method = RequestMethod.POST)
-    public String kiesAdres(@RequestParam("id") String id, Model model, HttpServletRequest request) {
-        User user = userService.getUser(1L);
-
-        model.addAttribute("user", user);
-        Address address = user.getBillingAddresses().get(Integer.parseInt("" + id));
-        model.addAttribute("address", address);
+    @RequestMapping(value = "/wijzigAdres/choose")
+    public String kiesAdres(@RequestParam("addressId") String addressId, Model model, HttpSession session) {
+        long realAddressId = Long.parseLong(addressId);
+        session.setAttribute("addressId", realAddressId);
         return "redirect:/checkout";
     }
    
-    @RequestMapping(value = "/wijzigAdres/delete", method = RequestMethod.POST)
-    public String deleteAdres(Model model, HttpServletRequest request) {
-       Address address = (Address)request.getAttribute("addresId");
+    @RequestMapping(value = "/wijzigAdres/delete")
+    public String deleteAdres(@RequestParam("addressId") String addressId, Model model, HttpServletRequest request) {
+        Address address = addressService.getAddress(Long.parseLong(addressId));
  
         addressService.deleteAddress(address);
         return "redirect:/wijzigAdres";
