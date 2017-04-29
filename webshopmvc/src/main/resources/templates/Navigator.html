@@ -48,7 +48,7 @@
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 
-					<ul class="nav navbar-nav navbar-right">
+					<li class="nav navbar-nav navbar-right">
 						<li><a href="/products">Products</a></li>
 
 						<li><a href="#">Informatie</a></li>
@@ -67,7 +67,9 @@
 							<!-- if customer is anonymous--> 
 							<a href="#">Welcome, Guest</a>
 						</li>
-
+						<li th:if="[[${#httpServletRequest.remoteUser}]]">
+							<a href="$" th:text="Hello [[${#httpServletRequest.remoteUser}]]"></a>
+						</li>
 						<li th:unless="${session.currentUser==null}">
 							<!-- if customer is not anonymous(logged in)--> 
 							<a href="#"th:text=" 'User: ' + ${session.currentUser.email}">userX</a>
