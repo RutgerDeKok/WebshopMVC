@@ -62,6 +62,12 @@
 						<li><a href="cart" th:href="@{/cart}"><span
 								class="glyphicon glyphicon-shopping-cart icon-white"
 								aria-hidden="true"></span></a></li>
+						
+						
+								
+						<li th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
+						<a href="#" th:href="/employees" >Medewerkers</a></li>
+						
 
 						<li th:if="${session.currentUser==null}">
 							<!-- if customer is anonymous--> 
