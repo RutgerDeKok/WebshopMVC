@@ -28,7 +28,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="element : ${cart.getSubOrders()}">
+        <tr th:each="element : ${session.cart.getSubOrders()}">
             <td class="center middle" th:text="${element.product.getId()}"></td>
             <td class="center middle" th:text="${element.product.getName()}"></td>
             <td class="center middle" th:text="${element.getQuantity()}"></td>
@@ -39,21 +39,21 @@
             <tr>
               <td colspan="3"></td>
               <td class="text-right"><strong>Totaal: </strong></td>
-              <td class="text-left" th:text="${cart.getTotalPrice()}"></td>
+              <td class="text-left" th:text="${session.cart.getTotalPrice()}"></td>
              </tr>
             </tfoot>
       </table>
     </div>
     <div id="gegevens">
             
-            Voornaam: <span class="center middle" th:text="${user.getBillingAddress().getFirstName()}">Tjeerd</span><br/>
-            Middelnaam: <span class="center middle" th:text="${user.getBillingAddress().getInsertion()}">Boomstraat</span><br/>
-            Achternaam: <span class="center middle" th:text="${user.getBillingAddress().getFamilyName()}">56</span><br/>
-            Adres: <span class="center middle" th:text="${user.getBillingAddress().getStreet()}">7209 LS</span><br/>
-            Huisnummer: <span class="center middle" th:text="${user.getBillingAddress().getNumber()}">>27</span><br/>
-            toevoeging: <span class="center middle" th:text="${user.getBillingAddress().getNumAddition()}">>27</span><br/>
-            Postcode: <span class="center middle" th:text="${user.getBillingAddress().getZipCode()}">27</span><br/>
-            Stad: <span class="center middle" th:text="${user.getBillingAddress().getCity()}">27</span><br/>
+            Voornaam: <span class="center middle" th:text="${session.address.getFirstName()}">Tjeerd</span><br/>
+            Middelnaam: <span class="center middle" th:text="${session.address.getInsertion()}">Boomstraat</span><br/>
+            Achternaam: <span class="center middle" th:text="${session.address.getFamilyName()}">56</span><br/>
+            Adres: <span class="center middle" th:text="${session.address.getStreet()}">7209 LS</span><br/>
+            Huisnummer: <span class="center middle" th:text="${session.address.getNumber()}">>27</span><br/>
+            toevoeging: <span class="center middle" th:text="${session.address.getNumAddition()}">>27</span><br/>
+            Postcode: <span class="center middle" th:text="${session.address.getZipCode()}">27</span><br/>
+            Stad: <span class="center middle" th:text="${session.address.getCity()}">27</span><br/>
         <div id="button">
             <a href="/wijzigAdres">Wijzig</a>
         </div>

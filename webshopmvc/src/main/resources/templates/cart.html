@@ -29,20 +29,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="element : ${cart.getSubOrders()}">
+        <tr th:each="element, status : ${session.cart.getSubOrders()}">
             <td class="center middle" th:text="${element.product.getId()}"></td>
             <td class="center middle" th:text="${element.product.getName()}"></td>
             <td class="center middle" th:text="${element.getQuantity()}"></td>
             <td class="center middle" th:text="${element.product.getPrice()}"></td>
             <td class="center middle" th:text="${element.getSubTotal()}"></td>
-            <td class="center middle"> <a href="/cart.html" th:href=@{/cart/delete?cartId={cartId}&amp;subOrderId={subOrderId}(cartId=${cart.getId()},subOrderId=${element.getId()})}><span class="glyphicon glyphicon-remove icon-red" aria-hidden="true"></span></a></td>
+            <td class="center middle"> <a href="/cart/delete" th:href=@{/cart/delete?subOrderIndex={subOrderIndex}(subOrderIndex=${status.index})}><span class="glyphicon glyphicon-remove icon-red" aria-hidden="true"></span></a></td>
         </tr>
         </tbody>
         <tfoot>
         <tr>
             <td colspan="3"></td>
             <td class="text-right"><strong>Totaal: </strong></td>
-            <td class="text-left" th:text="${cart.getTotalPrice()}"></td>
+            <td class="text-left" th:text="${session.cart.totalPrice}"></td>
         </tr>
         </tfoot>
            </table>

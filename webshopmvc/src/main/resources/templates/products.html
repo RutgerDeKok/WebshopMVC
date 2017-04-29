@@ -1,169 +1,106 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
+<!--  <head th:insert="template :: head">-->
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Producten</title>
-
-
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/Kaasmenu.css" rel="stylesheet">
 <link href="css/welcome.css" rel="stylesheet">
 
-<!-- 
-<style>
-form.radios {
-	input[type="radio"]:checked{
-    visibility:visible;
-	}
-	
-}
-</style>
--->
-
 </head>
 
-<body bgcolor="#E6E6FA">
+<body background="/images/background-cheese.jpg">
 	<header th:replace="Navigator :: header" />
-	<h2>Producten Overzicht</h2>
-
-
-	<p>
-	<table class="table table-bordered" cellpadding="10" border="1">
-		<thead>
-			<tr>
-				<th width="150" align="left">Naam</th>
-				<th width="150" align="left">Categorie</th>
-				<th width="150" align="left">Merk</th>
-				<th width="30" align="right">Prijs</th>
-				<th width="30" align="right">Voorraad</th>
-				<th width="300" align="left">Informatie</th>
-				<th width="300" align="left">Voeg toe</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="element: ${lijst}">
-
-				<td th:text=" ${element.name}" align="left">naam</td>
-				<td th:text=" ${element.category.getNL()}" align="left">1</td>
-				<td th:text=" ${element.brand}" align="left">merk</td>
-				<td th:text=" ${element.price}" align="right">prijs</td>
-				<td th:text=" ${element.stockCount}" align="right">voorraad</td>
-				<td th:text=" ${element.info}" align="left">info</td>
-				<td class="center middle"><a href="/cart"> <span
-						class="glyphicon glyphicon-shopping-cart icon-white"
-						aria-hidden="true"></span></a></td>
-			</tr>
-		</tbody>
-	</table>
-	</p>
-
-	<h3>Categorien:</h3>
-
-
-
-	<!-- 
 	
-	<form action="/products/f" method="post">
-	--------radio button ding wat niet werkt--------- -->
-	<form class="form-inline" role="form" action="#"
-		th:action="@{/products/filter}" th:object="${formobject}"
-		method="post">
+	<div id="hoofd">
+		<h2>Welkom in de Piet's Kaas Winkel</h2>
 
-		<div class="form-group">
-			<div th:each="category : ${categories}" class="radio">
-				<input type="radio" th:value="${category}" name="filter" />
-				<label th:text="${category.getNL()}">Hard</label>
+		<p>Kies uw gewenste product en voeg toe aan uw winkelwagen</p>
+	</div>
+
+
+	<div class="container" >
+		<div class="row">
+			<div class="col-lg-2 navbar-left"  id="table" >
+				<section style="padding-left: 25px;">
+				<h3 class="page-header" >Categorie</h3>
+				<form class="form" role="form" action="#"
+					  th:action="@{/products/filter}" th:object="${formobject}"
+					  method="post" >
+					<div class="form-group">
+						<div th:each="category : ${categories}" class="radio">
+							
+							<input th:checked="${category.getNL() == session.catFilter.getNL() }" type="radio" th:value="${category}" name="filter" />
+							<label th:text="${category.getNL()}">-</label>
+						</div>
+						<input type="submit" value="OK" />
+					</div>
+				</form>
+				</section>
 			</div>
-			<br> <input type="submit" value="OK" />
-		</div>
-	</form>
+			
+			<div class="col-lg-1" > 
+			</div>
+			
+			<div class="col-lg-9" id="table" > 
+			
+			
+			<!--  <div class="menu" id="table"> -->
+				<h2 class="page-header" align="center">Producten</h3>
+			<table class="table table-striped" cellpadding="10"> 
+				<!--<table class="table table-bordered" cellpadding="10">-->
+					<thead>
+						<tr>
+							<th align="left">Naam</th>
+							<th align="left">Categorie</th>
+							<th align="left">Merk</th>
+							<th align="left">Prijs</th>
+							<th align="left">Voorraad</th>
+							<th align="left">Informatie</th>
+							<th width="5" align="left" style="text-align: right">Aantal</th>
+							<th width="15" align="left">&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="element, status: ${session.lijst}">
+							<td th:text="${element.name}" align="left">naam</td>
+							<td th:text="${element.category.getNL()}" align="left">1</td>
+							<td th:text="${element.brand}" align="left">merk</td>
+							<td th:text="${element.price}" align="left">prijs</td>
+							<td th:text="${element.stockCount}" align="left">voorraad</td>
+							<td th:text="${element.info}" align="left">info</td>
+							<td align="left">
+								<form method="post" action="/cart/add" th:action=@{/cart/add/}>
+									<input type="text" style="text-align: right" size="5" placeholder="1" name="choice"/>
+								<td>
+									<button type="submit"  name="choice" th:value= "${status.index}" class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></button>
+								</td>
+								</form>
+								
+								<!--
+								Jurjen
+								<form method="post" action="/cart/add" th:action=@{/cart/add?productId={productId}(productId=${element.id})}>
+									<input type="text" style="text-align: right" size="5" placeholder="1" name="quantity"/>
+								<td>
+									<button type="submit" class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></button>
+								</td>
+								</form>
+							
+								-->							
+								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>		<!--end row -->
+	</div>		<!--end container -->
+		
 
-
-	<!--
-	<div class="radio">
-		<label><input type="radio" name="optradio">Option 1</label>
-	</div>
-	<div class="radio">
-		<label><input type="radio" name="optradio">Option 2</label>
-	</div>
-	<div class="radio disabled">
-		<label><input type="radio" name="optradio" disabled>Option
-			3</label>
-	</div>
--->
-
-
-
-	<!--  
-		<div th:each="category : ${categories}">
-		<span th:text=" ${category} +' '+ ${category.getNL()}">
-	</div> -->
-
-	<!--  
-	<div th:each="category : ${categories}">
-    <input type="checkbox" th:id="${{category}}" th:value="${{category}}" th:field="*{filter}" />
-    <label th:for="${{category}}">Shipping Types</label>
-</div> -->
-
-
-
-
-	<!-- 
-	<form action="">
-
-		<input type="text" th:field="${cat.getNL()}" />
-	</form>
-	<form>
-		<input type="text" id="adresBalk2" name="adresBalk2"
-			th:value="hiertekst" />
-	</form>
- -->
-
-	<!--  <form  action="#" th:action="@{${action}}" th:object="${filter}" method="get"> 
-	<form action="/products/f" method="post">
-		<br> <input type="radio" name="filter" value="ALL">Alles
-		</imput>
-		<br> <input type="radio" name="filter" value="MEDIUM_HARD">Medium-Hard
-		</imput>
-		<br> <input type="radio" name="filter" value="GOAT">Geiten
-		</imput>
-		<br> <input type="submit" value="Filter" />
-	</form>
--->
-
-
-	<!-- 
-	--------check box ding wat niet werkt----------- 
-<form role="form" action="#" th:action="@{${action}}" th:object="${categoryFilter}" method="post">
-	<div th:each="each="category : ${categories}">
-    <input type="checkbox" th:id="${{category}}" th:value="${{category}}" th:field="*{category}" />
-    <label th:for="${{category}}">Shipping Types</label>
-       <button type="submit" value="submit"/>
-    </form> -->
-
-
-
-
-
-	<!-- 
-	<div th:each="category : ${categories}" class="radio">
-		<input type="radio" th:value="${category}" th:field="*{category}" />
-		<label th:for="${#ids.prev('category')}" th:text="${category.getNL}">Hard</label>
-	</div>
-		<div th:remove="all" class="radio">
-		<input type="radio" /> <label>Zacht</label>
-	</div>
-
-
-<c:forEach var="enum" items="${enums}">
- <form:radiobutton path="myPath" value="${enum}"/>${enum.description}
-</c:forEach>
-
-
- -->
-
-
+	
 </body>
 </html>

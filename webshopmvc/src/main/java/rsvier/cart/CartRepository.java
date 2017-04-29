@@ -2,6 +2,6 @@ package rsvier.cart;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface CartRepository extends CrudRepository<Cart, Long>{
+public interface CartRepository extends CrudRepository<Cart, Long> {
 
 }

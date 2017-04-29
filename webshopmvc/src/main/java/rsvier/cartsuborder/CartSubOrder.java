@@ -37,6 +37,11 @@ public class CartSubOrder {
 	public CartSubOrder(long id, Product product, int quantity) {
 		this.id = id; this.product = product; this.quantity = quantity;
 	}
+	
+	public CartSubOrder(Product product, int quantity) {
+		this.product = product; this.quantity = quantity;
+		calculateSubTotal();
+	}
 
 	public long getId() {
 		return id;
@@ -69,7 +74,14 @@ public class CartSubOrder {
 	public void setSubTotal(BigDecimal price, int quantity) {
 		subTotal = price.multiply(new BigDecimal(quantity));
 		subTotal.setScale(2);
+		
 	}
+
+	public void calculateSubTotal() {
+		subTotal = product.getPrice().multiply(new BigDecimal(quantity));
+	}
+
+	
 
 	@Override
 	public String toString() {
@@ -83,11 +95,5 @@ public class CartSubOrder {
 		return result;
 	}
 
-	// this method was used in the persistence test to quickly
-	// add some numbers to a subOrder
-	public void setTotalPrice(BigDecimal bigDecimal) {
-		subTotal = bigDecimal;
-
-	}
 
 }
