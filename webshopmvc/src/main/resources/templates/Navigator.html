@@ -63,20 +63,20 @@
 								class="glyphicon glyphicon-shopping-cart icon-white"
 								aria-hidden="true"></span></a></li>
 
-						<li th:if="${session.currentUser.id==0}">
+						<li th:if="${session.currentUser==null}">
 							<!-- if customer is anonymous--> 
 							<a href="#">Welcome, Guest</a>
 						</li>
 
-						<li th:unless="${session.currentUser.id==0}">
+						<li th:unless="${session.currentUser==null}">
 							<!-- if customer is not anonymous(logged in)--> 
 							<a href="#"th:text=" 'User: ' + ${session.currentUser.email}">userX</a>
 						</li>
 
-						<li th:if="${session.currentUser.id==0}"><a href="#" th:href="@{/login.html}"
+						<li th:if="${session.currentUser==null}"><a href="#" th:href="@{/login.html}"
 							onClick="MyWindow=window.open('http://localhost:8080/login','MyWindow','toolbar=no,location=yes,directories=yes,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=600,height=600'); return false;">Inloggen</a></li>
 						
-						<li th:unless="${session.currentUser.id==0}"><a href="#" th:href="@{/logout}">Uitloggen</a></li>
+						<li th:unless="${session.currentUser==null}"><a href="#" th:href="@{/logout}">Uitloggen</a></li>
 					</ul>
 
 				</div>

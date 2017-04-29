@@ -1,45 +1,58 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:insert="template :: head">
-
-<!--  
+<!--  <head th:insert="template :: head">-->
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
--->
 <title>Producten</title>
-
-
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/Kaasmenu.css" rel="stylesheet">
 <link href="css/welcome.css" rel="stylesheet">
 
 </head>
 
-<body bgcolor="#E6E6FA">
+<body background="/images/background-cheese.jpg">
 	<header th:replace="Navigator :: header" />
+	
+	<div id="hoofd">
+		<h2>Welkom in de Piet's Kaas Winkel</h2>
 
-	<div class="container">
+		<p>Kies uw gewenste product en voeg toe aan uw winkelwagen</p>
+	</div>
+
+
+	<div class="container" >
 		<div class="row">
-			<div class="col-lg-2 navbar-left">
-				<h4>Filter op categorie:</h4>
+			<div class="col-lg-2 navbar-left"  id="table" >
+				<section style="padding-left: 25px;">
+				<h3 class="page-header" >Categorie</h3>
 				<form class="form" role="form" action="#"
 					  th:action="@{/products/filter}" th:object="${formobject}"
-					  method="post">
+					  method="post" >
 					<div class="form-group">
 						<div th:each="category : ${categories}" class="radio">
-							<input th:checked="${category.getNL()=='Alles'}" type="radio" th:value="${category}" name="filter" />
-							<label th:text="${category.getNL()}">--</label>
+							
+							<input th:checked="${category.getNL() == session.catFilter.getNL() }" type="radio" th:value="${category}" name="filter" />
+							<label th:text="${category.getNL()}">-</label>
 						</div>
 						<input type="submit" value="OK" />
 					</div>
 				</form>
+				</section>
 			</div>
-			<div class="col-lg-10">
-				<h1 class="page-header">Producten</h1>
-				<table class="table table-striped" cellpadding="10">
+			
+			<div class="col-lg-1" > 
+			</div>
+			
+			<div class="col-lg-9" id="table" > 
+			
+			
+			<!--  <div class="menu" id="table"> -->
+				<h2 class="page-header" align="center">Producten</h3>
+			<table class="table table-striped" cellpadding="10"> 
+				<!--<table class="table table-bordered" cellpadding="10">-->
 					<thead>
 						<tr>
 							<th align="left">Naam</th>
@@ -53,7 +66,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="element, status: ${lijst}">
+						<tr th:each="element, status: ${session.lijst}">
 							<td th:text="${element.name}" align="left">naam</td>
 							<td th:text="${element.category.getNL()}" align="left">1</td>
 							<td th:text="${element.brand}" align="left">merk</td>
@@ -61,10 +74,10 @@
 							<td th:text="${element.stockCount}" align="left">voorraad</td>
 							<td th:text="${element.info}" align="left">info</td>
 							<td align="left">
-								<form method="post" action="/cart/add" th:action=@{/cart/add?productId={productId}(productId=${element.id})}>
-									<input type="text" style="text-align: right" size="5" placeholder="1" name="quantity"/>
+								<form method="post" action="/cart/add" th:action=@{/cart/add/}>
+									<input type="text" style="text-align: right" size="5" placeholder="1" name="choice"/>
 								<td>
-									<button type="submit" class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></button>
+									<button type="submit"  name="choice" th:value= "${status.index}" class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></button>
 								</td>
 								</form>
 								
@@ -76,16 +89,7 @@
 									<button type="submit" class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></button>
 								</td>
 								</form>
-								
-								
-								Rutger  
-								<form action="#" th:action="@{/cart/add/}"  method="post">
-									<button name="choice" th:value= "${status.index}" type="submit">
-									<span class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"> </span>
-									<i> &nbsp; Voeg toe</i>
-									</button>
-								</form>
-				
+							
 								-->							
 								
 							</td>
@@ -93,8 +97,10 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
-	</div>			
+		</div>		<!--end row -->
+	</div>		<!--end container -->
+		
+
 	
 </body>
 </html>

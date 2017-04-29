@@ -81,11 +81,11 @@ span.psw {
 
 	<div class="container">
 		
-			<h2 style = "align:center; vertical-align:middle;" th:if="${session.currentUser.id==0}">
+			<h2 style = "align:center; vertical-align:middle;" th:if="${session.currentUser==null}">
 				<!-- if login failed--> Login onjuist
 			</h2>
 
-			<h2 style = "align:center; vertical-align:middle;" th:unless="${session.currentUser.id==0}">
+			<h2 style = "align:center; vertical-align:middle;" th:unless="${session.currentUser==null}">
 				<!-- if login is success--> Login succesvol
 			</h2>
 

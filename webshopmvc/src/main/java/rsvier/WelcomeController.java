@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import rsvier.address.Address;
 import rsvier.cart.AnonymousCart;
 import rsvier.cart.Cart;
 import rsvier.cart.CartInterface;
@@ -51,16 +53,21 @@ class WelcomeController {
 	
 	public String welcome(Model model, HttpServletRequest request) {
         List<Product> list = productService.getAllProducts();
-        User test = (User)request.getSession().getAttribute("currentUser");
-        if(test==null){
-        	User dummyUser = new User();
-        	dummyUser.setId(0);
-        	request.getSession().setAttribute("currentUser",dummyUser);
-        	System.out.println("no test user, dummy created");
-        	
-        }else{
-        System.out.println("naam van test user is: "+test.getEmail());
-        }
+//        User test = (User)request.getSession().getAttribute("currentUser");
+//        if(test==null){
+//        	User dummyUser = new User();
+//        	Address adress = new Address();
+//        	
+//        	Cart cart = new Cart();
+//        	cart.setId(0);
+//        	cart.setUser(dummyUser);
+//        	dummyUser.setId(0);
+//        	request.getSession().setAttribute("currentUser",dummyUser);
+//        	System.out.println("no test user, dummy created");
+//        	
+//        }else{
+//        System.out.println("naam van test user is: "+test.getEmail());
+//        }
     
         
 		model.addAttribute("productlist", list);

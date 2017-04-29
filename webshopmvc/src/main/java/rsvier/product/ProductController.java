@@ -44,6 +44,7 @@ public class ProductController {
 
 		System.out.println("De filter in controller is:" + categoryFilter.getNL());
 		request.getSession().setAttribute("lijst", products);
+		request.getSession().setAttribute("catFilter", categoryFilter);
 		model.put("categories", ProductCategory.values());
 		return "products";
 	}
@@ -67,23 +68,7 @@ public class ProductController {
 		}
 	}
 	
-	@RequestMapping(value = "cart/add", method = RequestMethod.POST)
-	public @ResponseBody void addProductToCart(@RequestParam("choice") String choice, HttpServletRequest request, HttpServletResponse response) {		
 
-		System.out.println("Keuze index is: "+choice);
-		@SuppressWarnings("unchecked")
-		List<Product> lijst = (ArrayList<Product>)request.getSession().getAttribute("lijst");
-		Product chosenProduct = lijst.get(Integer.parseInt(choice));
-		System.out.println("Gekozen product is: "+chosenProduct.getName());
-
-		try {
-			response.sendRedirect("/cart");
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-		
-	}
-	
 	
 	
 

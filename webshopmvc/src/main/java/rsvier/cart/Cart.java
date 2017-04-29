@@ -97,11 +97,12 @@ public class Cart implements Serializable, CartInterface {
 		this.totalPrice = this.totalPrice.add(totalPrice);
 	}
         
-    public void calculateTotalPrice() {
-         for (CartSubOrder cso : subOrders) {
-			 BigDecimal subTotal = cso.getSubTotal();
-             setTotalPrice(subTotal);
+    public BigDecimal calculateTotalPrice() {
+    	totalPrice = BigDecimal.ZERO;
+         for (CartSubOrder sub : subOrders) {
+             totalPrice= totalPrice.add(sub.getSubTotal()); 
          }
+         return totalPrice;
 	}
 
 	protected void emptyCart() {
