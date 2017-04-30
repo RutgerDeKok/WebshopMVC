@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Boer Piet - Winkelwagen</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/cart.css" rel="stylesheet"/>
+    <link href="css/CheckOut.css" rel="stylesheet"/>
+</head>
+<body background = "/images/background-cheese.jpg">
+           <header th:replace = "Navigator :: header" />
+        
+           <div id="nice_Simple_Background_a_la_Tjeerd">
+        <form  method="post"  action="/maakAddress">
+			<label><b>Naam </b></label> <input type="text"
+				placeholder=" bijvoorbeeld Karel" name="firstName" required>
+                                <br/>
+			<label><b>Middelnaam</b></label> <input type="text"
+				placeholder="bijvoorbeeld van" name="middleName">
+                        <br/>
+                        <label><b>Achternaam</b></label> <input type="text"
+				placeholder=" bijvoorbeeld HumpfStrum" name="lastName" required>
+                        <br/>
+
+			<label><b>Adres</b></label> <input type="text"
+				placeholder="vul hier uw wachtwoord in" name="street" required>
+                        <br/>
+                        <label><b>Huisnummer</b></label> <input type="number"
+				placeholder=" bijvoorbeeld abc@mail.nl" name="number" required>
+                        <br/>
+
+			<label><b>Toevoeging</b></label> <input type="text"
+				placeholder="vul hier uw wachtwoord in" name="addition">
+                        <br/>
+                        
+                        <label><b>PostCode</b></label> <input type="text"
+				placeholder="vul hier uw wachtwoord in" name="zipCode" required>
+                        <br/>
+                        <label><b>Stad</b></label> <input type="text"
+				placeholder=" bijvoorbeeld abc@mail.nl" name="city" required>
+                        <br/>
+
+			<button type="submit">Voeg toe</button>
+		</form>
+           </div>
+        
+    </body>
+</html>

@@ -51,3 +51,10 @@
        
    }
     
+   #nice_Simple_Background_a_la_Tjeerd{
+    background: whitesmoke;
+    border: 1px solid yellow;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+   }

@@ -94,10 +94,14 @@ class WelcomeController {
 		return "KaasKeuzeMenu";
 	}
         
+<<<<<<< HEAD
 //    @RequestMapping("/wijzigAdres")
 //	public String AddressThing() {
 //		return "wijzigAdres";
 //	}
+=======
+      
+>>>>>>> registeerEnAdresTeamFT
 
 
 }
