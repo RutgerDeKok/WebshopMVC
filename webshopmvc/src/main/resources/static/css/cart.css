@@ -17,9 +17,10 @@
     width: 80%;
 }
 
+
 #button{
-    padding: 50px;
-    margin: 50px;
+    padding: 10px;
+    margin: 10px;
     background: rgb(50,50,50);
     -webkit-box-shadow: rgb(30,30,30) 5px 5px 5px;
     -webkit-border-radius: 10px;

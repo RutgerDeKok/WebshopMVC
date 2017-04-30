@@ -21,6 +21,7 @@ import rsvier.cart.CartService;
 import rsvier.product.Product;
 import rsvier.product.ProductService;
 import rsvier.user.User;
+import rsvier.user.UserType;
 
 
 @Controller
@@ -52,7 +53,15 @@ class WelcomeController {
 		*/
 	
 	public String welcome(Model model, HttpServletRequest request) {
-        List<Product> list = productService.getAllProducts();
+		
+		List<Product> list = productService.getAllProducts();
+		
+		// Dummy medewerker toevoegen om makkelijk medewerker menu's te testen
+			User employee = new User();
+			employee.setEmail("test_employee@rs.nl");
+			employee.setUserType(UserType.EMPLOYEE);
+			request.getSession().setAttribute("currentUser", employee);
+        
 //        User test = (User)request.getSession().getAttribute("currentUser");
 //        if(test==null){
 //        	User dummyUser = new User();

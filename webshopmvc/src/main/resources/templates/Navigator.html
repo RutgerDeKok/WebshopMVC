@@ -16,6 +16,7 @@
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
+
 </head>
 
 <body>
@@ -29,10 +30,26 @@
 			<div class="container">
 
 				<div class="navbar-header">
+					 <a class="navbar-brand"
+						href="welcome.html" th:href="@{/}">Boer Piet</a>
+						
+						<ul class="nav navbar-nav navbar-left" >
 
-					<a class="navbar-brand" href="welcome.html" th:href="@{/}">Boer
-						Piet</a>
+							<li
+								th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
+								<a href="/employees/products"><font color="#0080ff">Producten</font></a>
+							</li>
+							<li
+								th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
+								<a href="/employees/users"><font color="#0080ff">Gebruikers</font></a>
+							</li>
+							<li
+								th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
+								<a href="/employees/orders"><font color="#0080ff">Orders</font></a>
+							</li>
 
+						</ul>
+			
 					<button type="button" class="navbar-toggle collapsed"
 						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 						aria-expanded="false">
@@ -49,7 +66,8 @@
 					id="bs-example-navbar-collapse-1">
 
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="/products">Products</a></li>
+
+						<li><a href="/products">Producten</a></li>
 
 						<li><a href="#">Informatie</a></li>
 
@@ -62,29 +80,32 @@
 						<li><a href="cart" th:href="@{/cart}"><span
 								class="glyphicon glyphicon-shopping-cart icon-white"
 								aria-hidden="true"></span></a></li>
-						
-						
-								
-						<li th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
-						<a href="#" th:href="/employees" >Medewerkers</a></li>
-						
+
+
+
+						<li
+							th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
+							<a href="#" th:href="@{/employees}">Medewerkers</a>
+						</li>
+
 
 						<li th:if="${session.currentUser==null}">
-							<!-- if customer is anonymous--> 
-							<a href="#">Welcome, Guest</a>
+							<!-- if customer is anonymous--> <a href="#">Welcome, Guest</a>
 						</li>
 
 
 						<li th:unless="${session.currentUser==null}">
-							<!-- if customer is not anonymous(logged in)--> 
-							<a href="#"th:text=" 'User: ' + ${session.currentUser.email}">userX</a>
+							<!-- if customer is not anonymous(logged in)--> <a href="#"
+							th:text=" 'User: ' + ${session.currentUser.email}">userX</a>
 						</li>
 
 
-						<li th:if="${session.currentUser==null}"><a href="#" th:href="@{/login.html}"
+						<li th:if="${session.currentUser==null}"><a href="#"
+							th:href="@{/login.html}"
 							onClick="MyWindow=window.open('http://localhost:8080/login','MyWindow','toolbar=no,location=yes,directories=yes,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=600,height=600'); return false;">Inloggen</a></li>
-						
-						<li th:unless="${session.currentUser==null}"><a href="#" th:href="@{/logout}">Uitloggen</a></li>
+
+						<li th:unless="${session.currentUser==null}"><a href="#"
+							th:href="@{/logout}">Uitloggen</a></li>
 					</ul>
 
 				</div>

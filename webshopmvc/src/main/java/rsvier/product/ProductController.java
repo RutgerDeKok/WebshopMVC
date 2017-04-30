@@ -68,6 +68,24 @@ public class ProductController {
 		}
 	}
 	
+	@RequestMapping(value = "products_emp/new", method = RequestMethod.POST)
+	public @ResponseBody void newProduct(@RequestParam("choice") String[] choice, HttpServletRequest request, HttpServletResponse response) {		
+
+		System.out.println("nieuw product methode");
+		@SuppressWarnings("unchecked")
+		List<Product> lijst = (ArrayList<Product>) request.getSession().getAttribute("lijst");
+		int prodIndex = (Integer.parseInt(choice[1]));
+		int quantity = (Integer.parseInt(choice[0]));
+		System.out.println("prodIndex is: " + prodIndex);
+		System.out.println("aantal is: " + quantity);
+
+		try {
+			response.sendRedirect("/products_emp/new");
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 
 	
 	
