@@ -37,11 +37,11 @@
 
 							<li
 								th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
-								<a href="/employees/products"><font color="#0080ff">Producten</font></a>
+								<a href="/employees/products"><font color="#0080ff">Edit Producten</font></a>
 							</li>
 							<li
 								th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
-								<a href="/employees/users"><font color="#0080ff">Gebruikers</font></a>
+								<a href="/employees/users"><font color="#0080ff"> Edit Gebruikers</font></a>
 							</li>
 							<li
 								th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
@@ -82,12 +82,12 @@
 								aria-hidden="true"></span></a></li>
 
 
-
+						<!--  
 						<li
 							th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
-							<a href="#" th:href="@{/employees}">Medewerkers</a>
+							<a href="#" th:href="@{/employees/products}">Medewerkers</a>
 						</li>
-
+						-->
 
 						<li th:if="${session.currentUser==null}">
 							<!-- if customer is anonymous--> <a href="#">Welcome, Guest</a>

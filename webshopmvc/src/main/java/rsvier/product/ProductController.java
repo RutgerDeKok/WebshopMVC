@@ -7,12 +7,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+
 
 
 @Controller
@@ -28,25 +32,19 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value =  { "/products" })
-	public String showProductList(Map<String, Object> model, HttpServletRequest request,
-			HttpServletResponse response) {
+	public String showProductList(Map<String, Object> model, HttpServletRequest request) {
 		
-		categoryFilter= (ProductCategory) request.getSession().getAttribute("categoryFilter");
-		System.out.println("categoryFilter from session is null?:"+categoryFilter==null);
-		
-		if(categoryFilter ==null){
-			categoryFilter = ProductCategory.ALL;
-		}
-
-		List<Product> products = productService.getProductsByCat(categoryFilter);
-
-
-
-		System.out.println("De filter in controller is:" + categoryFilter.getNL());
-		request.getSession().setAttribute("lijst", products);
-		request.getSession().setAttribute("catFilter", categoryFilter);
+		putProductsInSession(request.getSession());
 		model.put("categories", ProductCategory.values());
 		return "products";
+	}
+	
+	@RequestMapping(value =  { "/employees/products" })
+	public String showProductListEmployees(Map<String, Object> model, HttpServletRequest request) {
+		
+		putProductsInSession(request.getSession());
+		model.put("categories", ProductCategory.values());
+		return "emp_products";
 	}
 	
 	
@@ -55,10 +53,7 @@ public class ProductController {
 	@RequestMapping(value = "products/filter", method = RequestMethod.POST)
 	public @ResponseBody void filterProducts(@RequestParam("filter") String radioWaarde,  HttpServletRequest request, HttpServletResponse response) {		
 
-		System.out.println(radioWaarde);
 		ProductCategory categoryFilter = ProductCategory.valueOf(radioWaarde);
-		System.out.println("De filter in filterProducts methos is:" + categoryFilter.getNL());
-		
 		request.getSession().setAttribute("categoryFilter", categoryFilter);
 
 		try {
@@ -68,44 +63,63 @@ public class ProductController {
 		}
 	}
 	
-	@RequestMapping(value = "products_emp/new", method = RequestMethod.POST)
-	public @ResponseBody void newProduct(@RequestParam("choice") String[] choice, HttpServletRequest request, HttpServletResponse response) {		
+	@RequestMapping(value = "employees/products/filter", method = RequestMethod.POST)
+	public @ResponseBody void filterProductsEdit(@RequestParam("filter") String radioWaarde,  HttpServletRequest request, HttpServletResponse response) {		
 
-		System.out.println("nieuw product methode");
-		@SuppressWarnings("unchecked")
-		List<Product> lijst = (ArrayList<Product>) request.getSession().getAttribute("lijst");
-		int prodIndex = (Integer.parseInt(choice[1]));
-		int quantity = (Integer.parseInt(choice[0]));
-		System.out.println("prodIndex is: " + prodIndex);
-		System.out.println("aantal is: " + quantity);
+		ProductCategory categoryFilter = ProductCategory.valueOf(radioWaarde);
+		request.getSession().setAttribute("categoryFilter", categoryFilter);
 
 		try {
-			response.sendRedirect("/products_emp/new");
+			response.sendRedirect("/employees/products");
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 	
+	@RequestMapping(value = "employees/products/delete", method = RequestMethod.POST)
+	public @ResponseBody void deleteProduct(@RequestParam("delindex") String choice, HttpServletRequest request, HttpServletResponse response) {		
 
+		System.out.println("delete product methode");
+		@SuppressWarnings("unchecked")
+		List<Product> lijst = (ArrayList<Product>) request.getSession().getAttribute("lijst");
+		int prodIndex = (Integer.parseInt(choice));
+		System.out.println("prodIndex is: " + prodIndex);
+		//TODO implement the method
+		Product prod = (Product)lijst.get(prodIndex);
+		System.out.println("product to be deleted id: "+prod.getId()+" name: "+prod.getName());
+		try {  // cannot delete a product if it is used as a key inside a suborder
+		productService.deleteproduct(prod.getId());
+		lijst.remove(prodIndex);
+		} catch (Exception e){
+			System.out.println(e.getMessage());
+//			putProductsInSession(request.getSession());
+		}
+		try {
+			response.sendRedirect("/employees/products");
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "employees/products/new", method = RequestMethod.GET)
+	public String newProduct() {		
+		return "product_edit";
+	}
 	
 	
 
-//	public ProductCategory getCategoryFilter() {
-//		return categoryFilter;
-//	}
-//
-//	public void setCategoryFilter(ProductCategory categoryFilter) {
-//		this.categoryFilter = categoryFilter;
-//	}
+	private void putProductsInSession(HttpSession session) {
+		System.out.println("running put products in session");
+		
+		categoryFilter= (ProductCategory) session.getAttribute("categoryFilter");
+		
+		if(categoryFilter ==null){
+			categoryFilter = ProductCategory.ALL;
+		}
 
-//	public String getBrandFilter() {
-//		return brandFilter;
-//	}
-//
-//	public void setBrandFilter(String brandFilter) {
-//		this.brandFilter = brandFilter;
-//	}
-
-
+		List<Product> products = productService.getProductsByCat(categoryFilter);
+		session.setAttribute("lijst", products);
+		session.setAttribute("catFilter", categoryFilter);
+	}
 
 }
