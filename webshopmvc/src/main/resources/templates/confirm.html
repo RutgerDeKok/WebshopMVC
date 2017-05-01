@@ -1,19 +1,85 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    
-    <body>
-        <div>Hier zie je straks de bevestiging van je order.</div>
-        <div>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boer Piet - Winkelwagen</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/cart.css" rel="stylesheet" />
+<link href="css/CheckOut.css" rel="stylesheet" />
+
+
+</head>
+<body background="/images/background-cheese.jpg">
+	<header th:replace="Navigator :: header" />
+        <div style="background:rgb(200,200,200); text-align: center; padding: 5px; margin: 5px; width: 400px; border: 1px solid yellow;">
+            <h1>Uw bestelling is geslaagd!</h1>
+            <h3>U heeft het volgende besteld</h3>
+            </div>
+            <!-- Hier komen alle producten die je gekocht hebt -->
+            <div id="table">
+		<table class="table table-hover">
+			<thead>
+				<tr class="center middle">
+					<th>Productnummer</th>
+					<th>Product</th>
+					<th>Aantal</th>
+					<th>Stukprijs</th>
+					<th>Totaalprijs</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="element : ${session.cart.getSubOrders()}">
+					<td class="center middle" th:text="${element.product.getId()}"></td>
+					<td class="center middle" th:text="${element.product.getName()}"></td>
+					<td class="center middle" th:text="${element.getQuantity()}"></td>
+					<td class="center middle" th:text="${element.product.getPrice()}"></td>
+					<td class="center middle" th:text="${element.getSubTotal()}"></td>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3"></td>
+					<td class="text-right"><strong>Totaal: </strong></td>
+					<td class="text-left" th:text="${session.cart.getTotalPrice()}"></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+            
+            <table>
+
+		<td th:with="delAdd = ${session.cart.getDeliveryAdress()}">
+			<div id="gegevens">
+				<h3>Afleveradres</h3>
+				<p >
+					Voornaam: <span class="center middle"
+						th:text="${delAdd.getFirstName()}">Tjeerd</span><br />
+					Middelnaam: <span class="center middle"
+						th:text="${delAdd.getInsertion()}">Boomstraat</span><br />
+					Achternaam: <span class="center middle"
+						th:text="${delAdd.getFamilyName()}">56</span><br />
+					Adres: <span class="center middle"
+						th:text="${delAdd.getStreet()}">7209 LS</span><br />
+					Huisnummer: <span class="center middle"
+						th:text="${delAdd.getNumber()}">>27</span><br />
+					toevoeging: <span class="center middle"
+						th:text="${delAdd.getNumAddition()}">>27</span><br />
+					Postcode: <span class="center middle"
+						th:text="${delAdd.getZipCode()}">27</span><br /> 
+					Stad: <span class="center middle"
+					 	th:text="${delAdd.getCity()}">27</span><br />
+				</p>
+				<p id = "popup"></p>	
+		</td>
+	</table>
+            
+     <div style="background:rgb(200,200,200); text-align: center; padding: 5px; margin: 5px; width: 400px; border: 1px solid yellow;">
+            Tsja,, dat was het,, Gefeliciteerd met alles enzo
+            <h2>Wacht 's ff,, BETALEN BOEKE!</h2>
+     </div>
+            
         <form action="/products">
     <input type="submit" value="Ok, terug naar de winkel" />
 </form>
