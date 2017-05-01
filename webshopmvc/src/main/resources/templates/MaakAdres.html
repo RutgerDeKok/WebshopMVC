@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maak Adres</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/cart.css" rel="stylesheet" />
+<link href="css/CheckOut.css" rel="stylesheet" />
+</head>
+
+<body background="/images/background-cheese.jpg">
+	<header th:replace="Navigator :: header" />
+
+	<div id="nice_Simple_Background_a_la_Tjeerd"
+		th:with="address = ${session.address}">
+		
+	 	<h3>Voer uw adress gegevens in</h3>
+		<form method="post" action="/MaakAdres/ok/">
+		
+			<label><b>Naam </b></label> <input type="text"
+				th:value="${address.getFirstName()}"
+				 name="firstName" required><br /> 
+			
+			<label><b>Tussenvoegsel</b></label> <input type="text"
+				th:value="${address.getInsertion()}" 
+				name="insertion"> <br /> 
+				
+			<label><b>Achternaam</b></label><input type="text" 
+				th:value="${address.getFamilyName()}"
+				name="lastName" required><br /> 
+				
+			<label><b>Straat</b></label> <input type="text"
+				th:value="${address.getStreet()}"
+				name="street" required> <br /> 
+			
+			<label><b>Huisnummer</b></label><input type="number"
+				th:value="${address.getNumber()}"
+				 name="number" required><br /> 
+				
+			<label><b>Toevoeging</b></label> <input type="text"
+				th:value="${address.getNumAddition()}"
+				 name="addition"> <br />
+			
+			<label><b>PostCode</b></label> <input type="text"
+				th:value="${address.getZipCode()}" 
+				name="zipCode" required> <br /> <label><b>Stad</b>
+				
+			</label> <input type="text" 
+				th:value="${address.getCity()}"
+				 name="city" required> <br />
+				 
+			<br>
+			<br>
+
+			<button type="submit">Voeg toe</button>
+		</form> 
+	</div>
+
+</body>
+</html>

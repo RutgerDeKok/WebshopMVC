@@ -1,7 +1,6 @@
 package rsvier.cart;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -9,10 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import rsvier.cartsuborder.CartSubOrder;
 import rsvier.cartsuborder.CartSubOrderService;
 import rsvier.product.Product;
-import rsvier.product.ProductCategory;
-
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,29 +109,50 @@ public class CartController {
 	}
 
 	@RequestMapping("/checkout")
-	public String checkout(HttpServletRequest request) {
-//		Product product = new Product(1, "kaas", "merk", ProductCategory.GOAT, "info", (new BigDecimal("2.50")), 200);
-//		CartSubOrder cso = new CartSubOrder(1, product, 5);
-//		cso.setSubTotal(product.getPrice(), cso.getQuantity());
-//		CartSubOrder cso2 = new CartSubOrder(2, product, 3);
-//		cso2.setSubTotal(product.getPrice(), cso2.getQuantity());
-//		Cart cart = new Cart();
-//		cart.addSubOrder(cso);
-//		cart.addSubOrder(cso2);
-//		cart.calculateTotalPrice();
-//		model.addAttribute("cart", cart);
+	public String checkout(HttpSession session) {
+		checkForCart(session);
+		checkForBillingAddress(session);
+//		Address address;
 		
-		Address address;
-		
-		User user = (User) request.getSession().getAttribute("currentUser");
-		if(user==null){   // nog niemand ingelogd, dan nieuw adress maken.
-			// voor test doeleinden nu ingevuld met mock data
-			address = new Address(2, "Tjeerd", "van", "Santema", "hiero", 22, "b", "9283 AG", "Groningen");
-		} else {
-			address = user.getBillingAddress();
+		User user = (User) session.getAttribute("currentUser");
+		if(user!=null){  
+			Address address = user.getBillingAddress();
+			System.out.println("city is: "+address.getCity());
 		}
-		request.getSession().setAttribute("address", address);
+		
+//		session.setAttribute("address", address);
 		return "Checkout";
 	}
+	
+	@RequestMapping(value = "/confirm", method = RequestMethod.GET)
+	public String confirmSale(HttpSession session) {
+		Cart cart = (Cart) session.getAttribute("cart");
+		//Order maken
+		
+		//cart leeg maken, suborders ArrayList clear(),alleen delivery address en id laten staan
+		
+		// voorraden van gekochte producten aanpassen.
+		
+		
+		// als een gebruiker is ingelogd, de gebruiker
+		// opnieuw opslaan in de dB ,cascade moett er voor zorgen dat wijzigingen 
+		// in cart en user (zoals addressen) worden oopgeslagen
+		
+		
+		
+		
+		
+		
+		return "redirect:/confirm";
+	}
+
+	private void checkForBillingAddress(HttpSession session) {
+		Cart cart = (Cart) session.getAttribute("cart");
+		if(cart.getDeliveryAdress()==null){
+			cart.setDeliveryAdress(new Address());
+		}
+		
+	}
+
 
 }

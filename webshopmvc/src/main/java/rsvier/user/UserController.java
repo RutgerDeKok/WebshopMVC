@@ -16,21 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import rsvier.product.Product;
 import rsvier.product.ProductCategory;
 
-@Controller
+//@Controller
 public class UserController {
 
 	
 	@Autowired
 	private UserService userService;
 	
-	
-	@RequestMapping(value =  { "/employees" })
-	public String showProductList( HttpServletRequest request) {
-		
-//		System.out.println(((User)request.getSession().getAttribute("currentUser")).getEmail() +" gaat naar medewerker pagina");
-
-		return "employees";
-	}
 	
 	
 //	@RequestMapping("/users")

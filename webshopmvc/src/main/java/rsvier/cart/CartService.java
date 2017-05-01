@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rsvier.cartsuborder.CartSubOrder;
 import rsvier.cartsuborder.CartSubOrderService;
+import rsvier.user.User;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,6 +28,10 @@ public class CartService {
     
     public Cart getCart(Long id){
         return dao.findOne(id);
+    }
+    
+    public Cart getCartByUser(User user){
+        return dao.findCartByUser(user);
     }
     
     public void updateCart(Cart cart){

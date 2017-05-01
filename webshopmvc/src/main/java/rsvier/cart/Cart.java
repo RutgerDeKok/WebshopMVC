@@ -40,9 +40,9 @@ public class Cart implements Serializable, CartInterface {
 	public Cart() {
 	}
 
-	public Cart(long id, User user) {
-		this.id = id; this.user = user;
-	}
+//	public Cart(long id, User user) {
+//		this.id = id; this.user = user;
+//	}
 
 	@Override
 	public String toString() {

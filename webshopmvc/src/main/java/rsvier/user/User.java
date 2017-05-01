@@ -1,5 +1,6 @@
 package rsvier.user;
 
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,10 +51,6 @@ public class User {
 		this.email = email;
 	}
 
-	/*
-	 * @Jurjen get en set PassHash: vraag me af of dit nodig is wordt toch
-	 * afgehandeld door PassHasher.java?
-	 */
 	public String getPassHash() {
 		return passHash;
 	}
@@ -77,5 +74,5 @@ public class User {
 	public void setBillingAdress(Address billingAddress) {
 		this.billingAddress = billingAddress;
 	}
-
+        
 }

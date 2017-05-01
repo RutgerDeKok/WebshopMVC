@@ -2,60 +2,78 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Boer Piet - Winkelwagen</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/cart.css" rel="stylesheet"/>
-    
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boer Piet - Winkelwagen</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/cart.css" rel="stylesheet" />
+
 </head>
-<body background = "/images/background-cheese.jpg">
-           <header th:replace = "Navigator :: header" />
-  
-    <!-- content -->
-    <div align="center"><h2>Uw winkelwagen</h2></div>
-    <br><br>
-    <div id="table">
-    <table class="table table-hover">
-        <thead>
-        <tr class="center middle">
-            <th>Productnummer</th>
-            <th>Product</th>
-            <th>Aantal</th>
-            <th>Stukprijs</th>
-            <th>Totaalprijs</th>
-            <th>Verwijder Bestelling</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="element, status : ${session.cart.getSubOrders()}">
-            <td class="center middle" th:text="${element.product.getId()}"></td>
-            <td class="center middle" th:text="${element.product.getName()}"></td>
-            <td class="center middle" th:text="${element.getQuantity()}"></td>
-            <td class="center middle" th:text="${element.product.getPrice()}"></td>
-            <td class="center middle" th:text="${element.getSubTotal()}"></td>
-            <td class="center middle"> <a href="/cart/delete" th:href=@{/cart/delete?subOrderIndex={subOrderIndex}(subOrderIndex=${status.index})}><span class="glyphicon glyphicon-remove icon-red" aria-hidden="true"></span></a></td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-            <td colspan="3"></td>
-            <td class="text-right"><strong>Totaal: </strong></td>
-            <td class="text-left" th:text="${session.cart.totalPrice}"></td>
-        </tr>
-        </tfoot>
-           </table>
-         </div>
+<body background="/images/background-cheese.jpg">
+	<header th:replace="Navigator :: header" />
 
-        <div id="button">
-        <a href="/checkout">Afrekenen</a>
-        </div>
+	<!-- content -->
+	<div align="center">
+		<h2>Uw winkelwagen</h2>
+	</div>
+	<br>
+	<br>
+	<p>
+	<div class="col-lg-1"></div>
+	<div class="col-lg-10" id="table">
+		<table class="table table-hover">
+			<thead>
+				<tr class="center middle">
+					<th>Productnummer</th>
+					<th>Product</th>
+					<th>Aantal</th>
+					<th>Stukprijs</th>
+					<th>Totaalprijs</th>
+					<th>Verwijder Bestelling</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="element, status : ${session.cart.getSubOrders()}">
+					<td class="center middle" th:text="${element.product.getId()}"></td>
+					<td class="center middle" th:text="${element.product.getName()}"></td>
+					<td class="center middle" th:text="${element.getQuantity()}"></td>
+					<td class="center middle" th:text="${element.product.getPrice()}"></td>
+					<td class="center middle" th:text="${element.getSubTotal()}"></td>
+					<td class="center middle"><a href="/cart/delete"
+						th:href=@{/cart/delete?subOrderIndex={subOrderIndex}(subOrderIndex=${status.index})}><span
+							class="glyphicon glyphicon-remove icon-red" aria-hidden="true"></span></a></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3"></td>
+					<td class="text-right"><strong>Totaal: </strong></td>
+					<td class="text-left" th:text="${session.cart.totalPrice}"></td>
+				</tr>
+			</tfoot>
+		</table>
+	
+	</div>
+	<p>
+	<br>
+	<br>
+	<p>
+	<br>
+	
+	<div class="col-lg-4">
+	</div>
+	<div id="button"  class="col-lg-2">
+		<a href="/checkout" ><font size="5">Afrekenen</font></a>
+	</div>
+
+	</p>
 
 
-    <!-- javascript import -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+	<!-- javascript import -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 
 </body>
 </html>
