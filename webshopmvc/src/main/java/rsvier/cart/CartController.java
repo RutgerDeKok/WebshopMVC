@@ -57,6 +57,9 @@ public class CartController {
 		@SuppressWarnings("unchecked")
 		List<Product> lijst = (ArrayList<Product>) request.getSession().getAttribute("lijst");
 		int prodIndex = (Integer.parseInt(choice[1]));
+		if (choice[0].isEmpty()) {
+			choice[0] = "1";
+		}
 		int quantity = (Integer.parseInt(choice[0]));
 		System.out.println("prodIndex is: " + prodIndex);
 		System.out.println("aantal is: " + quantity);
