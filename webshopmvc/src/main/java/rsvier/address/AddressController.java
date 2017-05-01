@@ -44,6 +44,7 @@ public class AddressController {
 		 */
 
 		System.out.println("Origin of request is: " + origin);
+		session.setAttribute("origin", origin);
 		System.out.println("Address type is: " + addressType);
 		if (addressType.equals("delivery")) {
 			session.setAttribute("address", ((Cart) session.getAttribute("cart")).getDeliveryAdress());
@@ -124,7 +125,15 @@ public class AddressController {
 		 (billing)*/
 		
 		request.getSession().removeAttribute("address");
-		return "redirect:/checkout";
+		
+		String origin = (String) request.getSession().getAttribute("origin");
+		if(origin.equals("checkout")){
+			return "redirect:/checkout";
+		}else if(origin.equals("registeren")){
+			return "redirect:/registeren";
+		}
+		
+		return "redirect:/products";
 	}
 
 	@RequestMapping(value = "/MaakAdres", method = RequestMethod.GET)
