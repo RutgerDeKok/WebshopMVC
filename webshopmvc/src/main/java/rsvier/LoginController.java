@@ -31,8 +31,6 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginCheck(HttpServletRequest request, HttpServletResponse response) {
 		
-		Cart sessionCart = (Cart) request.getSession().getAttribute("cart");
-		System.out.println(sessionCart.getDeliveryAdress().getFirstName());
 
 		String uname = request.getParameter("uname");
 		String pass = request.getParameter("psw");
@@ -74,6 +72,7 @@ public class LoginController {
 		return "success";
 
 	}
+	
 
 	private void checkForSessionCart(HttpSession session, User user) {
 		// checken of er all een cart in de sessie is, 

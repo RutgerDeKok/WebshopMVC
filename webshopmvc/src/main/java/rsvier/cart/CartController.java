@@ -140,11 +140,7 @@ public class CartController {
 		// als een gebruiker is ingelogd, de gebruiker
 		// opnieuw opslaan in de dB ,cascade moett er voor zorgen dat wijzigingen 
 		// in cart en user (zoals addressen) worden oopgeslagen
-		
-		
-		
-		
-		
+	
 		
 		return "redirect:/confirm";
 	}

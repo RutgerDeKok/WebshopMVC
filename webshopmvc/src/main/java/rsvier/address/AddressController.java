@@ -92,7 +92,8 @@ public class AddressController {
 		Cart cart = (Cart) session.getAttribute("cart");
 		if (cart.getDeliveryAdress() == null) {
 			cart.setDeliveryAdress(new Address());
-			session.setAttribute("cart", cart);
+			//niet nodig, zit al in de sessie
+//			session.setAttribute("cart", cart);
 		}
 	}
 
