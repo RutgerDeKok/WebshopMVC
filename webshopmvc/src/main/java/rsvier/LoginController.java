@@ -45,12 +45,14 @@ public class LoginController {
 			Validator validator = Validator.getInstance();
 			if (validator.validateEmail(uname)) {
 				user = userService.findUserByEmail(uname);
+				System.out.println("User: " +user.toString());
 			} else {
 				System.out.println("Not a valid user");
 			}
 
 			if (PassHasher.check(passChars, user.getPassHash())) {
 				System.out.println("login succesful!");
+				System.out.println("User: " +user.toString());
 				// current user set
 				request.getSession().setAttribute("currentUser", user);
 				
