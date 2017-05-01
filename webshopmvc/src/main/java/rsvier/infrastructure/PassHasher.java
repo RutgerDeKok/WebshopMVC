@@ -6,6 +6,7 @@ import javax.crypto.spec.PBEKeySpec;
 import java.security.SecureRandom;
 import org.apache.commons.codec.binary.Base64;
 
+
 public class PassHasher {
     // The higher the number of iterations the more 
     // expensive computing the hash is for us and

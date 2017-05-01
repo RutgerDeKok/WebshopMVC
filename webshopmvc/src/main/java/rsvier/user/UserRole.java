@@ -1,6 +1,10 @@
 package rsvier.user;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by J on 4/28/2017.
@@ -11,9 +15,9 @@ public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_role_id")
+    @Column(name="role_id")
     private long userRoleId;
-    private long userId;
+    @Column(name="role")
     private String userRole;
 
     public long getUserRoleId() {
@@ -22,14 +26,6 @@ public class UserRole {
 
     public void setUserRoleId(long userRoleId) {
         this.userRoleId = userRoleId;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
     }
 
     public String getUserRole() {

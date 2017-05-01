@@ -1,7 +1,8 @@
 
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <html lang="en">
 
 <head>
@@ -67,8 +68,8 @@
 							<!-- if customer is anonymous--> 
 							<a href="#">Welcome, Guest</a>
 						</li>
-						<li th:if="[[${#httpServletRequest.remoteUser}]]">
-							<a href="$" th:text="Hello [[${#httpServletRequest.remoteUser}]]"></a>
+						<li sec:authorize="isAuthenticated()">
+							<span sec:authentication="name"></span>
 						</li>
 						<li th:unless="${session.currentUser==null}">
 							<!-- if customer is not anonymous(logged in)--> 

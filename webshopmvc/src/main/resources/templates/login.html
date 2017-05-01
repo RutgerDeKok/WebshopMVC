@@ -79,9 +79,10 @@ span.psw {
 		You have been logged out.
 	</div>
 	<div class="container">
-		<form  method="post" >
+		<form role="form" action="/login" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<label><b>Gebruikersnaam</b></label> <input type="text"
-				placeholder=" bijvoorbeeld abc@mail.nl" name="uname" required>
+				placeholder="bijvoorbeeld abc@mail.nl" name="email" required autofocus>
 			<label><b>Wachtwoord</b></label> <input type="password"
 				placeholder="vul hier uw wachtwoord in" name="psw" required>
 			<button type="submit">Login</button>

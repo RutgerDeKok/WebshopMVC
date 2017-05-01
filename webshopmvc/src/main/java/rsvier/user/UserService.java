@@ -1,22 +1,28 @@
 package rsvier.user;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import rsvier.infrastructure.PassHasher;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
 	private List<User> users;
-	@Autowired
 	private UserRepository userRepository;
 	@Autowired
 	private UserRoleRepository userRoleRepository;
+
+	@Autowired
+	public UserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 
 	public List<User> getAllUsers() {
 		users = new ArrayList<>();
@@ -28,7 +34,10 @@ public class UserService implements UserDetailsService {
 		return userRepository.findOne(id);
 	}
 
-	public void addUser(User user) {
+	public void addUser(User user, UserRole userRole) {
+		user.setEnabled(true);
+		user.setRoles(new HashSet<UserRole>());
+		user.getRoles().add(userRole);
 		userRepository.save(user);
 	}
 
@@ -44,13 +53,4 @@ public class UserService implements UserDetailsService {
 		return userRepository.findUserByEmail(email);
 	}
 
-	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		User user = userRepository.findUserByEmail(email);
-		if (user == null) {
-			throw new UsernameNotFoundException("E-mail ongeldig.");
-		} else {
-			List<String> userRoles = userRoleRepository.findRoleByEmail(email);
-		}
-	}
 }
