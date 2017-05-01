@@ -4,12 +4,17 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import rsvier.address.Address;
+import rsvier.cart.Cart;
+import rsvier.cart.CartService;
+import rsvier.cartsuborder.CartSubOrder;
 import rsvier.infrastructure.PassHasher;
 import rsvier.infrastructure.Validator;
 import rsvier.user.User;
@@ -20,9 +25,14 @@ public class LoginController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CartService cartService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginCheck(HttpServletRequest request, HttpServletResponse response) {
+		
+		Cart sessionCart = (Cart) request.getSession().getAttribute("cart");
+		System.out.println(sessionCart.getDeliveryAdress().getFirstName());
 
 		String uname = request.getParameter("uname");
 		String pass = request.getParameter("psw");
@@ -45,8 +55,14 @@ public class LoginController {
 				System.out.println("login succesful!");
 				// current user set
 				request.getSession().setAttribute("currentUser", user);
+				
+				
+				// checken of er all een cart in de sessie is, in dat geval moeten de suborders 
+				//	worden toegevoegd aan de cart uit de DB.
+				checkForSessionCart(request.getSession(), user);
+		
 
-			} else {
+			} else { // foute inlog
 				System.out.println("login incorrect!");
 			}
 
@@ -59,9 +75,46 @@ public class LoginController {
 
 	}
 
+	private void checkForSessionCart(HttpSession session, User user) {
+		// checken of er all een cart in de sessie is, 
+		Cart sessionCart = (Cart) session.getAttribute("cart");
+		if(sessionCart!=null){
+			
+			//in dat geval moeten de suborders 
+			//	worden toegevoegd aan de cart uit de DB.
+			Cart dbCart = cartService.getCartByUser(user);
+			System.out.println("DB cart id is: "+ dbCart.getId());
+			for(CartSubOrder sub:sessionCart.getSubOrders()){
+				dbCart.getSubOrders().add(sub);
+			}
+			
+			// is er een recent ingevuld delivery adres in the sessie cart
+			// so ja dan die overzetten in de dbCart
+			if(sessionCart.getDeliveryAdress().getFirstName()!=null){
+			
+				// zorgen dat het cart id behouden blijft
+				Address sessionAddress = sessionCart.getDeliveryAdress();
+				Address dbAddress = dbCart.getDeliveryAdress();
+
+				dbAddress.setCity(sessionAddress.getCity());
+				dbAddress.setFamilyName(sessionAddress.getFamilyName());
+				dbAddress.setFirstName(sessionAddress.getFirstName());
+				dbAddress.setInsertion(sessionAddress.getInsertion());
+				dbAddress.setNumAddition(sessionAddress.getNumAddition());
+				dbAddress.setNumber(sessionAddress.getNumber());
+				dbAddress.setStreet(sessionAddress.getStreet());
+				dbAddress.setZipCode(sessionAddress.getZipCode());
+			}
+			// dbCart in sessie zetten en opslaan in DB
+			session.setAttribute("cart", dbCart);	
+			cartService.updateCart(dbCart);
+		}
+		
+	}
+
 	@RequestMapping("/logout")
 	public void Logout(HttpServletRequest request, HttpServletResponse response) {
-		User anonymus = new User();
+		
 		request.getSession().removeAttribute("currentUser");
 		System.out.println("logging out");
 

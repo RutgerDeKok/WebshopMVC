@@ -109,18 +109,49 @@ public class CartController {
 	}
 
 	@RequestMapping("/checkout")
-	public String checkout(HttpServletRequest request) {
+	public String checkout(HttpSession session) {
+		checkForCart(session);
+		checkForBillingAddress(session);
+//		Address address;
 		
-		Address address;
-		
-		User user = (User) request.getSession().getAttribute("currentUser");
-		if(user==null){   // nog niemand ingelogd, dan nieuw adress maken.
-			address = new Address();
-		} else {
-			address = user.getBillingAddress();
+		User user = (User) session.getAttribute("currentUser");
+		if(user!=null){  
+			Address address = user.getBillingAddress();
+			System.out.println("city is: "+address.getCity());
 		}
-		request.getSession().setAttribute("address", address);
+		
+//		session.setAttribute("address", address);
 		return "Checkout";
+	}
+	
+	@RequestMapping(value = "/confirm", method = RequestMethod.GET)
+	public String confirmSale(HttpSession session) {
+		Cart cart = (Cart) session.getAttribute("cart");
+		//Order maken
+		
+		//cart leeg maken, suborders ArrayList clear(),alleen delivery address en id laten staan
+		
+		// voorraden van gekochte producten aanpassen.
+		
+		
+		// als een gebruiker is ingelogd, de gebruiker
+		// opnieuw opslaan in de dB ,cascade moett er voor zorgen dat wijzigingen 
+		// in cart en user (zoals addressen) worden oopgeslagen
+		
+		
+		
+		
+		
+		
+		return "redirect:/confirm";
+	}
+
+	private void checkForBillingAddress(HttpSession session) {
+		Cart cart = (Cart) session.getAttribute("cart");
+		if(cart.getDeliveryAdress()==null){
+			cart.setDeliveryAdress(new Address());
+		}
+		
 	}
 
 

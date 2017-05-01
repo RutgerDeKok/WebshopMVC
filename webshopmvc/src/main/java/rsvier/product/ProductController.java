@@ -119,6 +119,7 @@ public class ProductController {
 		}
 
 		List<Product> products = productService.getProductsByCat(categoryFilter);
+		System.out.println("products lijst lenth is: "+products.size());
 		session.setAttribute("lijst", products);
 		session.setAttribute("catFilter", categoryFilter);
 	}
