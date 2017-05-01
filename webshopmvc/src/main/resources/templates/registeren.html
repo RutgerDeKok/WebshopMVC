@@ -11,7 +11,130 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     
-    <body>
-        <div>Hier kun je straks registeren!  Nu onze eigen tak.</div>
+     <body background="/images/background-cheese.jpg">
+         
+         
+         
+        <div>Hier kun je straks registeren!  Nu onze eigen tak.
+                       
+       EMAIL adres : 
+       w8
+       w8
+       validated (die twee gelijk zijn)
+       
+       // HIER moet eerst een user worden gemaakt.
+            
+       
+       user.setbillingAdres(new Address);
+       // Leeg adres  in registeer controller.
+       
+            
+       //Lege Cart , pak deze/find user id. En maak een cart aan.
+       
+        public void createCustomerAccount() {
+
+  // get Klant object back (adress can remain null at first)
+  UserAccount user = menu.createUserAccount();
+
+  // send Klant object to DAO to persist in DB
+  // and get back the assigned id
+  long id = dao.create(user).getId();
+
+  // create cart with the same id
+  cartController.createCartByID(id);
+  
+ '' done ''    
+        terug naar login 
+        
+        
+        
+        ''-> echt in te loggen''
+        
+        </div>
+         
+         
+         
+<!--       <a  href="/wijzigAdres?origin=registeren&address=billing">Wijzig</a>-->
+       
+        
+        
+        
+       
+	<header th:replace="Navigator :: header" />
+
+	<div id="nice_Simple_Background_a_la_Tjeerd" th:with="user = ${session.user}">
+		
+	 	<h3>Voer uw gegevens in</h3>
+                
+                
+
+<form method="post" action="/MaakAccount/ok">
+<label><b>Email </b></label> <input type="text"   th:value="${user.getEmail()}"
+				 name="email" required><br /> 
+			
+			<label><b>Wachtwoord</b></label> <input type="text" th:value="${user.getPassHash}" 
+				name="W8"> <br /> 
+
+<label><b>Wachtwoord opnieuw</b></label> <input type="text"
+				th:value="${address.getInsertion()}" 
+				name="W8c"> <br /> 
+
+<button type="submit">Maak Account</button>
+</form>
+<br>
+<br>
+
+
+
+
+<!--		<form method="post" action="/MaakAdresNieuw/ok/">
+		
+			<label><b>Naam </b></label> <input type="text"
+				th:value="${address.getFirstName()}"
+				 name="firstName" required><br /> 
+			
+			<label><b>Tussenvoegsel</b></label> <input type="text"
+				th:value="${address.getInsertion()}" 
+				name="insertion"> <br /> 
+				
+			<label><b>Achternaam</b></label><input type="text" 
+				th:value="${address.getFamilyName()}"
+				name="lastName" required><br /> 
+				
+			<label><b>Straat</b></label> <input type="text"
+				th:value="${address.getStreet()}"
+				name="street" required> <br /> 
+			
+			<label><b>Huisnummer</b></label><input type="number"
+				th:value="${address.getNumber()}"
+				 name="number" required><br /> 
+				
+			<label><b>Toevoeging</b></label> <input type="text"
+				th:value="${address.getNumAddition()}"
+				 name="addition"> <br />
+			
+			<label><b>PostCode</b></label> <input type="text"
+				th:value="${address.getZipCode()}" 
+				name="zipCode" required> <br /> <label><b>Stad</b>
+				
+			</label> <input type="text" 
+				th:value="${address.getCity()}"
+				 name="city" required> <br />
+				 
+			<br>
+			<br>
+
+			<button type="submit">Voeg Adres toe</button>
+		</form> -->
+	</div>
+
+</body>
+        
+        
+        
+        
+        
+        
+        </div>
     </body>
 </html>
