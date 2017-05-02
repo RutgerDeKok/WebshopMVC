@@ -16,11 +16,7 @@ and open the template in the editor.
          
          
         <div>Hier kun je straks registeren!  Nu onze eigen tak.
-       Schets van deze pagina :               
-       EMAIL adres : 
-       w8
-       w8
-       validated (die twee gelijk zijn)
+       
         // HIER moet eerst een user worden gemaakt.
        user.setbillingAdres(new Address);
        // Leeg adres  in registeer controller.    
@@ -36,6 +32,10 @@ and open the template in the editor.
         '' done ''    
         terug naar login   
         ''-> echt in te loggen''
+        <br>
+         <br>
+          <br>
+           <br>
         </div>
          
          
@@ -43,24 +43,47 @@ and open the template in the editor.
 <!--       <a  href="/wijzigAdres?origin=registeren&address=billing">Wijzig</a>-->
        
 <div>
-        
-        
+     <!--validators-->   
+     
        
 	
 		
-	 	<h3>Voer uw gegevens in</h3>
+	 	<h1>Voer uw gegevens in</h1>
+               
                 
                 
+  <form method="post" action="/MaakAccount/ok" onsubmit="return checkForm(this);">
+<fieldset>
+<legend>Maak Account</legend>
+<p>Email : <input title="Vul uw Email gebruikersnaam in" type="text" placeholder=" bijvoorbeeld abc@mijnmail.nl" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" name="email"></p>
+<p>Wachtwoord :  <input title="Wachtwoord moet op zijn minste bestaan uit 6 karakters met tenminste een hoofdletter en een integer (getal)" type="password" placeholder=" bijvoorbeeld Aa1234" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8" onchange="
+  this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+  if(this.checkValidity()) form.W8c.pattern = this.value;
+"></p>
+<p>Bevestig Wachtwoord: <input title="Herhaal uw wachtwoord zoals hierboven" type="password" placeholder=" Herhaling " required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8c" onchange="
+  this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+ "></p><br>
+<p>Voornaam : <input title="Voornaam" type="text" name="firstName" required ></p>
+<p>Tussennaam : <input title="Tussennaam" type="text"  name="insertion" > </p>
+<p>Achternaam : <input title="Achternaam" type="text"  name="lastName" required> </p>
+<br>
+<p>Straat : <input title="Straatnaam" type="text"  name="street" required> </p>
+<p>Huisnummer : <input title="Huisnummer" type="number"  name="number" > </p>
+<p>Toevoeging : <input title="Toevoeging" type="text"  name="addition" > </p>
+<p>Postcode : <input title="Postcode" type="text"  name="zipCode" required> </p>
+<p>Plaats : <input title="Plaatsnaam" type="text"  name="city" required> </p>
 
-<form method="post" action="/MaakAccount/ok">
-<label><b>Email </b></label> <input type="text"    name="email" required><br /> 
-			
-			<label><b>Wachtwoord</b></label> <input type="text"  name="W8"> <br /> 
+<p><input type="submit" value="Maak Account"></p>
+</fieldset>
+</form>              
+                <br>
+                <br>
+                <br>
+               
+<!--  oude is hieronder              -->
 
-<label><b>Wachtwoord opnieuw</b></label> <input type="text" 	name="W8c"> <br /> 
 
-<button type="submit">Maak Account</button>
-</form>
+<br>               
 <br>
 <br>
 

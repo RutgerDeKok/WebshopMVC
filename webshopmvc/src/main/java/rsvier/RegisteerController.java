@@ -25,6 +25,8 @@ import rsvier.infrastructure.PassHasher;
 import rsvier.infrastructure.Validator;
 import rsvier.user.User;
 import rsvier.user.UserService;
+import static rsvier.user.UserType.CUSTOMER;
+
 /**
  *
  * @author Frank
@@ -64,10 +66,9 @@ public class RegisteerController {
 		System.out.println("Account gegevens worden verwerkt");
                 
                 
-                //Belangrijke zin.
-		//User NieuweUser = (User) request.getSession().getAttribute("currentUser");
-		
-                User NieuweUser = null;
+                		
+                User NieuweUser = new User();
+                Address NieuweAdres = new Address();
                 
                 
                 String input1 = request.getParameter("email");
@@ -76,6 +77,8 @@ public class RegisteerController {
                 System.out.println(input2);
                 try{
 		NieuweUser.setEmail(input1);
+                //Het is altijd een klant op deze manier.
+                NieuweUser.setUserType(CUSTOMER);
                 }
                 catch(Exception een){ System.out.println(een.getMessage());}
                 
@@ -95,12 +98,43 @@ public class RegisteerController {
                 
             //   NieuweUser.setPassHash(request.getParameter("passHash"));
             try{
-                 NieuweUser.setPassHash(input2);
+                int i =16;
+                byte b =(byte)i;
+                byte[] barray = {b};
+                String GehashdeWachtwoord = PassHasher.hash(wachtwoordChars,barray);
+                
+                
+                
+                 NieuweUser.setPassHash(GehashdeWachtwoord);
 		
 		//nieuwe user heeft nu een wachtwoord.
 		}
-                catch(Exception twee){ System.out.println(twee.getMessage());}
+                catch(Exception twee){ System.out.println(twee.getMessage()); System.out.println("Het wachtwoord opslaan gaat fout");}
                 System.out.println("tot hier gaat het nog goed-2.");
+                
+//                adres gedeelte invullen.
+                System.out.println("Adres gegevens worden verwerkt");
+		
+		
+		NieuweAdres.setFirstName(request.getParameter("firstName"));
+		NieuweAdres.setFamilyName(request.getParameter("lastName"));
+		NieuweAdres.setInsertion(request.getParameter("insertion"));
+		NieuweAdres.setCity(request.getParameter("city"));
+		NieuweAdres.setNumber(Integer.parseInt(request.getParameter("number")));
+		NieuweAdres.setNumAddition(request.getParameter("addition"));
+		NieuweAdres.setStreet(request.getParameter("street"));
+		NieuweAdres.setZipCode(request.getParameter("zipCode"));
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 //Deel 2 DB.
                 
@@ -138,7 +172,7 @@ public class RegisteerController {
 //			return "redirect:/registeren";
 //		}
 		
-		return "redirect:/products";
+		return "redirect:/login";
 	}
         
         
@@ -147,16 +181,16 @@ public class RegisteerController {
 	public String voegAdrestoe(HttpServletRequest request) {
 		
 		System.out.println("Adres gegevens worden verwerkt");
-		Address updateAddress = (Address) request.getSession().getAttribute("address");
+		Address NieuweAdres = (Address) request.getSession().getAttribute("address");
 		
-		updateAddress.setFirstName(request.getParameter("firstName"));
-		updateAddress.setFamilyName(request.getParameter("lastName"));
-		updateAddress.setInsertion(request.getParameter("insertion"));
-		updateAddress.setCity(request.getParameter("city"));
-		updateAddress.setNumber(Integer.parseInt(request.getParameter("number")));
-		updateAddress.setNumAddition(request.getParameter("addition"));
-		updateAddress.setStreet(request.getParameter("street"));
-		updateAddress.setZipCode(request.getParameter("zipCode"));
+		NieuweAdres.setFirstName(request.getParameter("firstName"));
+		NieuweAdres.setFamilyName(request.getParameter("lastName"));
+		NieuweAdres.setInsertion(request.getParameter("insertion"));
+		NieuweAdres.setCity(request.getParameter("city"));
+		NieuweAdres.setNumber(Integer.parseInt(request.getParameter("number")));
+		NieuweAdres.setNumAddition(request.getParameter("addition"));
+		NieuweAdres.setStreet(request.getParameter("street"));
+		NieuweAdres.setZipCode(request.getParameter("zipCode"));
 		
 		//als het een bestaan adress is van een ingelogde user 
 		// dan wijzigingen opslaan in DB (cart of user)
@@ -164,7 +198,7 @@ public class RegisteerController {
                 
 		if(request.getSession().getAttribute("currentUser")!=null){
 			System.out.println("Gegevens worden opgeslagen in DB");
-			addressService.updateAddress(updateAddress);
+			addressService.createAddress(NieuweAdres);
 		}
 		/* nu het adres is aangepast kan de referentie "address" in de sessie
 		 weg. Het addresss is immers ook al gerefereerd in de cart (delivery) of user
