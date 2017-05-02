@@ -65,16 +65,26 @@ public class RegisteerController {
                 
                 
                 //Belangrijke zin.
-		User NieuweUser = (User) request.getSession().getAttribute("user");
+		//User NieuweUser = (User) request.getSession().getAttribute("currentUser");
 		
+                User NieuweUser = null;
                 
-		NieuweUser.setEmail(request.getParameter("email"));
                 
-                String wachtwoordstring = request.getParameter("W8");
+                String input1 = request.getParameter("email");
+                System.out.println(input1);
+                String input2 = request.getParameter("W8");
+                System.out.println(input2);
+                try{
+		NieuweUser.setEmail(input1);
+                }
+                catch(Exception een){ System.out.println(een.getMessage());}
+                
                 //wachtwoord is nog een tekst, verander naar chars.
-                char[] wachtwoordChars = wachtwoordstring.toCharArray();
+                char[] wachtwoordChars = input2.toCharArray();
                 //Laat wachtwoord zien (check) in system out.
-                System.out.println("Wachtwoord is: "+ wachtwoordstring);
+                
+                System.out.println("tot hier gaat het nog goed.");
+               
                 
                 
              //   byte[] salt = SecureRandom.getInstance("SHA1PRNG").generateSeed(16);
@@ -84,11 +94,13 @@ public class RegisteerController {
                 
                 
             //   NieuweUser.setPassHash(request.getParameter("passHash"));
-                 NieuweUser.setPassHash(wachtwoordstring);
+            try{
+                 NieuweUser.setPassHash(input2);
 		
 		//nieuwe user heeft nu een wachtwoord.
-		
-                
+		}
+                catch(Exception twee){ System.out.println(twee.getMessage());}
+                System.out.println("tot hier gaat het nog goed-2.");
                 
                 //Deel 2 DB.
                 
@@ -98,7 +110,10 @@ public class RegisteerController {
 		//if(request.getSession().getAttribute("currentUser")!=null){
                 
 			System.out.println("Gegevens worden opgeslagen in DB");
-			userService.updateUser(NieuweUser);
+			userService.addUser(NieuweUser);
+                      
+                     System.out.println("tot hier gaat het nog goed-3.");   
+                        
                         
                 //einde onnodige if denk ik.     
 		//}
@@ -112,16 +127,16 @@ public class RegisteerController {
 		
 		request.getSession().removeAttribute("user");
 		
-                
+                System.out.println("tot hier gaat het nog goed-4.");
                 
                 //dit hieronder snap ik niet van adres.
                 
-		String origin = (String) request.getSession().getAttribute("origin");
-		if(origin.equals("checkout")){
-			return "redirect:/checkout";
-		}else if(origin.equals("registeren")){
-			return "redirect:/registeren";
-		}
+//		String origin = (String) request.getSession().getAttribute("origin");
+//		if(origin.equals("checkout")){
+//			return "redirect:/checkout";
+//		}else if(origin.equals("registeren")){
+//			return "redirect:/registeren";
+//		}
 		
 		return "redirect:/products";
 	}
