@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--  <head th:insert="template :: head">-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Producten</title>
+<link href="/../css/bootstrap.min.css" rel="stylesheet">
+<link href="/../css/Kaasmenu.css" rel="stylesheet">
+<link href="/../css/welcome.css" rel="stylesheet">
+
+<style type="text/css">
+#button {
+	padding: 10px;
+	margin: 10px;
+	background: rgb(50, 50, 50);
+	-webkit-box-shadow: rgb(30, 30, 30) 5px 5px 5px;
+	-webkit-border-radius: 10px;
+	color: whitesmoke;
+	text-align: center;
+	-webkit-transition: -webkit-box-shadow 0.3s;
+}
+
+body { 
+	
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+
+</style>
+</head>
+<body th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }"
+	background="/images/grass.jpg">
+
+
+		<header th:replace="Navigator :: header" />
+
+		<div id="hoofd">
+			<h2>Welkom medewerker</h2>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2 navbar-left">
+				<table>
+					<tr>
+						<div  id="table">
+							<section style="padding-left: 25px;">
+								<h3 class="page-header">Categorie</h3>
+								<form class="form" role="form" action="#"
+									th:action="@{/employees/products/filter}"
+									th:object="${formobject}" method="post">
+									<div class="form-group">
+										<div th:each="category : ${categories}" class="radio">
+
+											<input
+												th:checked="${category.getNL() == session.catFilter.getNL() }"
+												type="radio" th:value="${category}" name="filter" /> <label
+												th:text="${category.getNL()}">-</label>
+										</div>
+										<input type="submit" value="OK - Filter" />
+									</div>
+								</form>
+							</section>
+							<div>
+					</tr>
+					<tr>
+						<p>
+							<br> <br>
+						<div id="button" style="padding: 15px 0px;">
+							<a href="/employees/products/new"><font size="5">Nieuw
+									Product</font></a>
+						</div>
+						</p>
+
+
+
+					</tr>
+				</table>
+				</div>
+				<div class="col-lg-1"></div>
+
+				<div class="col-lg-9" id="table">
+
+
+					<!--  <div class="menu" id="table"> -->
+					<h2 class="page-header" align="center">
+						Producten
+						</h3>
+						<table class="table table-striped" cellpadding="10">
+							<!--<table class="table table-bordered" cellpadding="10">-->
+							<thead>
+								<tr>
+									<th align="left">Naam</th>
+									<th align="left">Categorie</th>
+									<th align="left">Merk</th>
+									<th align="left">Prijs</th>
+									<th align="left">Voorraad</th>
+									<th align="left">Informatie</th>
+									<th align="left">Edit</th>
+									<th align="left">Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="element, status: ${session.lijst}">
+									<td th:text="${element.name}" align="left">naam</td>
+									<td th:text="${element.category.getNL()}" align="left">1</td>
+									<td th:text="${element.brand}" align="left">merk</td>
+									<td th:text="${element.price}" align="left">prijs</td>
+									<td th:text="${element.stockCount}" align="left">voorraad</td>
+									<td th:text="${element.info}" align="left">info</td>
+									<td align="left">
+										<form method="post" action="/employees/products/update"
+											th:action=@{/employees/products/update/}>
+											<button type="submit" name="productIndex"
+												th:value="${status.index}">Edit</button>
+										</form>
+									</td>
+									<td align="left">
+										<form method="post" action="/employees/products/delete"
+											th:action=@{/employees/products/delete/}>
+											<button type="submit" name="delindex"
+												th:value="${status.index}">
+												<span class="glyphicon glyphicon-remove icon-red"
+													aria-hidden="true"></span>Delete
+											</button>
+										</form>
+									</td>
+							</tbody>
+						</table>
+				</div>
+			</div>
+			<!--end row -->
+		</div>
+		<!--end container -->
+
+	</body>
+	<!-- end employees only content -->
+
+
+	<body
+		th:unless="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
+		<h1 align="center">No access</h1>
+
+	
+</body>
+</html>
