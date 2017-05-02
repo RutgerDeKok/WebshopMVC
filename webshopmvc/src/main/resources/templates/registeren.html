@@ -60,24 +60,18 @@ and open the template in the editor.
         
         
        
-	<header th:replace="Navigator :: header" />
-
-	<div id="nice_Simple_Background_a_la_Tjeerd" th:with="user = ${session.user}">
+	
 		
 	 	<h3>Voer uw gegevens in</h3>
                 
                 
 
 <form method="post" action="/MaakAccount/ok">
-<label><b>Email </b></label> <input type="text"   th:value="${user.getEmail()}"
-				 name="email" required><br /> 
+<label><b>Email </b></label> <input type="text"    name="email" required><br /> 
 			
-			<label><b>Wachtwoord</b></label> <input type="text" th:value="${user.getPassHash}" 
-				name="W8"> <br /> 
+			<label><b>Wachtwoord</b></label> <input type="text"  name="W8"> <br /> 
 
-<label><b>Wachtwoord opnieuw</b></label> <input type="text"
-				th:value="${address.getInsertion()}" 
-				name="W8c"> <br /> 
+<label><b>Wachtwoord opnieuw</b></label> <input type="text" 	name="W8c"> <br /> 
 
 <button type="submit">Maak Account</button>
 </form>

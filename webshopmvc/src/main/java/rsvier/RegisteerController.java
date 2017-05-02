@@ -36,17 +36,6 @@ import rsvier.user.UserService;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 @Controller
 public class RegisteerController {
  
@@ -61,12 +50,14 @@ public class RegisteerController {
    //         private PassHasher passhasher;
     
     
-    
+    //opend de pagina registeren van de html.
     @RequestMapping(value = { "/registeren" })
 	public String inlog() {
 		return "registeren";
 	}
-    
+        
+        
+    //Dit moet een account aanmaken.
     @RequestMapping(value = "/MaakAccount/ok", method = RequestMethod.POST)
 	public String voegAccountToe(HttpServletRequest request) {
 		
@@ -103,7 +94,7 @@ public class RegisteerController {
                 
 		// dan wijzigingen opslaan in DB (cart of user)
                 
-                //deze if is niet nodig toch?
+                //deze if is niet nodig toch, want er is een nieuwe en niks anders nodig?
 		//if(request.getSession().getAttribute("currentUser")!=null){
                 
 			System.out.println("Gegevens worden opgeslagen in DB");
@@ -136,7 +127,7 @@ public class RegisteerController {
 	}
         
         
-        
+        //Dit moet een adres maken.
         @RequestMapping(value = "/MaakAdresNieuw/ok", method = RequestMethod.POST)
 	public String voegAdrestoe(HttpServletRequest request) {
 		
@@ -154,6 +145,8 @@ public class RegisteerController {
 		
 		//als het een bestaan adress is van een ingelogde user 
 		// dan wijzigingen opslaan in DB (cart of user)
+                //deel 2 DB
+                
 		if(request.getSession().getAttribute("currentUser")!=null){
 			System.out.println("Gegevens worden opgeslagen in DB");
 			addressService.updateAddress(updateAddress);
