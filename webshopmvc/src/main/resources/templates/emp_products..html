@@ -23,11 +23,9 @@
    -webkit-transition: -webkit-box-shadow 0.3s; 
 }
 </style>
+</head>
+<body th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
 
-<head>
-
-<div 
-	th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
 	
 	<header th:replace="Navigator :: header" />
 	
@@ -55,6 +53,14 @@
 						</div>
 					</form>
 				</section>
+				<p>
+		<br> <br>
+	
+		<br>
+	<div id="button" style="padding: 15px 0px;">
+		<a href="/employees/products/new"><font size="5">Nieuw Product</font></a>
+	</div>
+	</p>
 			</div>
 
 			<div class="col-lg-1"></div>
@@ -112,25 +118,13 @@
 	</div>
 	<!--end container -->
 
-	<p>
-		<br> <br>
-	<p>
-		<br>
-	<div class="col-lg-4"></div>
-	<div class="col-lg-2" id="button" style="padding: 15px 0px;">
-		<a href="/employees/products/new"><font size="5">Nieuw Product</font></a>
-	</div>
-	</p>
-</div>
-<!-- end employees only content -->
+	
+	
+</body> !-- end employees only content -->
 
 
-<div
-	th:unless="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
+<body th:unless="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
 	<h1 align="center">No access</h1>
-
-</div>
-
 
 
 </body>
