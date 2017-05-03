@@ -23,7 +23,7 @@ import rsvier.user.User;
 public class Cart implements Serializable, CartInterface {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@OneToOne
 	private User user;

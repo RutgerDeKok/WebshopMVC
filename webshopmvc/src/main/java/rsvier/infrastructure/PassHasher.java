@@ -37,7 +37,7 @@ public class PassHasher {
 
     // using PBKDF2 from Sun, an alternative is https://github.com/wg/scrypt
     // cf. http://www.unlimitednovelty.com/2012/03/dont-use-bcrypt.html
-    private static String hash(char[] password, byte[] salt) throws Exception {
+    public static String hash(char[] password, byte[] salt) throws Exception {
         if (password == null || password.length == 0)
             throw new IllegalArgumentException("Empty passwords are not supported.");
         SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
