@@ -20,10 +20,10 @@ import rsvier.user.User;
 @Table(name = "carts")
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS, value = "session")
-public class Cart implements Serializable, CartInterface {
+public class Cart implements Serializable {
 
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@OneToOne
 	private User user;
@@ -73,7 +73,6 @@ public class Cart implements Serializable, CartInterface {
 		this.deliveryAdress = deliveryAdress;
 	}
 
-	@Override
 	public void addSubOrder(CartSubOrder subOrder) {
 		subOrders.add(subOrder);
 	}

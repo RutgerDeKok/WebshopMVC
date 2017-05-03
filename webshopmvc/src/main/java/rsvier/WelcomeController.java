@@ -1,19 +1,15 @@
 package rsvier;
 
 import java.io.IOException;
-import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import rsvier.cart.CartInterface;
+import rsvier.cart.Cart;
 import rsvier.cart.CartService;
-import rsvier.product.Product;
 import rsvier.product.ProductService;
 
 
@@ -25,7 +21,7 @@ class WelcomeController {
     @Autowired
 	CartService cartService;
     @Autowired
-	private CartInterface cart;
+	private Cart cart;
 
 
 	

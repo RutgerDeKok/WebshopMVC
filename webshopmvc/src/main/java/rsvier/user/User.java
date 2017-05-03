@@ -1,17 +1,9 @@
 package rsvier.user;
 
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
 import rsvier.address.Address;
 
 
@@ -31,6 +23,12 @@ public class User {
 	private UserType UserType; // Enum
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address billingAddress;
+	@Type(type = "true_false")
+	private boolean enabled;
+	@Column(name = "role", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private
+	Role role;
 
 	public User() {
 	}
@@ -74,5 +72,20 @@ public class User {
 	public void setBillingAdress(Address billingAddress) {
 		this.billingAddress = billingAddress;
 	}
-        
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 }
