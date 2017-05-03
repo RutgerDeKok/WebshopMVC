@@ -10,133 +10,85 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    
-     <body background="/images/background-cheese.jpg">
-         
-         
-         
+
+    <body background="/images/background-cheese.jpg">
+
+
+
         <div>Hier kun je straks registeren!  Nu onze eigen tak.
-       
-        // HIER moet eerst een user worden gemaakt.
-       user.setbillingAdres(new Address);
-       // Leeg adres  in registeer controller.    
-       //Lege Cart , pak deze/find user id. En maak een cart aan.
-        public void createCustomerAccount() 
-        // get Klant object back (adress can remain null at first)
-        UserAccount user = menu.createUserAccount();
-        // send Klant object to DAO to persist in DB
-        // and get back the assigned id
-        long id = dao.create(user).getId();
-        // create cart with the same id
-        cartController.createCartByID(id);
-        '' done ''    
-        terug naar login   
-        ''-> echt in te loggen''
-        <br>
-         <br>
-          <br>
-           <br>
+
+            <!--        // HIER moet eerst een user worden gemaakt.
+                   user.setbillingAdres(new Address);
+                   // Leeg adres  in registeer controller.    
+                   //Lege Cart , pak deze/find user id. En maak een cart aan.
+                    public void createCustomerAccount() 
+                    // get Klant object back (adress can remain null at first)
+                    UserAccount user = menu.createUserAccount();
+                    // send Klant object to DAO to persist in DB
+                    // and get back the assigned id
+                    long id = dao.create(user).getId();
+                    // create cart with the same id
+                    cartController.createCartByID(id);
+                    '' done ''    
+                    terug naar login   
+                    ''-> echt in te loggen''-->
+            <br>
+            <br>
+            <br>
+            <br>
         </div>
-         
-         
-         
-<!--       <a  href="/wijzigAdres?origin=registeren&address=billing">Wijzig</a>-->
-       
-<div>
-     <!--validators-->   
-     
-       
-	
-		
-	 	<h1>Voer uw gegevens in</h1>
-               
-                
-                
-  <form method="post" action="/MaakAccount/ok" onsubmit="return checkForm(this);">
-<fieldset>
-<legend>Maak Account</legend>
-<p>Email : <input title="Vul uw Email gebruikersnaam in" type="text" placeholder=" bijvoorbeeld abc@mijnmail.nl" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" name="email"></p>
-<p>Wachtwoord :  <input title="Wachtwoord moet op zijn minste bestaan uit 6 karakters met tenminste een hoofdletter en een integer (getal)" type="password" placeholder=" bijvoorbeeld Aa1234" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8" onchange="
-  this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
-  if(this.checkValidity()) form.W8c.pattern = this.value;
-"></p>
-<p>Bevestig Wachtwoord: <input title="Herhaal uw wachtwoord zoals hierboven" type="password" placeholder=" Herhaling " required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8c" onchange="
-  this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
- "></p><br>
-<p>Voornaam : <input title="Voornaam" type="text" name="firstName" required ></p>
-<p>Tussennaam : <input title="Tussennaam" type="text"  name="insertion" > </p>
-<p>Achternaam : <input title="Achternaam" type="text"  name="lastName" required> </p>
-<br>
-<p>Straat : <input title="Straatnaam" type="text"  name="street" required> </p>
-<p>Huisnummer : <input title="Huisnummer" type="number"  name="number" > </p>
-<p>Toevoeging : <input title="Toevoeging" type="text"  name="addition" > </p>
-<p>Postcode : <input title="Postcode" type="text"  name="zipCode" required> </p>
-<p>Plaats : <input title="Plaatsnaam" type="text"  name="city" required> </p>
-
-<p><input type="submit" value="Maak Account"></p>
-</fieldset>
-</form>              
-                <br>
-                <br>
-                <br>
-               
-<!--  oude is hieronder              -->
+            <!--validators-->   
 
 
-<br>               
-<br>
-<br>
 
 
-</div>
-<!--adres maken deel-->
-<div>
-<!--		<form method="post" action="/MaakAdresNieuw/ok/">
-		
-			<label><b>Naam </b></label> <input type="text"
-				th:value="${address.getFirstName()}"
-				 name="firstName" required><br /> 
-			
-			<label><b>Tussenvoegsel</b></label> <input type="text"
-				th:value="${address.getInsertion()}" 
-				name="insertion"> <br /> 
-				
-			<label><b>Achternaam</b></label><input type="text" 
-				th:value="${address.getFamilyName()}"
-				name="lastName" required><br /> 
-				
-			<label><b>Straat</b></label> <input type="text"
-				th:value="${address.getStreet()}"
-				name="street" required> <br /> 
-			
-			<label><b>Huisnummer</b></label><input type="number"
-				th:value="${address.getNumber()}"
-				 name="number" required><br /> 
-				
-			<label><b>Toevoeging</b></label> <input type="text"
-				th:value="${address.getNumAddition()}"
-				 name="addition"> <br />
-			
-			<label><b>PostCode</b></label> <input type="text"
-				th:value="${address.getZipCode()}" 
-				name="zipCode" required> <br /> <label><b>Stad</b>
-				
-			</label> <input type="text" 
-				th:value="${address.getCity()}"
-				 name="city" required> <br />
-				 
-			<br>
-			<br>
+            <h1>Voer uw gegevens in</h1>
 
-			<button type="submit">Voeg Adres toe</button>
-		</form> -->
-</div>
+            
+            
+            
+            <h2 th:if="${session.message != null}">Email adres al in gebruik, maak een andere keuze</h2>
+            
+             
+            <form method="post" action="/MaakAccount/ok" onsubmit="return checkForm(this);">
+                <fieldset>
+                    <legend>Maak Account</legend>
+                    <p>Email : <input title="Vul uw Email gebruikersnaam in" type="text" placeholder=" bijvoorbeeld abc@mijnmail.nl" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" name="email"></p>
+                    <p>Wachtwoord :  <input title="Wachtwoord moet op zijn minste bestaan uit 6 karakters met tenminste een hoofdletter en een integer (getal)" type="password" placeholder=" bijvoorbeeld Aa1234" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8" onchange="
+                            this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+                            if (this.checkValidity())
+                                form.W8c.pattern = this.value;
+                                            "></p>
+                    <p>Bevestig Wachtwoord: <input title="Herhaal uw wachtwoord zoals hierboven" type="password" placeholder=" Herhaling " required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8c" onchange="
+                            this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+                                                   "></p><br>
 
-<!--achtergrondbody-->
-</body>
-        
-      
-        
-        
-      
+
+
+                    <p>Voornaam : <input  type="text" name="firstName" required th:value="${session.tempAdres.getFirstName()}"></p>
+                    <p>Tussennaam : <input  type="text"  name="insertion" th:value="${session.tempAdres.getInsertion()}" > </p>
+                    <p>Achternaam : <input  type="text"  name="lastName" required th:value="${session.tempAdres.getFamilyName()}"> </p>
+                    <br>
+                    <p>Straat : <input  type="text"  name="street" required th:value="${session.tempAdres.getStreet()}"> </p>
+                    <p>Huisnummer : <input  type="number"  name="number" th:value="${session.tempAdres.getNumber()}" > </p>
+                    <p>Toevoeging : <input  type="text"  name="addition" th:value="${session.tempAdres.getNumAddition()}" > </p>
+                    <p>Postcode : <input  type="text"  name="zipCode" required th:value="${session.tempAdres.getZipCode()}"> </p>
+                    <p>Plaats : <input  type="text"  name="city" required th:value="${session.tempAdres.getCity()}"> </p>
+
+
+
+                    <p><input type="submit" value="Maak Account"></p>
+                </fieldset>
+            </form>              
+
+
+
+
+
+
+            <!--achtergrondbody-->
+    </body>
+
+
+
 </html>
