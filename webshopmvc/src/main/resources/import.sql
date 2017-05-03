@@ -1,8 +1,8 @@
 INSERT INTO addresses VALUES (NULL, "stad", "achternaam", "voornaam", "tussennaam", "huisnrtvg", "1", "straat", "postcode");
 INSERT INTO users VALUES (NULL, "EMPLOYEE", "werknemer@domein.nl", "p7iSLIezNrbmpTNGeaUXuw==$AGXMdphftqc=", "1");
 INSERT INTO users VALUES (NULL, "CUSTOMER", "klant@domein.nl", "p7iSLIezNrbmpTNGeaUXuw==$AGXMdphftqc=", "1");
-INSERT INTO carts VALUES (NULL, "10.00", "1", "1");
-INSERT INTO carts VALUES (NULL, "10.00", "1", "2");
+INSERT INTO carts VALUES ("1", "10.00", "1", "1");
+INSERT INTO carts VALUES ("2", "10.00", "1", "2");
 INSERT INTO products VALUES (NULL, "Danablue", "BLUE", "info", "Danablue", "2.50", "500");
 INSERT INTO products VALUES (NULL, "President", "GOAT", "info", "Geitenkaas", "2.50", "500");
 INSERT INTO products VALUES (NULL, "Paturain", "CREAM", "info", "Kruidenroomkaas", "2.50", "500");
