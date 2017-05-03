@@ -5,7 +5,6 @@
  */
 package rsvier;
 
-import java.math.BigDecimal;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +18,8 @@ import rsvier.product.Product;
 import rsvier.product.ProductCategory;
 import rsvier.user.User;
 import rsvier.user.UserType;
+
+import java.math.BigDecimal;
 
 /**
  *

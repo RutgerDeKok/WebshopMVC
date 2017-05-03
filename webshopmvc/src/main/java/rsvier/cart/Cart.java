@@ -1,14 +1,7 @@
 package rsvier.cart;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.*;
-
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -16,11 +9,17 @@ import rsvier.address.Address;
 import rsvier.cartsuborder.CartSubOrder;
 import rsvier.user.User;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "carts")
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS, value = "session")
-public class Cart implements Serializable, CartInterface {
+public class Cart implements Serializable {
 
 	@Id
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +50,6 @@ public class Cart implements Serializable, CartInterface {
 //		this.id = id; this.user = user;
 //	}
 
-	@Override
 	public String toString() {
 		return "Aantal producten: " + subOrders.size() + ", totaal: " + totalPrice;
 	}
@@ -80,7 +78,6 @@ public class Cart implements Serializable, CartInterface {
 		this.deliveryAdress = deliveryAdress;
 	}
 
-	@Override
 	public void addSubOrder(CartSubOrder subOrder) {
 		subOrders.add(subOrder);
 	}

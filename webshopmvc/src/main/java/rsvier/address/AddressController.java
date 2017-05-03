@@ -1,25 +1,21 @@
 package rsvier.address;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import rsvier.cart.Cart;
 import rsvier.cartsuborder.CartSubOrderService;
-
-import java.io.IOException;
+import rsvier.product.ProductService;
+import rsvier.user.User;
+import rsvier.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMethod;
-import rsvier.address.Address;
-import rsvier.product.ProductService;
-import rsvier.address.AddressService;
-import rsvier.cart.Cart;
-import rsvier.user.User;
-import rsvier.user.UserService;
+import java.io.IOException;
 
 @Controller
 public class AddressController {

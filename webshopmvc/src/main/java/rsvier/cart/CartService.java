@@ -1,22 +1,19 @@
 package rsvier.cart;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rsvier.cartsuborder.CartSubOrder;
 import rsvier.cartsuborder.CartSubOrderService;
 import rsvier.user.User;
 
-import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CartService {
     
     @Autowired
     CartRepository dao;
-    @Autowired
-    AnonCartRepository anondao;
     @Autowired
     CartSubOrderService cartSubOrderService;
     
@@ -54,7 +51,4 @@ public class CartService {
         cartSubOrderService.deleteCartSubOrder(cso);
     }
 
-    public AnonymousCart getCartBySessionId(String sessionId) {
-        return anondao.getAnonymousCartBySessionId(sessionId);
-    }
 }

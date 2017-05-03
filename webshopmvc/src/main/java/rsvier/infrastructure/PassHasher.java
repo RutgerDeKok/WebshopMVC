@@ -1,10 +1,11 @@
 package rsvier.infrastructure;
 
+import org.apache.commons.codec.binary.Base64;
+
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.SecureRandom;
-import org.apache.commons.codec.binary.Base64;
 
 public class PassHasher {
     // The higher the number of iterations the more 
