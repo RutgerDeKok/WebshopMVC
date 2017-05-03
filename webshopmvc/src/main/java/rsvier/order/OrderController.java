@@ -77,7 +77,8 @@ public class OrderController {
             finalSubOrder.setPrd_brand(subOrder.getProduct().getBrand());
             finalSubOrder.setPrd_category(subOrder.getProduct().getCategory());
             finalSubOrder.setQuantity(subOrder.getQuantity());
-            finalSubOrder.setSubTotal(subOrder.getSubTotal()); 
+            finalSubOrder.setSubTotal(subOrder.getSubTotal());
+ 
           
             //Stock aanpassen
             Product product = subOrder.getProduct();
@@ -101,7 +102,7 @@ public class OrderController {
          // Cart naar Order en Cart leegmaken  
          order.setDeliveryAdress(address);
          order.setSaledate(new Date());
-         order.calculateTotalPrice();
+         order.setTotalPrice(cart.getTotalPrice());
          order.setUser(user);
          orderService.createOrder(order);
          

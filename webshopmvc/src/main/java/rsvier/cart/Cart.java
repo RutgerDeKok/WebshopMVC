@@ -40,6 +40,13 @@ public class Cart implements Serializable, CartInterface {
 	public Cart() {
 	}
 
+    public Cart(long id, User user, Address deliveryAdress, BigDecimal totalPrice) {
+        this.id = id;
+        this.user = user;
+        this.deliveryAdress = deliveryAdress;
+        this.totalPrice = totalPrice;
+    }
+ 
 //	public Cart(long id, User user) {
 //		this.id = id; this.user = user;
 //	}

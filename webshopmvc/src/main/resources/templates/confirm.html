@@ -31,18 +31,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="element : ${session.cart.getSubOrders()}">
-					<td class="center middle" th:text="${element.product.getId()}"></td>
-					<td class="center middle" th:text="${element.product.getName()}"></td>
+				<tr th:each="element : ${order.getSubOrders()}">
+					<td class="center middle" th:text="2"></td>
+					<td class="center middle" th:text="${element.getPrd_name()}"></td>
 					<td class="center middle" th:text="${element.getQuantity()}"></td>
-					<td class="center middle" th:text="${element.product.getPrice()}"></td>
+					<td class="center middle" th:text="${element.getItem_price()}"></td>
 					<td class="center middle" th:text="${element.getSubTotal()}"></td>
 			</tbody>
 			<tfoot>
 				<tr>
 					<td colspan="3"></td>
 					<td class="text-right"><strong>Totaal: </strong></td>
-					<td class="text-left" th:text="${session.cart.getTotalPrice()}"></td>
+					<!--<td class="text-left" th:text="${order.getTotalPrice()}"></td>-->
 				</tr>
 			</tfoot>
 		</table>
@@ -79,7 +79,7 @@
             Tsja,, dat was het,, Gefeliciteerd met alles enzo
             <h2>Wacht 's ff,, BETALEN BOEKE!</h2>
      </div>
-            
+            <br/><br/>
         <form action="/products">
     <input type="submit" value="Ok, terug naar de winkel" />
 </form>
