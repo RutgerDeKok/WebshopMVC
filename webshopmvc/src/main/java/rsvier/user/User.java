@@ -35,6 +35,15 @@ public class User {
 	public User() {
 	}
 
+    public User(long id, String email, String passHash, UserType UserType, Address billingAddress) {
+        this.id = id;
+        this.email = email;
+        this.passHash = passHash;
+        this.UserType = UserType;
+        this.billingAddress = billingAddress;
+    }
+
+        
 	public long getId() {
 		return id;
 	}

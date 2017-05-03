@@ -3,6 +3,7 @@ package rsvier.order;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 
@@ -35,7 +36,7 @@ public class Order {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "order_id")
 	private List<FinalSubOrder> subOrders = new ArrayList<>();
-	private LocalDate orderDate;
+	private Date orderDate;
 	@Column(length = 10, nullable = false)
 	private BigDecimal totalPrice;
 
@@ -96,22 +97,58 @@ public class Order {
 		subOrders.add(subOrder);
 	}
 
-	public LocalDate getSaledate() {
+	public Date getSaledate() {
 		return orderDate;
 	}
 
-	public void setSaledate(LocalDate saledate) {
+	public void setSaledate(Date saledate) {
 		this.orderDate = saledate;
 	}
 
 	public BigDecimal getTotalPrice() {
 		return totalPrice;
 	}
+	
+	
+	public Date getOrderDate() {
+		return orderDate;
+	}
 
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getInsertion() {
+		return insertion;
+	}
+
+	public String getFamilyName() {
+		return familyName;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public String getNumAddition() {
+		return numAddition;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public String getCity() {
+		return city;
+	}
 
 	public void setTotalPrice(BigDecimal totalPrice) {
 		if (this.totalPrice == null) {
-			this.totalPrice = new BigDecimal(0);
+			this.totalPrice = new BigDecimal("0");
 		}
 		this.totalPrice = this.totalPrice.add(totalPrice);
 	}

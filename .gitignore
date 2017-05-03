@@ -2,3 +2,4 @@
 \.idea/
 
 webshopmvc/src/main/resources/application\.properties
+/webshopmvc/nbproject/

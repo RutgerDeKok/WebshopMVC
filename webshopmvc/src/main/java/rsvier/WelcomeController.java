@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import rsvier.cart.CartInterface;
 import rsvier.cart.CartService;
 import rsvier.product.Product;
 import rsvier.product.ProductService;
+import rsvier.user.User;
+import rsvier.user.UserType;
 
 
 @Controller
@@ -45,14 +48,14 @@ class WelcomeController {
         return "welcome";
 		*/
     @RequestMapping(value ="/")
-	public void welcome(HttpServletResponse response) {
+	public void welcome(HttpServletResponse response, HttpSession session) {
 		
 		
-//		// Dummy medewerker toevoegen om makkelijk medewerker menu's te testen
+		// Dummy medewerker toevoegen om makkelijk medewerker menu's te testen
 //			User employee = new User();
 //			employee.setEmail("test_employee@rs.nl");
 //			employee.setUserType(UserType.EMPLOYEE);
-//			request.getSession().setAttribute("currentUser", employee);
+//			session.setAttribute("currentUser", employee);
         
         
     	try {
