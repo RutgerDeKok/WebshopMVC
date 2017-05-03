@@ -47,17 +47,61 @@ public class FinalSubOrder {
             item_price = sub.getProduct().getPrice();
             subTotal = sub.getSubTotal();
     }
-    
-    
-	public String getPrd_Name() {
-        return prd_name;
+
+    public long getId() {
+        return id;
     }
-	
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public int getQuantity() {
         return quantity;
     }
-    
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getPrd_name() {
+        return prd_name;
+    }
+
+    public void setPrd_name(String prd_name) {
+        this.prd_name = prd_name;
+    }
+
+    public String getPrd_brand() {
+        return prd_brand;
+    }
+
+    public void setPrd_brand(String prd_brand) {
+        this.prd_brand = prd_brand;
+    }
+
+    public ProductCategory getPrd_category() {
+        return prd_category;
+    }
+
+    public void setPrd_category(ProductCategory prd_category) {
+        this.prd_category = prd_category;
+    }
+
+    public BigDecimal getItem_price() {
+        return item_price;
+    }
+
+    public void setItem_price(BigDecimal item_price) {
+        this.item_price = item_price;
+    }
+
     public BigDecimal getSubTotal() {
         return subTotal;
     }
+
+    public void setSubTotal(BigDecimal subTotal) {
+        this.subTotal = subTotal;
+    }
+	
 }

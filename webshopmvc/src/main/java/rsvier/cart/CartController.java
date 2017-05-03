@@ -127,23 +127,7 @@ public class CartController {
 		return "Checkout";
 	}
 	
-	@RequestMapping(value = "/confirm", method = RequestMethod.GET)
-	public String confirmSale(HttpSession session) {
-		Cart cart = (Cart) session.getAttribute("cart");
-		//Order maken
-		
-		//cart leeg maken, suborders ArrayList clear(),alleen delivery address en id laten staan
-		
-		// voorraden van gekochte producten aanpassen.
-		
-		
-		// als een gebruiker is ingelogd, de gebruiker
-		// opnieuw opslaan in de dB ,cascade moett er voor zorgen dat wijzigingen 
-		// in cart en user (zoals addressen) worden oopgeslagen
 	
-		
-		return "redirect:/confirm";
-	}
 
 	private void checkForBillingAddress(HttpSession session) {
 		Cart cart = (Cart) session.getAttribute("cart");
