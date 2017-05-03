@@ -45,7 +45,7 @@ public class ProductService {
 		productRepository.save(product);
 	}
 
-	public void updateProducter(Product product) {
+	public void updateProduct(Product product) {
 		productRepository.save(product);
 	}
 
@@ -76,6 +76,10 @@ public class ProductService {
 		list.add(product1);
 		list.add(product2);
 		return list;
+	}
+
+	public void clearLocalList() {
+		products=null;
 	}
 
 }

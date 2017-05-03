@@ -1,6 +1,7 @@
 package rsvier.product;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -103,8 +103,78 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "employees/products/new", method = RequestMethod.GET)
-	public String newProduct() {		
+	public @ResponseBody void newProduct(HttpSession session, HttpServletResponse response){
+			
+		Product product = new Product();
+		//om null pointer in het pull down menu te voorkomen
+		// enum waarde toevoegen
+		product.setCategory(ProductCategory.values()[0]);
+		
+		session.setAttribute("product", product);
+		
+		try {
+			response.sendRedirect("/product_edit");
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	@RequestMapping(value = "/product_edit", method = RequestMethod.GET)
+	public String gotoProductEdit(Map<String, Object> model) {
+		
+		model.put("categories", ProductCategory.values());
 		return "product_edit";
+	}
+	
+	@RequestMapping(value = "employees/products/update", method = RequestMethod.POST)
+	public @ResponseBody void updateProduct(@RequestParam("productIndex") String productIndex, 
+			HttpSession session, HttpServletResponse response){
+		@SuppressWarnings("unchecked")
+		List<Product> lijst = (ArrayList<Product>) session.getAttribute("lijst");
+		int prodIndex = (Integer.parseInt(productIndex));
+		System.out.println("prodIndex is: " + prodIndex);
+		
+		Product product = (Product)lijst.get(prodIndex);
+		session.setAttribute("product", product);
+		
+		try {
+			response.sendRedirect("/product_edit");
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/updateProduct/ok", method = RequestMethod.POST)
+	public void voegAdrestoe(HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("Product gegevens worden verwerkt");
+		Product updateProduct = (Product) request.getSession().getAttribute("product");
+		System.out.println("cat is: "+request.getParameter("cat"));
+		updateProduct.setName(request.getParameter("name"));
+		updateProduct.setBrand(request.getParameter("brand"));
+		updateProduct.setInfo(request.getParameter("info"));
+		updateProduct.setStockCount(Integer.parseInt(request.getParameter("stock")));
+		updateProduct.setPrice(new BigDecimal(request.getParameter("price")));
+		updateProduct.setCategory(ProductCategory.valueOf(request.getParameter("cat")));
+
+		
+			System.out.println("Gegevens worden opgeslagen in DB");
+			
+			// als nieuw product, na opslaan nieuwe lijst uit DB halen
+			System.out.println("id = "+updateProduct.getId());
+			if(updateProduct.getId()==0){
+				//dwingt het halen van een verse lijst uit de bd
+				// bij bekijken van alle producten
+				productService.clearLocalList();
+			}
+			productService.updateProduct(updateProduct);
+		
+		request.getSession().removeAttribute("product");
+			
+		try {
+			response.sendRedirect("/employees/products");
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	
@@ -119,7 +189,7 @@ public class ProductController {
 		}
 
 		List<Product> products = productService.getProductsByCat(categoryFilter);
-		System.out.println("products lijst lenth is: "+products.size());
+		System.out.println("products lijst length is: "+products.size());
 		session.setAttribute("lijst", products);
 		session.setAttribute("catFilter", categoryFilter);
 	}

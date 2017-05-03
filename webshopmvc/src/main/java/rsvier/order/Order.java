@@ -107,7 +107,43 @@ public class Order {
 	public BigDecimal getTotalPrice() {
 		return totalPrice;
 	}
+	
+	
+	public LocalDate getOrderDate() {
+		return orderDate;
+	}
 
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getInsertion() {
+		return insertion;
+	}
+
+	public String getFamilyName() {
+		return familyName;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public String getNumAddition() {
+		return numAddition;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public String getCity() {
+		return city;
+	}
 
 	public void setTotalPrice(BigDecimal totalPrice) {
 		if (this.totalPrice == null) {
