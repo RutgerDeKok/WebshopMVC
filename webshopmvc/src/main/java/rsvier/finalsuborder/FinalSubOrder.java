@@ -95,5 +95,11 @@ public class FinalSubOrder {
     public void setSubTotal(BigDecimal subTotal) {
         this.subTotal = subTotal;
     }
+
+	@Override
+	public String toString() {
+		return "FinalSubOrder [quantity=" + quantity + ", prd_name=" + prd_name + ", prd_brand=" + prd_brand
+				+ ", prd_category=" + prd_category + ", subTotal=" + subTotal + "]";
+	}
 	
 }

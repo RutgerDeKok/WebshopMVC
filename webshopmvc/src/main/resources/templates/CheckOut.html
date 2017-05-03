@@ -10,6 +10,14 @@
 <link href="css/cart.css" rel="stylesheet" />
 <link href="css/CheckOut.css" rel="stylesheet" />
 
+<style>
+
+#scroll30 {
+ 	height: 30vh;
+    overflow-y: scroll;
+}
+
+</style>
 
 
 
@@ -22,9 +30,12 @@
 	<div align="center">
 		<h2>Afrekenen</h2>
 	</div>
-	<br>
-	<br>
-	<div id="table">
+	
+	<div class="col-lg-1" > 
+	</div>
+	<div class="col-lg-10" id="scroll30">
+	<div id="table" >
+
 		<table class="table table-hover">
 			<thead>
 				<tr class="center middle">
@@ -52,86 +63,107 @@
 			</tfoot>
 		</table>
 	</div>
+	</div>
 	<table>
-		
-		<td  th:unless="${session.currentUser==null}">
+
+		<td th:unless="${session.currentUser==null}">
 			<div id="gegevens">
 				<h3>Factuuradres</h3>
 				<p th:with="billAdd = ${session.currentUser.getBillingAddress()}">
-						Voornaam: <span class="center middle"
+					Voornaam: <span class="center middle"
 						th:text="${billAdd.getFirstName()}">Tjeerd</span><br />
 					Tussenvoegsel: <span class="center middle"
 						th:text="${billAdd.getInsertion()}">Boomstraat</span><br />
 					Achternaam: <span class="center middle"
-						th:text="${billAdd.getFamilyName()}">56</span><br />
-					Adres: <span class="center middle"
-						th:text="${billAdd.getStreet()}">7209 LS</span><br />
-					Huisnummer: <span class="center middle"
-						th:text="${billAdd.getNumber()}">>27</span><br />
-					toevoeging: <span class="center middle"
-						th:text="${billAdd.getNumAddition()}">>27</span><br />
+						th:text="${billAdd.getFamilyName()}">56</span><br /> Adres: <span
+						class="center middle" th:text="${billAdd.getStreet()}">7209
+						LS</span><br /> Huisnummer: <span class="center middle"
+						th:text="${billAdd.getNumber()}">>27</span><br /> toevoeging: <span
+						class="center middle" th:text="${billAdd.getNumAddition()}">>27</span><br />
 					Postcode: <span class="center middle"
-						th:text="${billAdd.getZipCode()}">27</span><br /> 
-					Stad: <span class="center middle" 
-						th:text="${billAdd.getCity()}">27</span><br />
+						th:text="${billAdd.getZipCode()}">27</span><br /> Stad: <span
+						class="center middle" th:text="${billAdd.getCity()}">27</span><br />
 				<p>
 				<div id="button">
-					<a  href="/wijzigAdres?origin=checkout&address=billing">Wijzig</a>
+					<a href="/wijzigAdres?origin=checkout&address=billing">Wijzig</a>
 				</div>
-				
+
 			</div>
 		</td>
 
-		<td  th:unless="${session.currentUser==null}">
-		
-		<div>
-		<div id="button">
-					<a href="/copyAdres"><div>Kopieer factuuradres</div><div> naar afleveradres</div></a>
+		<td th:unless="${session.currentUser==null}">
+
+			<div>
+				<div id="button">
+					<a href="/copyAdres"><div>Kopieer factuuradres</div>
+						<div>naar afleveradres</div></a>
 				</div>
-		</div>
+			</div>
 		</td>
 
-		
+
 		<td th:with="delAdd = ${session.cart.getDeliveryAdress()}">
 			<div id="gegevens">
 				<h3>Afleveradres</h3>
-				<p >
+				<p>
 					Voornaam: <span class="center middle"
 						th:text="${delAdd.getFirstName()}">Tjeerd</span><br />
 					Middelnaam: <span class="center middle"
 						th:text="${delAdd.getInsertion()}">Boomstraat</span><br />
 					Achternaam: <span class="center middle"
-						th:text="${delAdd.getFamilyName()}">56</span><br />
-					Adres: <span class="center middle"
-						th:text="${delAdd.getStreet()}">7209 LS</span><br />
-					Huisnummer: <span class="center middle"
-						th:text="${delAdd.getNumber()}">>27</span><br />
-					toevoeging: <span class="center middle"
-						th:text="${delAdd.getNumAddition()}">>27</span><br />
+						th:text="${delAdd.getFamilyName()}">56</span><br /> Adres: <span
+						class="center middle" th:text="${delAdd.getStreet()}">7209
+						LS</span><br /> Huisnummer: <span class="center middle"
+						th:text="${delAdd.getNumber()}">>27</span><br /> toevoeging: <span
+						class="center middle" th:text="${delAdd.getNumAddition()}">>27</span><br />
 					Postcode: <span class="center middle"
-						th:text="${delAdd.getZipCode()}">27</span><br /> 
-					Stad: <span class="center middle"
-					 	th:text="${delAdd.getCity()}">27</span><br />
+						th:text="${delAdd.getZipCode()}">27</span><br /> Stad: <span
+						class="center middle" th:text="${delAdd.getCity()}">27</span><br />
 				<p>
-				<p id = "popup"></p>
-				
-			
-				
-				
+				<p id="popup"></p>
+
+
+
+
 				<div id="button">
-			 		<a  href="/wijzigAdres?origin=checkout&address=delivery">Wijzig</a>	 
+					<a href="/wijzigAdres?origin=checkout&address=delivery">Wijzig</a>
 				</div>
-				
+
 			</div>
 		</td>
-	</table>
-	<div id="button">
-		<a href="/cart">Terug naar Winkelwagen</a>
-	</div>
+		<td>
 
-	<div id="button">
-		<a href="/confirm">Afrekenen</a>
-	</div>
+			<div id="button">
+				<a href="/cart" style="font-size:140%">Terug naar Winkelwagen</a>
+			</div>
+
+
+			<div th:if="${session.cart.getDeliveryAdress().getFirstName()==null}">
+				<div id="gegevens">
+					<h3>
+						Eerst afleveradress <br> invullen voor u <br> kunt afrekenen
+					</h3>
+				</div>
+
+				<div id="button">
+					<a style="font-size:140%">Afrekenen</a>
+				</div>
+			</div>
+
+			<div>
+			<div>
+				<br>
+			</div>
+			<div
+				th:unless="${session.cart.getDeliveryAdress().getFirstName()==null}"
+				id="button">
+				<a href="/confirm" style="font-size:140%">Afrekenen</a>
+			</div>
+
+
+		</td>
+	</table>
+
 
 	<!-- javascript import -->
 	<script

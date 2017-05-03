@@ -85,6 +85,10 @@ public class Order {
 	public void addSubOrder(FinalSubOrder subOrder) {
 		subOrders.add(subOrder);
 	}
+	
+	public void setSubOrder(List<FinalSubOrder> subOrders) {
+		this.subOrders=subOrders;
+	}
 
 	public Date getSaledate() {
 		return orderDate;
@@ -148,5 +152,14 @@ public class Order {
 			setTotalPrice(subTotal);
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", orderDate=" + orderDate + ", totalPrice=" + totalPrice + ", firstName="
+				+ firstName + ", insertion=" + insertion + ", familyName=" + familyName + ", street=" + street
+				+ ", number=" + number + ", numAddition=" + numAddition + ", zipCode=" + zipCode + ", city=" + city
+				+ "]";
+	}
+	
 
 }
