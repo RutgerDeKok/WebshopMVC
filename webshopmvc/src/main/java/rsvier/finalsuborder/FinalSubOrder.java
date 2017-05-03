@@ -47,6 +47,11 @@ public class FinalSubOrder {
             item_price = sub.getProduct().getPrice();
             subTotal = sub.getSubTotal();
     }
+    
+    
+	public String getPrd_Name() {
+        return prd_name;
+    }
 	
     public int getQuantity() {
         return quantity;
