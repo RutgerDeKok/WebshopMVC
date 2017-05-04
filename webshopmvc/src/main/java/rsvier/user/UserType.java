@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 public enum UserType {
+	ADMIN("Admin"),
 	EMPLOYEE("Medewerker"),
 	CUSTOMER("Klant"),
 	ALL("Alles");
@@ -17,6 +18,11 @@ public enum UserType {
 	
 	public String getNL() {
 		return naamNL;
+	}
+
+	@Override
+	public String toString() {
+		return "ROLE_" + super.toString();
 	}
 
 

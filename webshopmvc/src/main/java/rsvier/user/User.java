@@ -20,15 +20,15 @@ public class User {
 	@Column(name = "type")
 	@Enumerated(EnumType.STRING) // komt in de tabel als string, alternatief is
 									// ORDINAL, komt als index (int)
-	private UserType UserType; // Enum
+	private UserType userType; // ENUM
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address billingAddress;
 	@Type(type = "true_false")
 	private boolean enabled;
-	@Column(name = "role", nullable = false)
+	/*@Column(name = "role", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private
-	Role role;
+	Role role;*/
 
 	public User() {
 	}
@@ -58,11 +58,11 @@ public class User {
 	}
 
 	public UserType getUserType() {
-		return UserType;
+		return userType;
 	}
 
 	public void setUserType(UserType userType) {
-		UserType = userType;
+		userType = userType;
 	}
 
 	public Address getBillingAddress() {
@@ -81,11 +81,4 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
 }

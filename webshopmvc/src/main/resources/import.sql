@@ -1,5 +1,5 @@
 INSERT INTO addresses VALUES (DEFAULT, "stad", "achternaam", "voornaam", "tussennaam", "huisnrtvg", "1", "straat", "postcode");
-INSERT INTO users VALUES (DEFAULT, "EMPLOYEE", "werknemer@domein.nl", "T", "p7iSLIezNrbmpTNGeaUXuw==$AGXMdphftqc=", "ADMIN", "1");
+INSERT INTO users VALUES (DEFAULT, "werknemer@domein.nl", "T", "p7iSLIezNrbmpTNGeaUXuw==$AGXMdphftqc=", "ADMIN", "1");
 INSERT INTO roles VALUES (DEFAULT, "werknemer@domein.nl", "EMPLOYEE")
 INSERT INTO users VALUES (DEFAULT, "CUSTOMER", "klant@domein.nl", "T", "p7iSLIezNrbmpTNGeaUXuw==$AGXMdphftqc=", "USER", "1");
 INSERT INTO roles VALUES (DEFAULT, "klant@domein.nl", "CUSTOMER")

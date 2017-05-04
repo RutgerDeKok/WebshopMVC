@@ -28,6 +28,8 @@ import rsvier.infrastructure.PassHasher;
 import rsvier.infrastructure.Validator;
 import rsvier.user.User;
 import rsvier.user.UserService;
+import rsvier.user.UserType;
+
 import static rsvier.user.UserType.CUSTOMER;
 
 /**
@@ -45,7 +47,7 @@ public class RegisteerController {
     // @Autowired
     //         private PassHasher passhasher;
     //opend de pagina registeren van de html.
-    @RequestMapping(value = {"/registeren"})
+    @RequestMapping(value = {"/registreren"})
     public String inlog(HttpSession iets) {
 //        Eerste keer een leeg adres
         if (iets.getAttribute("tempAdres") == null) {
@@ -53,19 +55,20 @@ public class RegisteerController {
             Address nieuweAdres = new Address();
             iets.setAttribute("tempAdres", nieuweAdres);
         }
-        return "registeren";
+        return "registreren";
     }
 
     //Dit moet een account aanmaken.
     @RequestMapping(value = "/MaakAccount/ok", method = RequestMethod.POST)
     public String voegAccountToe(HttpServletRequest request,HttpSession session) {
-        
+
         
         session.removeAttribute("message");
         session.removeAttribute("nieuweAdress");
         System.out.println("Account gegevens worden verwerkt");
-        
-        User nieuweUser = new User();
+        User newUser = userService.registerUser(request, UserType.CUSTOMER);
+
+        /*User nieuweUser = new User();
         
         
         
@@ -115,7 +118,7 @@ public class RegisteerController {
         nieuweAdres.setNumber(Integer.parseInt(request.getParameter("number")));
         nieuweAdres.setNumAddition(request.getParameter("addition"));
         nieuweAdres.setStreet(request.getParameter("street"));
-        nieuweAdres.setZipCode(request.getParameter("zipCode"));
+        nieuweAdres.setZipCode(request.getParameter("zipCode"));*/
 
         
         
@@ -123,8 +126,8 @@ public class RegisteerController {
         
         try{
             
-        User dommeuser = userService.findUserByEmail(input1);
-        System.out.println(dommeuser.getEmail());
+        User dommeuser = userService.findUserByEmail(request.getParameter("email"));
+        dommeuser.getEmail();
         System.out.println("Email bestaat al");
         
         emailvalid = false;
@@ -141,11 +144,11 @@ public class RegisteerController {
             System.out.println(" email is niet valid");
             
             
-            session.setAttribute("tempAdres", nieuweAdres);          
+            session.setAttribute("tempAdres", newUser.getBillingAddress());
           
         int message = 13;
         session.setAttribute("message",message);
-            return "redirect:/registeren";
+            return "redirect:/registreren";
         }
         
         
@@ -154,7 +157,7 @@ public class RegisteerController {
         //deze if is niet nodig toch, want er is een nieuwe en niks anders nodig?
         //if(request.getSession().getAttribute("currentUser")!=null){
         System.out.println("Gegevens worden opgeslagen in DB");
-        userService.addUser(nieuweUser);
+        userService.addUser(newUser);
         //Maakt een lege suborder array.
         List<CartSubOrder> subs = new ArrayList<>();
         //Maakt een cart
@@ -162,9 +165,9 @@ public class RegisteerController {
         //linkt subs met cart
         newCart.setSubOrders(subs);
         //linkt cart met de user.
-        newCart.setUser(nieuweUser);
+        newCart.setUser(newUser);
         //Geeft cart zelfde id als de nieuwe user (om parrallel te lopen gemak)
-        newCart.setId(nieuweUser.getId());
+        newCart.setId(newUser.getId());
         //sla de cart op
         cartService.createCart(newCart);
         //check
