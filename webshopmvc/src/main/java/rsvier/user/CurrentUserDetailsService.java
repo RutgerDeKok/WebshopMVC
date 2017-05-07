@@ -26,15 +26,11 @@ public class CurrentUserDetailsService implements UserDetailsService {
 
     @Transactional(readOnly=true)
     @Override
-    public CurrentUser loadUserByUsername(String uname) throws UsernameNotFoundException {
-        System.out.println("Username: " + uname);
-        User user = userService.findUserByEmail(uname);
-        System.out.println("User: "+ user);
-        /*System.out.println("Als het goed zie je dit");
-        System.out.println(user.getUserType().toString());
-        System.out.println("Hierna gaat het mis");*/
-        List<GrantedAuthority> blabla = AuthorityUtils.createAuthorityList("USER", "ADMIN");
-        System.out.println(blabla);
+    public CurrentUser loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println(username);
+        User user = userService.findUserByEmail(username);
+        System.out.println("User: " +user+
+                "\nRole: " + user.getRole().toString());
         return new CurrentUser(user);
     }
 }

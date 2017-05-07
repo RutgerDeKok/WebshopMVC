@@ -40,6 +40,9 @@ public class UserService {
 		} else {
 			user.setUserType(userType);
 		}
+			//tijdelijk om te testen of werken met Role beter gaat
+			Role role = new Role("CUSTOMER");
+			user.setRole(role);
 		Address adres = new Address();
 		adres.setFirstName(request.getParameter("firstName"));
 		adres.setFamilyName(request.getParameter("lastName"));
@@ -49,7 +52,7 @@ public class UserService {
 		adres.setNumAddition(request.getParameter("addition"));
 		adres.setStreet(request.getParameter("street"));
 		adres.setZipCode(request.getParameter("zipCode"));
-		user.setBillingAdress(adres);
+		user.setBillingAddress(adres);
 		user.setEnabled(true);
 		return user;
 	}

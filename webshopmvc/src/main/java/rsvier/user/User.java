@@ -1,5 +1,6 @@
 package rsvier.user;
 
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.*;
 
@@ -25,10 +26,14 @@ public class User {
 	private Address billingAddress;
 	@Type(type = "true_false")
 	private boolean enabled;
-	/*@Column(name = "role", nullable = false)
-	@Enumerated(EnumType.STRING)
-	private
-	Role role;*/
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "users_roles",
+			joinColumns = @JoinColumn(
+					name = "user_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(
+					name = "role_id", referencedColumnName = "id"))
+	private Role role;
 
 	public User() {
 	}
@@ -62,14 +67,14 @@ public class User {
 	}
 
 	public void setUserType(UserType userType) {
-		userType = userType;
+		this.userType = userType;
 	}
 
 	public Address getBillingAddress() {
 		return billingAddress;
 	}
 
-	public void setBillingAdress(Address billingAddress) {
+	public void setBillingAddress(Address billingAddress) {
 		this.billingAddress = billingAddress;
 	}
 
@@ -81,4 +86,11 @@ public class User {
 		this.enabled = enabled;
 	}
 
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 }

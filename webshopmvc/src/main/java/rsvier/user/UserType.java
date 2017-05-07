@@ -20,10 +20,4 @@ public enum UserType {
 		return naamNL;
 	}
 
-	@Override
-	public String toString() {
-		return "ROLE_" + super.toString();
-	}
-
-
 }

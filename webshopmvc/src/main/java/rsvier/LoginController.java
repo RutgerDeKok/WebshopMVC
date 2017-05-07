@@ -133,7 +133,11 @@ public class LoginController {
 
 	public User getCurrentUser(HttpServletRequest request) {
 		return (User) request.getSession().getAttribute("currentUser");
+	}
 
+	@RequestMapping("/success")
+	public String success() {
+		return "success";
 	}
 
 }

@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
             .authorizeRequests().antMatchers("/**", "/registreren").permitAll()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and()
             .formLogin().loginPage("/login").permitAll()
                 .successForwardUrl("/success")
@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery(
                         "select email,pass_hash, enabled from users where email=?")
                 .authoritiesByUsernameQuery(
-                        "select email, role from roles where email=?");
+                        "select user_id, role_id from users_roles where user_id=?");
         auth.authenticationProvider(authProvider());
     }
 

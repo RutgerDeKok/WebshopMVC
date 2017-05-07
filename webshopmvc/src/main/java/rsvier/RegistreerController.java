@@ -37,7 +37,7 @@ import static rsvier.user.UserType.CUSTOMER;
  * @author Frank
  */
 @Controller
-public class RegisteerController {
+public class RegistreerController {
     
     @Autowired
     private CartService cartService;
@@ -46,7 +46,7 @@ public class RegisteerController {
 
     // @Autowired
     //         private PassHasher passhasher;
-    //opend de pagina registeren van de html.
+    //opent de pagina registreren van de html.
     @RequestMapping(value = {"/registreren"})
     public String inlog(HttpSession iets) {
 //        Eerste keer een leeg adres
