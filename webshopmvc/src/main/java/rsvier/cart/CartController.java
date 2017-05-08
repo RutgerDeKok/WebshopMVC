@@ -48,16 +48,24 @@ public class CartController {
 		return "redirect:/cart";
 	}
 
-	@RequestMapping(value = "cart/add", method = RequestMethod.POST)
-	public @ResponseBody void addProductToCart(@RequestParam("choice") String[] choice, HttpServletRequest request,
+	@RequestMapping(value = "/cart/add", method = RequestMethod.POST)
+	public @ResponseBody void addProductToCart( @RequestParam("choice") String[] choice, HttpSession session,
 			HttpServletResponse response) {
 
 		@SuppressWarnings("unchecked")
-		List<Product> lijst = (ArrayList<Product>) request.getSession().getAttribute("lijst");
-		int prodIndex = (Integer.parseInt(choice[1]));
-		if (choice[0].isEmpty()) {
-			choice[0] = "1";
+		List<Product> lijst = (ArrayList<Product>) session.getAttribute("lijst");
+		
+		
+		// als aantal niet is ingevuld is choice[] 1 lang
+		if(choice.length==1){
+			choice[1]=choice[0];
+			choice[0]="1";
 		}
+		
+		int prodIndex = (Integer.parseInt(choice[1]));
+		
+
+		System.out.println("num is: "+choice[0]);
 		int quantity = (Integer.parseInt(choice[0]));
 		System.out.println("prodIndex is: " + prodIndex);
 		System.out.println("aantal is: " + quantity);
@@ -68,11 +76,11 @@ public class CartController {
 		CartSubOrder cso = new CartSubOrder(chosenProduct, quantity);
 //		cso.calculateSubTotal(); done in constructor
 
-		checkForCart(request.getSession());
-		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		checkForCart(session);
+		Cart cart = (Cart) session.getAttribute("cart");
 		cart.getSubOrders().add(cso);
 		cart.calculateTotalPrice();
-		request.getSession().setAttribute("cart", cart);
+		session.setAttribute("cart", cart);
 		try {
 			response.sendRedirect("/cart");
 		} catch (IOException e) {
@@ -122,7 +130,7 @@ public class CartController {
 		}
 		
 //		session.setAttribute("address", address);
-		return "Checkout";
+		return "checkout";
 	}
 	
 	

@@ -23,7 +23,7 @@
 </head>
 
 <body background="/images/background-cheese.jpg">
-	<header th:replace="Navigator :: header" />
+	<header th:replace="navigator :: header" />
 	
 	<div id="hoofd">
 		<h2>Welkom in de Piet's Kaas Winkel</h2>
@@ -85,22 +85,12 @@
 							<td th:text="${element.info}" align="left">info</td>
 							<td align="left">
 								<form method="post" action="/cart/add" th:action=@{/cart/add/}>
-									<input type="text" style="text-align: right" size="5" name="choice"/>   <!--placeholder="1"-->
+									<input type="text" value="1" style="text-align: right" placeholder="1" size="5" name="choice"/>   <!--placeholder="1"-->
 								<td>
 									<button type="submit"  name="choice" th:value= "${status.index}" class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></button>
 								</td>
 								</form>
-								
-								<!--
-								Jurjen
-								<form method="post" action="/cart/add" th:action=@{/cart/add?productId={productId}(productId=${element.id})}>
-									<input type="text" style="text-align: right" size="5" placeholder="1" name="quantity"/>
-								<td>
-									<button type="submit" class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></button>
-								</td>
-								</form>
-							
-								-->							
+													
 								
 							</td>
 						</tr>

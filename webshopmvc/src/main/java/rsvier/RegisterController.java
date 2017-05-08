@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rsvier;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +24,15 @@ import static rsvier.user.UserType.CUSTOMER;
  * @author Frank
  */
 @Controller
-public class RegisteerController {
+public class RegisterController {
     
     @Autowired
     private CartService cartService;
     @Autowired
     private UserService userService;
 
-    // @Autowired
-    //         private PassHasher passhasher;
-    //opend de pagina registeren van de html.
-    @RequestMapping(value = {"/registeren"})
+   
+    @RequestMapping(value = {"/register"})
     public String inlog(HttpSession iets) {
 //        Eerste keer een leeg adres
         if (iets.getAttribute("tempAdres") == null) {
@@ -47,10 +40,10 @@ public class RegisteerController {
             Address nieuweAdres = new Address();
             iets.setAttribute("tempAdres", nieuweAdres);
         }
-        return "registeren";
+        return "register";
     }
 
-    //Dit moet een account aanmaken.
+    
     @RequestMapping(value = "/MaakAccount/ok", method = RequestMethod.POST)
     public String voegAccountToe(HttpServletRequest request,HttpSession session) {
         
@@ -60,9 +53,6 @@ public class RegisteerController {
         System.out.println("Account gegevens worden verwerkt");
         
         User nieuweUser = new User();
-        
-        
-        
         Address nieuweAdres = new Address();
         
         
@@ -128,9 +118,6 @@ public class RegisteerController {
         
         
         
-        
-         
-        
         if(!emailvalid){
             System.out.println(" email is niet valid");
             
@@ -139,33 +126,28 @@ public class RegisteerController {
           
         int message = 13;
         session.setAttribute("message",message);
-            return "redirect:/registeren";
+            return "redirect:/register";
         }
         
         
-        //Deel 2 DB.
-        // dan wijzigingen opslaan in DB (cart of user)
-        //deze if is niet nodig toch, want er is een nieuwe en niks anders nodig?
-        //if(request.getSession().getAttribute("currentUser")!=null){
+        //Deel 2 wijzigingen opslaan in DB.
         System.out.println("Gegevens worden opgeslagen in DB");
         userService.addUser(nieuweUser);
-        //Maakt een lege suborder array.
+       
         List<CartSubOrder> subs = new ArrayList<>();
-        //Maakt een cart
-        Cart newCart = new Cart();
-        //linkt subs met cart
-        newCart.setSubOrders(subs);
-        //linkt cart met de user.
-        newCart.setUser(nieuweUser);
-        //Geeft cart zelfde id als de nieuwe user (om parrallel te lopen gemak)
-        newCart.setId(nieuweUser.getId());
-        //sla de cart op
-        cartService.createCart(newCart);
-        //check
-        System.out.println("tot hier gaat het nog goed-Einde DB opslaan.");
         
-               
-                
+        Cart newCart = new Cart();
+       
+        newCart.setSubOrders(subs);
+        
+        newCart.setUser(nieuweUser);
+       
+        newCart.setId(nieuweUser.getId());
+        
+        cartService.createCart(newCart);
+        
+        System.out.println("tot hier gaat het nog goed-Einde DB opslaan.");
+            
         return "redirect:/login";
     }
     
