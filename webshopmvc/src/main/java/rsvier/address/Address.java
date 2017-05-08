@@ -25,8 +25,6 @@ public class Address {
 	private String zipCode;
 	@Column(length = 50, nullable = false)
 	private String city;
-//        @ManyToOne(cascade = CascadeType.PERSIST)
-//        private User user;
         
 	public Address(){
 	}

@@ -51,9 +51,7 @@ public class ProductService {
 
 	public void deleteproduct(Long id) {
 		productRepository.delete(id);
-		//Product ook verwijderen uit de locale lijst
-		// (een andere optie is de locale lijst weer te 
-		// vullen met alle producten uit de db)
+	
 		for(Product prod:products){
 			if(prod.getId()==id){
 				products.remove(prod);

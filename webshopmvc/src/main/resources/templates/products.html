@@ -85,7 +85,7 @@
 							<td th:text="${element.info}" align="left">info</td>
 							<td align="left">
 								<form method="post" action="/cart/add" th:action=@{/cart/add/}>
-									<input type="text" style="text-align: right" size="5" placeholder="1" name="choice"/>
+									<input type="text" style="text-align: right" size="5" name="choice"/>   <!--placeholder="1"-->
 								<td>
 									<button type="submit"  name="choice" th:value= "${status.index}" class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></button>
 								</td>
