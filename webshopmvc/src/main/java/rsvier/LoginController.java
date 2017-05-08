@@ -69,7 +69,7 @@ public class LoginController {
 			System.out.println(e.getMessage());
 
 		}
-
+                //gaat naar een succes pagina.
 		return "success";
 
 	}

@@ -1,123 +1,123 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-<style>
-form {
-	border: 3px solid #f1f1f1;
-}
+    <head>
+        <style>
+            form {
+                border: 3px solid #f1f1f1;
+            }
 
-input[type=text], input[type=password] {
-	width: 100%;
-	padding: 12px 20px;
-	margin: 8px 0;
-	display: inline-block;
-	border: 1px solid #ccc;
-	box-sizing: border-box;
-}
+            input[type=text], input[type=password] {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+            }
 
-button {
-	background-color: #058401;
-	color: white;
-	padding: 14px 20px;
-	margin: 8px 0;
-	border: none;
-	cursor: pointer;
-	width: 100%;
-}
+            button {
+                background-color: #058401;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+            }
 
-button:hover {
-	opacity: 0.8;
-}
+            button:hover {
+                opacity: 0.8;
+            }
 
-.cancelbtn {
-	width: auto;
-	padding: 10px 50px;
-	background-color: #f44336;
-}
+            .cancelbtn {
+                width: auto;
+                padding: 10px 50px;
+                background-color: #f44336;
+            }
 
-.imgcontainer {
-	text-align: center;
-	margin: 24px 0 12px 0;
-}
+            .imgcontainer {
+                text-align: center;
+                margin: 24px 0 12px 0;
+            }
 
-img.avatar {
-	width: 15%;
-	border-radius: 55%;
-	border: 3px solid #058401;
-}
+            img.avatar {
+                width: 15%;
+                border-radius: 55%;
+                border: 3px solid #058401;
+            }
 
-.container {
-	padding: 30px;
-}
+            .container {
+                padding: 30px;
+            }
 
-span.psw {
-	float: right;
-	padding-top: 16px;
-}
+            span.psw {
+                float: right;
+                padding-top: 16px;
+            }
 
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-	span.psw {
-		display: block;
-		float: none;
-	}
-	.cancelbtn {
-		width: 500%;
-	}
-}
-</style>
+            /* Change styles for span and cancel button on extra small screens */
+            @media screen and (max-width: 300px) {
+                span.psw {
+                    display: block;
+                    float: none;
+                }
+                .cancelbtn {
+                    width: 500%;
+                }
+            }
+        </style>
 
-<script>
-	function closeWindow() {
-
-
-		setTimeout("window.close()",500);
-	}
-</script>
-
-</head>
-<body bgcolor=#edd6c0>
-
-	<!--Dit is het plaatje-->
-
-	<div class="imgcontainer">
-		<img src="/images/Edwin.png" alt="Boer Piet" class="avatar">
-	</div>
+        <script>
+            function closeWindow() {
 
 
+                setTimeout("window.close()", 500);
+            }
+        </script>
 
+    </head>
+    <body bgcolor=#edd6c0>
 
-	<div class="container">
-		<form  method="post" >
-			<label><b>Gebruikersnaam</b></label> <input type="text"
-				placeholder=" bijvoorbeeld abc@mail.nl" name="uname" required>
+        <!--Dit is het plaatje-->
 
-			<label><b>Wachtwoord</b></label> <input type="password"
-				placeholder="vul hier uw wachtwoord in" name="psw" required>
+        <div class="imgcontainer">
+            <img src="/images/Edwin.png" alt="Boer Piet" class="avatar">
+        </div>
 
 
 
-			<button type="submit">Login</button>
-		</form>
+
+        <div class="container">
+            <form  method="post" >
+                <label><b>Gebruikersnaam</b></label> <input type="text"
+                                                            placeholder=" bijvoorbeeld abc@mail.nl" name="uname" required>
+
+                <label><b>Wachtwoord</b></label> <input type="password"
+                                                        placeholder="vul hier uw wachtwoord in" name="psw" required>
+
+
+
+                <button type="submit">Login</button>
+            </form>
             <!--Dit is de registeer knop-->
             <form action="/registeren" onsubmit="closeWindow()">
-            <button type="submit">Registeren</button>
+                <button type="submit">Registeren</button>
             </form>
 
-		<input type="checkbox" checked="checked"> Onthoud mij
-	</div>
+            <input type="checkbox" checked="checked"> Onthoud mij
+        </div>
 
 
 
-	<div class="container" style="background-color: #eaeaea">
+        <div class="container" style="background-color: #eaeaea">
 
-		<a href="http://localhost:8080/" target="blank">
-			<button type="button" class="cancelbtn">Annuleer</button>
-		</a> vergeten <a href="http://localhost:8080/">wachtwoord</a>
-	</div>
+            <a href="http://localhost:8080/" target="blank">
+                <button type="button" class="cancelbtn">Annuleer</button>
+            </a> vergeten <a href="http://localhost:8080/">wachtwoord</a>
+        </div>
 
 
-</body>
+    </body>
 </html>
 

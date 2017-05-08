@@ -30,7 +30,7 @@ import static rsvier.user.UserType.CUSTOMER;
  */
 @Controller
 public class RegisteerController {
-    
+
     @Autowired
     private CartService cartService;
     @Autowired
@@ -52,23 +52,19 @@ public class RegisteerController {
 
     //Dit moet een account aanmaken.
     @RequestMapping(value = "/MaakAccount/ok", method = RequestMethod.POST)
-    public String voegAccountToe(HttpServletRequest request,HttpSession session) {
-        
-        
+    public String voegAccountToe(HttpServletRequest request, HttpSession session) {
+
         session.removeAttribute("message");
         session.removeAttribute("nieuweAdress");
         System.out.println("Account gegevens worden verwerkt");
-        
+
         User nieuweUser = new User();
-        
-        
-        
+
         Address nieuweAdres = new Address();
-        
-        
+
         //Linkt user met adres!
         nieuweUser.setBillingAdress(nieuweAdres);
-        
+
         String input1 = request.getParameter("email");
         System.out.println(input1);
         String input2 = request.getParameter("W8");
@@ -86,22 +82,22 @@ public class RegisteerController {
         //Laat wachtwoord zien (check) in system out.
 
         System.out.println("tot hier gaat het nog goed.");
-        
+
         try {
-            
+
             String GehashdeWachtwoord = PassHasher.getSaltedHash(wachtwoordChars);
-            
+
             nieuweUser.setPassHash(GehashdeWachtwoord);
         } catch (Exception twee) {
             System.out.println(twee.getMessage());
             System.out.println("Het wachtwoord opslaan gaat fout");
         }
-        
+
         System.out.println("tot hier gaat het nog goed-2.");
 
 //                adres gedeelte invullen.
         System.out.println("Adres gegevens worden verwerkt");
-        
+
         nieuweAdres.setFirstName(request.getParameter("firstName"));
         nieuweAdres.setFamilyName(request.getParameter("lastName"));
         nieuweAdres.setInsertion(request.getParameter("insertion"));
@@ -111,38 +107,31 @@ public class RegisteerController {
         nieuweAdres.setStreet(request.getParameter("street"));
         nieuweAdres.setZipCode(request.getParameter("zipCode"));
 
-        
-        
         boolean emailvalid = true;
-        
-        try{
-            
-        User dommeuser = userService.findUserByEmail(input1);
-        System.out.println(dommeuser.getEmail());
-        System.out.println("Email bestaat al");
-        
-        emailvalid = false;
-        
+
+        try {
+
+            User dommeuser = userService.findUserByEmail(input1);
+            System.out.println(dommeuser.getEmail());
+            System.out.println("Email bestaat al");
+
+            emailvalid = false;
+
+        } catch (Exception e) {
+            e.getMessage();
+            System.out.println("Deze email is nog niet in de DB- dus validemail = true");
         }
-        catch(Exception e ){e.getMessage(); System.out.println("Deze email is nog niet in de DB- dus validemail = true"); }
-        
-        
-        
-        
-         
-        
-        if(!emailvalid){
+
+        if (!emailvalid) {
             System.out.println(" email is niet valid");
-            
-            
-            session.setAttribute("tempAdres", nieuweAdres);          
-          
-        int message = 13;
-        session.setAttribute("message",message);
+
+            session.setAttribute("tempAdres", nieuweAdres);
+
+            int message = 13;
+            session.setAttribute("message", message);
             return "redirect:/registeren";
         }
-        
-        
+
         //Deel 2 DB.
         // dan wijzigingen opslaan in DB (cart of user)
         //deze if is niet nodig toch, want er is een nieuwe en niks anders nodig?
@@ -163,11 +152,8 @@ public class RegisteerController {
         cartService.createCart(newCart);
         //check
         System.out.println("tot hier gaat het nog goed-Einde DB opslaan.");
-        
-               
-                
+
         return "redirect:/login";
     }
-    
-    
+
 }

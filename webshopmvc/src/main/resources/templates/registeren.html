@@ -14,32 +14,6 @@ and open the template in the editor.
     <body background="/images/background-cheese.jpg">
 
 
-        <!--
-                <div>Hier kun je straks registeren!  Nu onze eigen tak.
-        
-                            // HIER moet eerst een user worden gemaakt.
-                           user.setbillingAdres(new Address);
-                           // Leeg adres  in registeer controller.    
-                           //Lege Cart , pak deze/find user id. En maak een cart aan.
-                            public void createCustomerAccount() 
-                            // get Klant object back (adress can remain null at first)
-                            UserAccount user = menu.createUserAccount();
-                            // send Klant object to DAO to persist in DB
-                            // and get back the assigned id
-                            long id = dao.create(user).getId();
-                            // create cart with the same id
-                            cartController.createCartByID(id);
-                            '' done ''    
-                            terug naar login   
-                            ''-> echt in te loggen''--
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-        <!--validators-->   
-
-
         <h1>Voer uw gegevens in</h1>
 
 
@@ -59,7 +33,7 @@ and open the template in the editor.
                         this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
                                                "></p><br>
 
-
+                <!--Als er al iets was ingevuld, maar een validator vond het niet goed, dan wil je niet alles opnieuw invullen dus worden de values uit de sessie gehaald-->
 
                 <p>Voornaam : <input  type="text" name="firstName" required th:value="${session.tempAdres.getFirstName()}"></p>
                 <p>Tussennaam : <input  type="text"  name="insertion" th:value="${session.tempAdres.getInsertion()}" > </p>
