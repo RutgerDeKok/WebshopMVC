@@ -58,6 +58,7 @@ public class LoginController {
 				// checken of er all een cart in de sessie is, in dat geval moeten de suborders 
 				//	worden toegevoegd aan de cart uit de DB.
 				checkForSessionCart(request.getSession(), user);
+				
 		
 
 			} else { // foute inlog
@@ -87,23 +88,23 @@ public class LoginController {
 				dbCart.getSubOrders().add(sub);
 			}
 			
-			// is er een recent ingevuld delivery adres in the sessie cart
-			// so ja dan die overzetten in de dbCart
-			if(sessionCart.getDeliveryAdress().getFirstName()!=null){
-			
-				// zorgen dat het cart id behouden blijft
-				Address sessionAddress = sessionCart.getDeliveryAdress();
-				Address dbAddress = dbCart.getDeliveryAdress();
-
-				dbAddress.setCity(sessionAddress.getCity());
-				dbAddress.setFamilyName(sessionAddress.getFamilyName());
-				dbAddress.setFirstName(sessionAddress.getFirstName());
-				dbAddress.setInsertion(sessionAddress.getInsertion());
-				dbAddress.setNumAddition(sessionAddress.getNumAddition());
-				dbAddress.setNumber(sessionAddress.getNumber());
-				dbAddress.setStreet(sessionAddress.getStreet());
-				dbAddress.setZipCode(sessionAddress.getZipCode());
-			}
+//			// is er een recent ingevuld delivery adres in the sessie cart
+//			// so ja dan die overzetten in de dbCart
+//			if(sessionCart.getDeliveryAdress().getFirstName()!=null){
+//			
+//				// zorgen dat het cart id behouden blijft
+//				Address sessionAddress = sessionCart.getDeliveryAdress();
+//				Address dbAddress = dbCart.getDeliveryAdress();
+//
+//				dbAddress.setCity(sessionAddress.getCity());
+//				dbAddress.setFamilyName(sessionAddress.getFamilyName());
+//				dbAddress.setFirstName(sessionAddress.getFirstName());
+//				dbAddress.setInsertion(sessionAddress.getInsertion());
+//				dbAddress.setNumAddition(sessionAddress.getNumAddition());
+//				dbAddress.setNumber(sessionAddress.getNumber());
+//				dbAddress.setStreet(sessionAddress.getStreet());
+//				dbAddress.setZipCode(sessionAddress.getZipCode());
+//			}
 			// dbCart in sessie zetten en opslaan in DB
 			session.setAttribute("cart", dbCart);	
 			cartService.updateCart(dbCart);

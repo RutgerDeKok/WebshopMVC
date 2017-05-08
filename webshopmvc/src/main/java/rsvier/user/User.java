@@ -4,6 +4,9 @@ import rsvier.address.Address;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 
 
 @Entity
@@ -20,6 +23,8 @@ public class User {
 									// ORDINAL, komt als index (int)
 	private UserType UserType; // Enum
 	@OneToOne(cascade = CascadeType.ALL)
+	@Fetch(FetchMode.JOIN)
+//	@JoinColumn(name = "billing_address_id")
 	private Address billingAddress;
 
 	public User() {

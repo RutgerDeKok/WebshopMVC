@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import rsvier.cart.Cart;
 import rsvier.cart.CartService;
 import rsvier.product.ProductService;
+import rsvier.user.User;
+import rsvier.user.UserType;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;

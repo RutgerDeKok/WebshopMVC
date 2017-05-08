@@ -19,6 +19,24 @@ public class UserService {
 		return users;
 	}
 
+
+	public List<User> getUsersByType(UserType filterType) {
+		
+		if(users==null){
+			getAllUsers();
+		}
+		List<User> filteredUsers = new ArrayList<>();
+		filteredUsers.clear();
+		for (User user : users) {
+			if (filterType == UserType.ALL || user.getUserType() == filterType) {
+				filteredUsers.add(user);
+			}
+		}
+		return filteredUsers;
+	}
+	
+	
+
 	public User getUser(Long id) {
 		return userRepository.findOne(id);
 	}
@@ -34,10 +52,13 @@ public class UserService {
 	public void deleteUser(Long id) {
 		userRepository.delete(id);
 	}
-           
-        
-        
+            
 	public User findUserByEmail(String email) {
 		return userRepository.findUserByEmail(email);
 	}
+	
+	public void clearLocalList() {
+		users=null;
+	}
+
 }
