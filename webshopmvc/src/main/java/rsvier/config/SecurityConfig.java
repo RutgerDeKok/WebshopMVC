@@ -71,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery(
                         "select email,pass_hash, enabled from users where email=?")
                 .authoritiesByUsernameQuery(
-                        "select user_id, role_id from users_roles where user_id=?");
+                        "select type from users where email=?");
         auth.authenticationProvider(authProvider());
     }
 

@@ -31,6 +31,9 @@
 		<h2>Welkom in de Piet's Kaas Winkel</h2>
 
 		<p>Kies uw gewenste product en voeg toe aan uw winkelwagen</p>
+		<p sec:authorize="hasRole('ROLE_ADMIN')">JE BENT ADMIN</p>
+		<p sec:authorize="hasRole('ROLE_EMPLOYEE')">JE BENT MEDEWERKER</p>
+		<p sec:authorize="hasRole('ROLE_CUSTOMER')">JE BENT KLANT</p>
 	</div>
 
 
