@@ -98,7 +98,7 @@ public class FinalSubOrder {
 
 	@Override
 	public String toString() {
-		return "FinalSubOrder [quantity=" + quantity + ", prd_name=" + prd_name + ", prd_brand=" + prd_brand
+		return "FinalSubOrder [id=" + id  +"quantity=" + quantity + ", prd_name=" + prd_name + ", prd_brand=" + prd_brand
 				+ ", prd_category=" + prd_category + ", subTotal=" + subTotal + "]";
 	}
 	

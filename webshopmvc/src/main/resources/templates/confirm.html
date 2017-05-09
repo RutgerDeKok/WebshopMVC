@@ -88,6 +88,7 @@
 				<tr class="center middle">
 					<th>Nummer</th>
 					<th>Product</th>
+					<th>Merk</th>
 					<th>Aantal</th>
 					<th>Stukprijs</th>
 					<th>Totaalprijs</th>
@@ -97,6 +98,7 @@
 				<tr th:each="element , status : ${order.getSubOrders()}">
 					<td class="center middle" th:text="${status.index+1}"></td>
 					<td class="center middle" th:text="${element.getPrd_name()}"></td>
+					<td class="center middle" th:text="${element.getPrd_brand()}"></td>
 					<td class="center middle" th:text="${element.getQuantity()}"></td>
 					<td class="center middle" th:text="${element.getItem_price()}"></td>
 					<td class="center middle" th:text="${element.getSubTotal()}"></td>

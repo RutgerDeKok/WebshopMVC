@@ -117,6 +117,7 @@ public class ProductController {
 			System.out.println(e.getMessage());
 		}
 	}
+	
 	@RequestMapping(value = "/product_edit", method = RequestMethod.GET)
 	public String gotoProductEdit(Map<String, Object> model) {
 		
