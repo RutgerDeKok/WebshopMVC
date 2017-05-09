@@ -5,6 +5,9 @@ import rsvier.finalsuborder.FinalSubOrder;
 import rsvier.user.User;
 
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +28,7 @@ public class Order {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "order_id")
 	private List<FinalSubOrder> subOrders = new ArrayList<>();
+	@Column
 	private Date orderDate;
 	@Column(length = 10, nullable = false)
 	private BigDecimal totalPrice;

@@ -2,6 +2,8 @@ package rsvier.order;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import rsvier.cartsuborder.CartSubOrder;
 import rsvier.cartsuborder.CartSubOrderService;
 import rsvier.product.Product;
@@ -92,9 +95,18 @@ public class OrderController {
 		if(cart.getId()>0){
 		cartService.updateCart(cart);
 		}
+		
+		String date = new SimpleDateFormat("dd MMM yyyy").format(order.getSaledate());
+		
+		String datetime = new SimpleDateFormat("dd-MMM-yyyy  hh.mm").format(order.getSaledate());
+		
+		model.addAttribute("date", date);
 		model.addAttribute("address", address);
 		model.addAttribute("order", order);
 		model.addAttribute("user", user);
+		
+		System.out.println("Date "+ datetime);
+		System.out.println("ID "+order.getId());
 		
 		productService.clearLocalList();
 		// hierdoor ververst de product List bij het producten overzicht
