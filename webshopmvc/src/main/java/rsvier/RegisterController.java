@@ -45,20 +45,18 @@ public class RegisterController {
 
     
     @RequestMapping(value = "/MaakAccount/ok", method = RequestMethod.POST)
-    public String voegAccountToe(HttpServletRequest request,HttpSession session) {
-        
-        
+    public String voegAccountToe(HttpServletRequest request, HttpSession session) {
+
         session.removeAttribute("message");
         session.removeAttribute("nieuweAdress");
         System.out.println("Account gegevens worden verwerkt");
-        
+
         User nieuweUser = new User();
         Address nieuweAdres = new Address();
-        
-        
+
         //Linkt user met adres!
         nieuweUser.setBillingAdress(nieuweAdres);
-        
+
         String input1 = request.getParameter("email");
         System.out.println(input1);
         String input2 = request.getParameter("W8");
@@ -76,22 +74,22 @@ public class RegisterController {
         //Laat wachtwoord zien (check) in system out.
 
         System.out.println("tot hier gaat het nog goed.");
-        
+
         try {
-            
+
             String GehashdeWachtwoord = PassHasher.getSaltedHash(wachtwoordChars);
-            
+
             nieuweUser.setPassHash(GehashdeWachtwoord);
         } catch (Exception twee) {
             System.out.println(twee.getMessage());
             System.out.println("Het wachtwoord opslaan gaat fout");
         }
-        
+
         System.out.println("tot hier gaat het nog goed-2.");
 
 //                adres gedeelte invullen.
         System.out.println("Adres gegevens worden verwerkt");
-        
+
         nieuweAdres.setFirstName(request.getParameter("firstName"));
         nieuweAdres.setFamilyName(request.getParameter("lastName"));
         nieuweAdres.setInsertion(request.getParameter("insertion"));
@@ -101,17 +99,20 @@ public class RegisterController {
         nieuweAdres.setStreet(request.getParameter("street"));
         nieuweAdres.setZipCode(request.getParameter("zipCode"));
 
-        
-        
         boolean emailvalid = true;
-        
-        try{
-            
-        User dommeuser = userService.findUserByEmail(input1);
-        System.out.println(dommeuser.getEmail());
-        System.out.println("Email bestaat al");
-        
-        emailvalid = false;
+
+        try {
+
+            User dommeuser = userService.findUserByEmail(input1);
+            System.out.println(dommeuser.getEmail());
+            System.out.println("Email bestaat al");
+
+            emailvalid = false;
+
+        } catch (Exception e) {
+            e.getMessage();
+            System.out.println("Deze email is nog niet in de DB- dus validemail = true");
+        }
         
         }
         catch(Exception e ){e.getMessage(); System.out.println("Deze email is nog niet in de DB- dus validemail = true"); }
@@ -120,8 +121,7 @@ public class RegisterController {
         
         if(!emailvalid){
             System.out.println(" email is niet valid");
-            
-            
+                     
             session.setAttribute("tempAdres", nieuweAdres);          
           
         int message = 13;
@@ -150,6 +150,5 @@ public class RegisterController {
             
         return "redirect:/login";
     }
-    
-    
+
 }
