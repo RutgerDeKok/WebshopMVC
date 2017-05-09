@@ -2,128 +2,77 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<html lang="en">
-
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  lang="en">
 <head>
-
-<meta charset="utf-8">
-
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Boer Piet - Winkelwagen</title>
-
-<link href="css/bootstrap.min.css" rel="stylesheet">
-
-
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body>
-
 	<!-- nav bar -->
-
 	<header th:fragment="header">
-
 		<nav class="navbar navbar-inverse navbar-static-top">
-
 			<div class="container">
-
 				<div class="navbar-header">
 					 <a class="navbar-brand"
 						href="products.html" th:href="@{/}">Boer Piet</a>
-						
+					<div sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')">
 						<ul class="nav navbar-nav navbar-left" >
-
-							<li
-								th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
+							<li>
 								<a href="/employees/products"><font color="#0080ff">Edit Producten</font></a>
 							</li>
-							<div sec:authorize="hasRole('ROLE_CUSTOMER')">LALALA KLANT!</div>
-							<li
-								th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
+							<li>
 								<a href="/employees/users"><font color="#0080ff"> Edit Gebruikers</font></a>
 							</li>
-							<li
-								th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
+							<li>
 								<a href="/employees/orders"><font color="#0080ff">Orders</font></a>
 							</li>
-
 						</ul>
-			
+					</div>
 					<button type="button" class="navbar-toggle collapsed"
 						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 						aria-expanded="false">
-
 						<span class="sr-only">Toggle navigation</span> <span
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
-
 					</button>
-
 				</div>
-
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
-
-					<ul class="nav navbar-nav navbar-right">
-
+					<ul class="nav navbar-nav navbar-left">
 						<li><a href="/products">Producten</a></li>
-
-						<!--  <li><a href="#">Informatie</a></li>  -->
-
 						<li><a href="contact">Contact</a></li>
-
-						<li><a><span
-								class="glyphicon glyphicon-option-vertical icon-white"
-								aria-hidden="true"> </span></a></li>
-
-						<li><a href="cart" th:href="@{/cart}"><span
-								class="glyphicon glyphicon-shopping-cart icon-white"
-								aria-hidden="true"></span></a></li>
-
-
-						<li th:if="${session.currentUser==null}">
-							<!-- if customer is anonymous--> <a href="#">Welcome, Guest</a>
-						</li>
-
-
-						<li th:unless="${session.currentUser==null}">
-							<!-- if customer is not anonymous(logged in)-->
-							<span sec:authentication="name">userX</span>
-							<!--<a href="#"
-							th:text=" 'User: ' + ${session.currentUser.email}">userX</a>-->
-						</li>
-
-
-						<li th:if="${session.currentUser==null}"><a href="#"
-							th:href="@{/login.html}"
-							onClick="MyWindow=window.open('http://localhost:8080/login','MyWindow','toolbar=no,location=yes,directories=yes,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=600,height=600'); return false;">Aanmelden/inloggen</a></li>
-
-
-						<li th:unless="${session.currentUser==null}"><a href="#"
-							th:href="@{/logout}">Uitloggen</a></li>
 					</ul>
-
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="/cart" th:href="@{/cart}">
+								<span
+								class="glyphicon glyphicon-shopping-cart icon-white"
+								aria-hidden="true"></span>
+							</a></li>
+						<li th:switch="${#authorization.expression('isAnonymous()')}">
+							<a>
+								Welkom,
+								<span th:case="${true}">gast</span>
+								<span th:case="${false}" sec:authentication="name"></span>
+							</a>
+						</li>
+						<li sec:authorize="isAuthenticated()">
+							<a href="#" th:href="@{/logout}">Uitloggen</a>
+						</li>
+						<li sec:authorize="!isAuthenticated()">
+							<a href="#"	th:href="@{/login.html}"
+							onClick="MyWindow=window.open('http://localhost:8080/login','MyWindow','toolbar=no,location=yes,directories=yes,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=600,height=600'); return false;">Aanmelden/inloggen</a>
+						</li>
+					</ul>
 				</div>
-
 			</div>
-
 		</nav>
-
 		<!-- javascript import -->
-
 		<script
 			src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
 		<script src="js/bootstrap.min.js"></script>
-
 	</header>
-
-
-
 </body>
-
-
 </html>

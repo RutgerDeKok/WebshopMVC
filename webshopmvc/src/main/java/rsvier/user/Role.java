@@ -33,7 +33,7 @@ public class Role {
 
    @Override
    public String toString() {
-      return "ROLE_" + super.toString();
+      return "ROLE_" + role;
    }
 
    public long getId() {
