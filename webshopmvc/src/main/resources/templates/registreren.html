@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html>
+<head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registeren</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body background="/images/background-cheese.jpg">
+
+
+<!--
+        <div>Hier kun je straks registeren!  Nu onze eigen tak.
+
+                    // HIER moet eerst een user worden gemaakt.
+                   user.setbillingAdres(new Address);
+                   // Leeg adres  in registeer controller.
+                   //Lege Cart , pak deze/find user id. En maak een cart aan.
+                    public void createCustomerAccount()
+                    // get Klant object back (adress can remain null at first)
+                    UserAccount user = menu.createUserAccount();
+                    // send Klant object to DAO to persist in DB
+                    // and get back the assigned id
+                    long id = dao.create(user).getId();
+                    // create cart with the same id
+                    cartController.createCartByID(id);
+                    '' done ''
+                    terug naar login
+                    ''-> echt in te loggen''--
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+<!--validators-->
+
+
+<h1>Voer uw gegevens in</h1>
+
+
+<h2 th:if="${session.message != null}">Email adres al in gebruik, maak een andere keuze</h2>
+
+
+<form method="post" action="/MaakAccount/ok" onsubmit="return checkForm(this);">
+    <fieldset>
+        <legend>Maak Account</legend>
+        <p>Email : <input title="Vul uw Email gebruikersnaam in" type="text" placeholder=" bijvoorbeeld abc@mijnmail.nl" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" name="email"></p>
+        <p>Wachtwoord :  <input title="Wachtwoord moet op zijn minste bestaan uit 6 karakters met tenminste een hoofdletter en een integer (getal)" type="password" placeholder=" bijvoorbeeld Aa1234" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8" onchange="
+                        this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+                        if (this.checkValidity())
+                            form.W8c.pattern = this.value;
+                                        "></p>
+        <p>Bevestig Wachtwoord: <input title="Herhaal uw wachtwoord zoals hierboven" type="password" placeholder=" Herhaling " required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8c" onchange="
+                        this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+                                               "></p><br>
+
+
+
+        <p>Voornaam : <input  type="text" name="firstName" required th:value="${session.tempAdres.getFirstName()}"></p>
+        <p>Tussennaam : <input  type="text"  name="insertion" th:value="${session.tempAdres.getInsertion()}" > </p>
+        <p>Achternaam : <input  type="text"  name="lastName" required th:value="${session.tempAdres.getFamilyName()}"> </p>
+        <br>
+        <p>Straat : <input  type="text"  name="street" required th:value="${session.tempAdres.getStreet()}"> </p>
+        <p>Huisnummer : <input  type="number"  name="number" th:value="${session.tempAdres.getNumber()}" > </p>
+        <p>Toevoeging : <input  type="text"  name="addition" th:value="${session.tempAdres.getNumAddition()}" > </p>
+        <p>Postcode : <input  type="text" placeholder="1234AA"  name="zipCode" required pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}" onchange="
+                        this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+                                      "                        th:value="${session.tempAdres.getZipCode()}"> </p>
+        <p>Plaats : <input  type="text"  name="city" required th:value="${session.tempAdres.getCity()}"> </p>
+
+
+
+        <p><input type="submit" value="Maak Account"></p>
+    </fieldset>
+</form>
+
+
+<!--achtergrondbody-->
+</body>
+
+
+
+</html>

@@ -1,7 +1,8 @@
 
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <html lang="en">
 
 <head>
@@ -39,6 +40,7 @@
 								th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
 								<a href="/employees/products"><font color="#0080ff">Edit Producten</font></a>
 							</li>
+							<div sec:authorize="hasRole('ROLE_CUSTOMER')">LALALA KLANT!</div>
 							<li
 								th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
 								<a href="/employees/users"><font color="#0080ff"> Edit Gebruikers</font></a>
@@ -88,8 +90,10 @@
 
 
 						<li th:unless="${session.currentUser==null}">
-							<!-- if customer is not anonymous(logged in)--> <a href="#"
-							th:text=" 'User: ' + ${session.currentUser.email}">userX</a>
+							<!-- if customer is not anonymous(logged in)-->
+							<span sec:authentication="name">userX</span>
+							<!--<a href="#"
+							th:text=" 'User: ' + ${session.currentUser.email}">userX</a>-->
 						</li>
 
 

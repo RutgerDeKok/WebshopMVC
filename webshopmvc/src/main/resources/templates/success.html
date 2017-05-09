@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 <style>
@@ -79,22 +80,23 @@ span.psw {
 
 
 
-	<div class="container">
+	<div sec:authorize="isAnonymous()">
 		
-			<h2 style = "align:center; vertical-align:middle;" th:if="${session.currentUser==null}">
+			<h2 style = "align:center; vertical-align:middle;">
 				<!-- if login failed--> Login onjuist
 			</h2>
-
-			<h2 style = "align:center; vertical-align:middle;" th:unless="${session.currentUser==null}">
+			<button onclick="window.location.href='/login'">Probeer Opnieuw</button>
+	</div>
+	<div sec:authorize="isAuthenticated()">
+		<h2 style = "align:center; vertical-align:middle;">
 				<!-- if login is success--> Login succesvol
-			</h2>
-
-
+		</h2>
+		<button onclick="Success()">OK </button>
 	</div>
 
 
 
-	<div class="container" style="background-color: #eaeaea">
+<!--	<div class="container" style="background-color: #eaeaea">
 
 
 		<button th:if="${session.currentUser==null}" onclick="window.location.href='/login'">Probeer
@@ -102,7 +104,7 @@ span.psw {
 
 
 		<button th:unless="${session.currentUser==null}" onclick="Success()">OK </button>
-	</div>
+	</div>-->
 
 
 </body>

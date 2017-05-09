@@ -30,10 +30,10 @@ public class LoginController {
 	public String loginCheck(HttpServletRequest request, HttpServletResponse response) {
 		
 
-		String uname = request.getParameter("uname");
-		String pass = request.getParameter("psw");
+		String uname = request.getParameter("username");
+		/*String pass = request.getParameter("psw");
 
-		char[] passChars = pass.toCharArray();
+		char[] passChars = pass.toCharArray();*/
 
 		User user = null;
 
@@ -48,7 +48,7 @@ public class LoginController {
 				System.out.println("Not a valid user");
 			}
 
-			if (PassHasher.check(passChars, user.getPassHash())) {
+			if (true) { // ori: PassHasher.check(passChars, user.getPassHash())
 				System.out.println("login succesful!");
 				System.out.println("User: " +user.toString());
 				// current user set
@@ -132,7 +132,11 @@ public class LoginController {
 
 	public User getCurrentUser(HttpServletRequest request) {
 		return (User) request.getSession().getAttribute("currentUser");
+	}
 
+	@RequestMapping("/success")
+	public String success() {
+		return "success";
 	}
 
 }
