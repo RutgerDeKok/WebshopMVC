@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  lang="en">
 <!--  <head th:insert="template :: head">-->
 <head>
 <meta charset="utf-8">
@@ -10,6 +11,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/Kaasmenu.css" rel="stylesheet">
 <link href="css/welcome.css" rel="stylesheet">
+
 
 <style>
 
@@ -34,15 +36,14 @@
 
 	<div class="container" >
 		<div class="row">
-			<div class="col-lg-2 navbar-left"  id="table" >
+			<div class="col-lg-2 navbar-left" id="table">
 				<section style="padding-left: 25px;">
-				<h3 class="page-header" >Categorie</h3>
+				<h2 class="page-header" >Categorie</h2>
 				<form class="form" role="form" action="#"
 					  th:action="@{/products/filter}" th:object="${formobject}"
 					  method="post" >
 					<div class="form-group">
 						<div th:each="category : ${categories}" class="radio">
-							
 							<input th:checked="${category.getNL() == session.catFilter.getNL() }" type="radio" th:value="${category}" name="filter" />
 							<label th:text="${category.getNL()}">-</label>
 						</div>
@@ -51,18 +52,9 @@
 				</form>
 				</section>
 			</div>
-			
-			<div class="col-lg-1" > 
-			</div>
-			
-			<div class="col-lg-10" id="scroll70">
-			<div id="table" > 
-			
-			
-	
+			<div class="col-lg-9 col-lg-offset-1" id="table" >
 				<h2 class="page-header" align="center">Producten</h2>
-			<table class="table table-striped" cellpadding="10"> 
-				<!--<table class="table table-bordered" cellpadding="10">-->
+				<table class="table table-striped" cellpadding="10">
 					<thead>
 						<tr>
 							<th align="left">Naam</th>
@@ -73,6 +65,8 @@
 							<th align="left">Informatie</th>
 							<th width="5" align="left" style="text-align: right">Aantal</th>
 							<th width="15" align="left">&nbsp;</th>
+							<th></th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -83,25 +77,37 @@
 							<td th:text="${element.price}" align="left">prijs</td>
 							<td th:text="${element.stockCount}" align="left">voorraad</td>
 							<td th:text="${element.info}" align="left">info</td>
-							<td align="left">
+							<td align="left" sec:authorize="hasRole('ROLE_CUSTOMER')">
 								<form method="post" action="/cart/add" th:action=@{/cart/add/}>
 									<input type="text" value="1" style="text-align: right" placeholder="1" size="5" name="choice"/>   <!--placeholder="1"-->
 								<td>
 									<button type="submit"  name="choice" th:value= "${status.index}" class="glyphicon glyphicon-shopping-cart icon-white" aria-hidden="true"></button>
 								</td>
 								</form>
-													
-								
+							</td>
+							<td align="left" sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')">
+								<form method="post" action="/employees/products/update"
+									  th:action=@{/employees/products/update/}>
+									<button type="submit" name="productIndex"
+											th:value="${status.index}"
+											class="glyphicon glyphicon-edit" aria-hidden="true">
+									</button>
+								</form>
+							</td>
+							<td align="left" sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')">
+								<form method="post" action="/employees/products/delete"
+									  th:action=@{/employees/products/delete/}>
+									<button type="submit" name="delindex"
+											th:value="${status.index}"
+											class="glyphicon glyphicon-remove icon-red" aria-hidden="true">
+									</button>
+								</form>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				</div>
 			</div>
 		</div>		<!--end row -->
 	</div>		<!--end container -->
-		
-
-	
 </body>
 </html>
