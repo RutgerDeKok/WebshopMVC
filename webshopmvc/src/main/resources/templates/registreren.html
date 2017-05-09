@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <head>
     <title>TODO supply a title</title>
     <meta charset="UTF-8">
@@ -47,6 +48,10 @@
 <form method="post" action="/MaakAccount/ok" onsubmit="return checkForm(this);">
     <fieldset>
         <legend>Maak Account</legend>
+        <p sec:authorize="hasRole('ROLE_ADMIN')">Usertype: <br>
+            <input type="radio" name="userType" value="CUSTOMER" checked>Klant<br>
+            <input type="radio" name="userType" value="EMPLOYEE">Medewerker
+        </p>
         <p>Email : <input title="Vul uw Email gebruikersnaam in" type="text" placeholder=" bijvoorbeeld abc@mijnmail.nl" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" name="email"></p>
         <p>Wachtwoord :  <input title="Wachtwoord moet op zijn minste bestaan uit 6 karakters met tenminste een hoofdletter en een integer (getal)" type="password" placeholder=" bijvoorbeeld Aa1234" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8" onchange="
                         this.setCustomValidity(this.validity.patternMismatch ? this.title : '');

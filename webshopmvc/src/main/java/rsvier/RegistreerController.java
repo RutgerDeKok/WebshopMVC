@@ -66,7 +66,9 @@ public class RegistreerController {
         session.removeAttribute("message");
         session.removeAttribute("nieuweAdress");
         System.out.println("Account gegevens worden verwerkt");
-        User newUser = userService.registerUser(request, UserType.CUSTOMER);
+        UserType userType = UserType.valueOf(request.getParameter("userType"));
+        System.out.println(userType.getNL());
+        User newUser = userService.registerUser(request, userType);
 
         /*User nieuweUser = new User();
         
