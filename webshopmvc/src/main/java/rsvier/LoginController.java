@@ -17,77 +17,76 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import rsvier.user.CurrentUser;
 
 @Controller
 public class LoginController {
 
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private CartService cartService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private CartService cartService;
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginCheck(HttpServletRequest request, HttpServletResponse response) {
-		
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String loginCheck(HttpServletRequest request, HttpServletResponse response) {
 
-		String uname = request.getParameter("username");
-		/*String pass = request.getParameter("psw");
+        System.out.println("DIT DRAAIT NIET MEER DOOR SERCURITY!, als je dit ziet , dan WEL!");
+        String uname = request.getParameter("username");
+        /*String pass = request.getParameter("psw");
 
 		char[] passChars = pass.toCharArray();*/
 
-		User user = null;
+        User user = null;
 
-		// get user by email
-		try {
+        // get user by email
+        try {
 
-			Validator validator = Validator.getInstance();
-			if (validator.validateEmail(uname)) {
-				user = userService.findUserByEmail(uname);
-				System.out.println("User: " +user.toString());
-			} else {
-				System.out.println("Not a valid user");
-			}
+            Validator validator = Validator.getInstance();
+            if (validator.validateEmail(uname)) {
+                user = userService.findUserByEmail(uname);
+                System.out.println("User: " + user.toString());
+            } else {
+                System.out.println("Not a valid user");
+            }
 
-			if (true) { // ori: PassHasher.check(passChars, user.getPassHash())
-				System.out.println("login succesful!");
-				System.out.println("User: " +user.toString());
-				// current user set
-				request.getSession().setAttribute("currentUser", user);
-				
-				
-				// checken of er all een cart in de sessie is, in dat geval moeten de suborders 
-				//	worden toegevoegd aan de cart uit de DB.
-				checkForSessionCart(request.getSession(), user);
-				
-		
+            if (true) { // ori: PassHasher.check(passChars, user.getPassHash())
+                System.out.println("login succesful!");
+                System.out.println("User: " + user.toString());
 
-			} else { // foute inlog
-				System.out.println("login incorrect!");
-			}
+                // current user set
+                request.getSession().setAttribute("currentUser", user);
 
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+                // checken of er all een cart in de sessie is, in dat geval moeten de suborders 
+                //	worden toegevoegd aan de cart uit de DB.
+                checkForSessionCart(request.getSession(), user);
 
-		}
-                //gaat naar een succes pagina.
-		return "success";
+            } else { // foute inlog
+                System.out.println("login incorrect!");
+            }
 
-	}
-	
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
 
-	private void checkForSessionCart(HttpSession session, User user) {
-		// checken of er all een cart in de sessie is, 
-		Cart sessionCart = (Cart) session.getAttribute("cart");
-		if(sessionCart!=null){
-			
-			//in dat geval moeten de suborders 
-			//	worden toegevoegd aan de cart uit de DB.
-			Cart dbCart = cartService.getCartByUser(user);
-			System.out.println("DB cart id is: "+ dbCart.getId());
-			for(CartSubOrder sub:sessionCart.getSubOrders()){
-				dbCart.getSubOrders().add(sub);
-			}
-			
+        }
+        //gaat naar een succes pagina.
+        return "success";
+
+    }
+
+    private void checkForSessionCart(HttpSession session, User user) {
+        // checken of er all een cart in de sessie is, 
+        Cart sessionCart = (Cart) session.getAttribute("cart");
+        if (sessionCart != null) {
+
+            //in dat geval moeten de suborders 
+            //	worden toegevoegd aan de cart uit de DB.
+            Cart dbCart = cartService.getCartByUser(user);
+            System.out.println("DB cart id is: " + dbCart.getId());
+            for (CartSubOrder sub : sessionCart.getSubOrders()) {
+                dbCart.getSubOrders().add(sub);
+            }
+
 //			// is er een recent ingevuld delivery adres in the sessie cart
 //			// so ja dan die overzetten in de dbCart
 //			if(sessionCart.getDeliveryAdress().getFirstName()!=null){
@@ -105,38 +104,48 @@ public class LoginController {
 //				dbAddress.setStreet(sessionAddress.getStreet());
 //				dbAddress.setZipCode(sessionAddress.getZipCode());
 //			}
-			// dbCart in sessie zetten en opslaan in DB
-			session.setAttribute("cart", dbCart);	
-			cartService.updateCart(dbCart);
-		}
-		
-	}
+            // dbCart in sessie zetten en opslaan in DB
+            session.setAttribute("cart", dbCart);
+            cartService.updateCart(dbCart);
+        }
 
-	@RequestMapping("/logout")
-	public void Logout(HttpServletRequest request, HttpServletResponse response) {
-		
-		request.getSession().removeAttribute("currentUser");
-		System.out.println("logging out");
+    }
 
-		try {
-			response.sendRedirect("/");
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-	}
+    @RequestMapping("/logout")
+    public void Logout(HttpServletRequest request, HttpServletResponse response) {
 
-	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
-	public String inlog() {
-		return "login";
-	}
+        request.getSession().removeAttribute("currentUser");
+        System.out.println("logging out");
 
-	public User getCurrentUser(HttpServletRequest request) {
-		return (User) request.getSession().getAttribute("currentUser");
-	}
+        try {
+            response.sendRedirect("/");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-	@RequestMapping("/success")
-	public String success() {
-		return "success";
-	}
+    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+    public String inlog() {
+        return "login";
+    }
+
+    public User getCurrentUser(HttpServletRequest request) {
+        return (User) request.getSession().getAttribute("currentUser");
+    }
+
+    @RequestMapping("/success")
+    public String success(HttpSession sessie) {
+
+        // current user set uit de security!!
+        
+       
+        CurrentUser currentUser = (CurrentUser)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        sessie.setAttribute("currentUser", currentUser.getUser());
+
+        System.out.println(currentUser.getUser().toString());
+
+        return "success";
+    }
 
 }
