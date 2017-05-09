@@ -2,6 +2,8 @@ package rsvier.order;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import rsvier.cartsuborder.CartSubOrder;
 import rsvier.cartsuborder.CartSubOrderService;
 import rsvier.product.Product;
@@ -92,9 +95,16 @@ public class OrderController {
 		if(cart.getId()>0){
 		cartService.updateCart(cart);
 		}
+		
+		String date = new SimpleDateFormat("dd MMM yyyy").format(order.getSaledate());
+		
+//		String datetime = new SimpleDateFormat("dd-MMM-yyyy  hh.mm").format(order.getSaledate());
+		
+		model.addAttribute("date", date);
 		model.addAttribute("address", address);
 		model.addAttribute("order", order);
 		model.addAttribute("user", user);
+		
 		
 		productService.clearLocalList();
 		// hierdoor ververst de product List bij het producten overzicht
@@ -122,14 +132,14 @@ public class OrderController {
 	@RequestMapping(value = "/employees/orders/view", method = RequestMethod.GET)
 	public String gotoOrderEdit() {
 
-		return "Order_view";
+		return "order_details";
 	}
 	
 	
 	
 
 	@RequestMapping(value = "employees/orders/view", method = RequestMethod.POST)
-	public @ResponseBody void updateOrder(@RequestParam("index") String index, Map<String, Object> model,
+	public @ResponseBody void updateOrder(@RequestParam("index") String index,
 			HttpSession session, HttpServletResponse response) {
 		@SuppressWarnings("unchecked")
 		List<Order> orders = (ArrayList<Order>) session.getAttribute("orders");
@@ -137,13 +147,23 @@ public class OrderController {
 		int orderIndex = (Integer.parseInt(index));
 
 		Order order = orders.get(orderIndex);
-		List<FinalSubOrder> subs = orderService.findSubOrders(order.getId());
 
-		model.put("order", order);
-		model.put("subs", subs);
+		List<FinalSubOrder> subs = orderService.findSubOrders(order.getId());
+		for(FinalSubOrder sub:subs){
+			System.out.println(sub);
+		}
+		
+		String datetime = new SimpleDateFormat("dd-MMM-yyyy  hh.mm").format(order.getSaledate());
+		
+		session.setAttribute("date", datetime);
+
+		session.setAttribute("order", order);
+		session.setAttribute("subs", subs);
+		
+	
 
 		try {
-			response.sendRedirect("/order_view");
+			response.sendRedirect("/employees/orders/view");
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}

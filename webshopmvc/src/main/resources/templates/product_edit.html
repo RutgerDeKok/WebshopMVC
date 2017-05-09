@@ -28,7 +28,7 @@
 
 <body th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
 	
-	<header th:replace="Navigator :: header" />
+	<header th:replace="navigator :: header" />
 	
 <div id="nice_Simple_Background_a_la_Tjeerd"
 		th:with="product = ${session.product}">

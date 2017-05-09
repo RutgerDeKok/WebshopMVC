@@ -24,7 +24,7 @@
 
 </head>
 <body background="/images/background-cheese.jpg">
-	<header th:replace="Navigator :: header" />
+	<header th:replace="navigator :: header" />
 
 	<!-- content -->
 	<div align="center">
@@ -39,7 +39,7 @@
 		<table class="table table-hover">
 			<thead>
 				<tr class="center middle">
-					<th>Productnummer</th>
+					<th>Nummer</th>
 					<th>Product</th>
 					<th>Aantal</th>
 					<th>Stukprijs</th>
@@ -47,8 +47,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="element : ${session.cart.getSubOrders()}">
-					<td class="center middle" th:text="${element.product.getId()}"></td>
+				<tr th:each="element , status: ${session.cart.getSubOrders()}">
+					<td class="center middle" th:text="${status.index+1}"></td>
 					<td class="center middle" th:text="${element.product.getName()}"></td>
 					<td class="center middle" th:text="${element.getQuantity()}"></td>
 					<td class="center middle" th:text="${element.product.getPrice()}"></td>
@@ -95,7 +95,7 @@
 
 			<div>
 				<div id="button">
-					<a href="/copyAdres"><div>Kopieer factuuradres</div>
+					<a href="/copy_adres"><div>Kopieer factuuradres</div>
 						<div>naar afleveradres</div></a>
 				</div>
 			</div>
@@ -126,7 +126,7 @@
 
 
 				<div id="button">
-					<a href="/wijzigAdres?origin=checkout&address=delivery">Wijzig</a>
+					<a href="/wijzig-adres?origin=checkout&address=delivery">Wijzig</a>
 				</div>
 
 			</div>

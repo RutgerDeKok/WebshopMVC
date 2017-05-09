@@ -19,7 +19,7 @@ import java.io.IOException;
 
 @Controller
 public class AddressController {
-
+	
 	@Autowired
 	ProductService productService;
 	@Autowired
@@ -28,8 +28,9 @@ public class AddressController {
 	UserService userService;
 	@Autowired
 	AddressService addressService;
+	
 
-	@RequestMapping(value = "/wijzigAdres", method = RequestMethod.GET)
+	@RequestMapping(value = "/wijzig-adres", method = RequestMethod.GET)
 	public @ResponseBody void updateAddress(@RequestParam("address") String addressType,
 			@RequestParam("origin") String origin, HttpSession session, HttpServletResponse response) {
 
@@ -48,21 +49,17 @@ public class AddressController {
 			session.setAttribute("address", ((User) session.getAttribute("currentUser")).getBillingAddress());
 		} 
 		
-//		return "maakAdres";
 		
 		try {
-			response.sendRedirect("/MaakAdres");
+			response.sendRedirect("/maak-adres");
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
-	// @RequestMapping(value="/wijzigAdres", method = RequestMethod.GET)
-	// public String wijzigAdres() {
-	// return "wijzigAdres";
-	// }
 
-	@RequestMapping(value = "/copyAdres", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/copy_adres", method = RequestMethod.GET)
 	public String copyAdres(HttpSession session) {
 		checkAddressInCart(session);
 		Cart cart = (Cart) session.getAttribute("cart");
@@ -95,7 +92,7 @@ public class AddressController {
 	}
 
 
-	@RequestMapping(value = "/MaakAdres/ok", method = RequestMethod.POST)
+	@RequestMapping(value = "/maak-adres/ok", method = RequestMethod.POST)
 	public String voegAdrestoe(HttpServletRequest request) {
 		
 		System.out.println("Adres gegevens worden verwerkt");
@@ -125,16 +122,17 @@ public class AddressController {
 		String origin = (String) request.getSession().getAttribute("origin");
 		if(origin.equals("checkout")){
 			return "redirect:/checkout";
-		}else if(origin.equals("registeren")){
-			return "redirect:/registeren";
+		}else if(origin.equals("register")){
+			return "redirect:/register";
 		}
 		
 		return "redirect:/products";
 	}
+	
 
-	@RequestMapping(value = "/MaakAdres", method = RequestMethod.GET)
+	@RequestMapping(value = "/maak-adres", method = RequestMethod.GET)
 	public String gaNaarMaakAdress() {
-		return "MaakAdres";
+		return "maak_adres";
 	}
 
 }

@@ -13,13 +13,13 @@
 </head>
 
 <body background="/images/background-cheese.jpg">
-	<header th:replace="Navigator :: header" />
+	<header th:replace="navigator :: header" />
 
 	<div id="nice_Simple_Background_a_la_Tjeerd"
 		th:with="address = ${session.address}">
 		
 	 	<h3>Voer uw adress gegevens in</h3>
-		<form method="post" action="/MaakAdres/ok/">
+		<form method="post" action="/maak-adres/ok/">
 		
 			<label><b>Naam </b></label> <input type="text"
 				th:value="${address.getFirstName()}"
