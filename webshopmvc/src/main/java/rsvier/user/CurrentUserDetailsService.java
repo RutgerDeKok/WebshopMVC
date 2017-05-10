@@ -30,7 +30,7 @@ public class CurrentUserDetailsService implements UserDetailsService {
         System.out.println(username);
         User user = userService.findUserByEmail(username);
         System.out.println("User: " +user+
-                "\nRole: " + user.getRole().toString());
+                "\nType: " + user.getUserType().toString());
         return new CurrentUser(user);
     }
 }

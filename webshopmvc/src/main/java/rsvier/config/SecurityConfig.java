@@ -63,10 +63,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     DataSource dataSource;
 
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        /*auth
+        auth
                 .inMemoryAuthentication()
                 .withUser("admin").password("admin").roles("ADMIN");
-        auth
+        /*auth
                 .jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery(
                         "select email,pass_hash, enabled from users where email=?")
