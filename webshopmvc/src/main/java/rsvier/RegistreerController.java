@@ -75,59 +75,10 @@ public class RegistreerController {
         System.out.println(accountType);
         User newUser = userService.registerUser(request, accountType);
 
-        /*User nieuweUser = new User();
-        
-        
-        
-        Address nieuweAdres = new Address();
-        
-        
-        //Linkt user met adres!
-        nieuweUser.setBillingAdress(nieuweAdres);
-        
-        String input1 = request.getParameter("email");
-        System.out.println(input1);
-        String input2 = request.getParameter("W8");
-        System.out.println(input2);
-        try {
-            nieuweUser.setEmail(input1);
-            //Het is altijd een klant op deze manier.
-            nieuweUser.setUserType(CUSTOMER);
-        } catch (Exception een) {
-            System.out.println(een.getMessage());
-        }
-
-        //wachtwoord is nog een tekst, verander naar chars.
-        char[] wachtwoordChars = input2.toCharArray();
-        //Laat wachtwoord zien (check) in system out.
-
-        System.out.println("tot hier gaat het nog goed.");
-        
-        try {
             
-            String GehashdeWachtwoord = PassHasher.getSaltedHash(wachtwoordChars);
-            
-            nieuweUser.setPassHash(GehashdeWachtwoord);
-        } catch (Exception twee) {
-            System.out.println(twee.getMessage());
-            System.out.println("Het wachtwoord opslaan gaat fout");
-        }
         
-        System.out.println("tot hier gaat het nog goed-2.");
-
-//                adres gedeelte invullen.
-        System.out.println("Adres gegevens worden verwerkt");
         
-        nieuweAdres.setFirstName(request.getParameter("firstName"));
-        nieuweAdres.setFamilyName(request.getParameter("lastName"));
-        nieuweAdres.setInsertion(request.getParameter("insertion"));
-        nieuweAdres.setCity(request.getParameter("city"));
-        nieuweAdres.setNumber(Integer.parseInt(request.getParameter("number")));
-        nieuweAdres.setNumAddition(request.getParameter("addition"));
-        nieuweAdres.setStreet(request.getParameter("street"));
-        nieuweAdres.setZipCode(request.getParameter("zipCode"));*/
-
-        
+        //CONTROLE EMAIL AL BESTAAT!
         
         boolean emailvalid = true;
         
@@ -143,10 +94,6 @@ public class RegistreerController {
         catch(Exception e ){e.getMessage(); System.out.println("Deze email is nog niet in de DB- dus validemail = true"); }
         
         
-        
-        
-         
-        
         if(!emailvalid){
             System.out.println(" email is niet valid");
             
@@ -159,11 +106,17 @@ public class RegistreerController {
         }
         
         
+        
+        
+        
+        
+        
         //Deel 2 DB.
         // dan wijzigingen opslaan in DB (cart of user)
         //deze if is niet nodig toch, want er is een nieuwe en niks anders nodig?
         //if(request.getSession().getAttribute("currentUser")!=null){
         System.out.println("Gegevens worden opgeslagen in DB");
+        //maakt de user!
         userService.addUser(newUser);
         //Maakt een lege suborder array.
         List<CartSubOrder> subs = new ArrayList<>();

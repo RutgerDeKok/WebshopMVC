@@ -100,11 +100,35 @@ public class UserController {
 		session.setAttribute("newUser", user);
 		
 		try {
-			response.sendRedirect("/user_edit");
+			response.sendRedirect("/user_new");
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
 	}
+        
+        @RequestMapping(value = "employees/users/user_edit", method = RequestMethod.POST)
+	public @ResponseBody void editUser(HttpSession session, HttpServletResponse response){
+        
 	
+            
+            
+            
+            
 
+}
+        
+         @RequestMapping(value = "/user_new", method = RequestMethod.GET)
+	public String UserNEW(HttpSession session, HttpServletResponse response){
+        
+       
+    
+//        Eerste keer een leeg adres
+        if (session.getAttribute("tempAdres") == null) {
+
+            Address nieuweAdres = new Address();
+            session.setAttribute("tempAdres", nieuweAdres);
+        }
+        return "user_new";
+        
+        }
 }
