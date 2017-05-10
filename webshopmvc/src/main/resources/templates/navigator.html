@@ -18,8 +18,8 @@
 				<div class="navbar-header">
 					 <a class="navbar-brand"
 						href="products.html" th:href="@{/}">Boer Piet</a>
-					<div sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')">
-						<ul class="nav navbar-nav navbar-left" >
+					
+						<ul class="nav navbar-nav navbar-left" sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')">
 							<li>
 								<a href="/employees/products"><font color="#0080ff">Edit Producten</font></a>
 							</li>
@@ -30,7 +30,7 @@
 								<a href="/employees/orders"><font color="#0080ff">Orders</font></a>
 							</li>
 						</ul>
-					</div>
+					
 					<button type="button" class="navbar-toggle collapsed"
 						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 						aria-expanded="false">
