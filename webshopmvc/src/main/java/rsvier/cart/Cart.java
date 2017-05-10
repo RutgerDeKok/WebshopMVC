@@ -22,7 +22,7 @@ import java.util.List;
 public class Cart implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@OneToOne
 	private User user;
