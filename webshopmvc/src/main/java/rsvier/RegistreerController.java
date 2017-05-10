@@ -72,7 +72,7 @@ public class RegistreerController {
             userType = "CUSTOMER";
         }
         UserType accountType = UserType.valueOf(userType);
-        System.out.println(accountType.getNL());
+        System.out.println(accountType);
         User newUser = userService.registerUser(request, accountType);
 
         /*User nieuweUser = new User();
