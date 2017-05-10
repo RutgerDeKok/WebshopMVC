@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import rsvier.address.Address;
-
 
 @Controller
 public class UserController {
@@ -46,7 +44,7 @@ public class UserController {
 			typeFilter = UserType.ALL;
 		}
 
-		List<User> users = userService.getUsersByType(typeFilter);;
+		List<User> users = userService.getUsersByType(typeFilter);
 		session.setAttribute("users", users);
 		session.setAttribute("typeFilter", typeFilter);
 	}

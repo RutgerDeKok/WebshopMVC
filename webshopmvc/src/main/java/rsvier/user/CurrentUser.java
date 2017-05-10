@@ -1,8 +1,6 @@
 package rsvier.user;
 
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 /**
  * Created by J on 5/3/2017.
