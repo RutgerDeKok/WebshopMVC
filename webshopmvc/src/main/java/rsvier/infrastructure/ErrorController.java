@@ -13,7 +13,7 @@ public class ErrorController {
     @RequestMapping(value = "error", method = RequestMethod.GET)
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
          
-        ModelAndView errorPage = new ModelAndView("errorPage");
+        ModelAndView errorPage = new ModelAndView("error_page");
         String errorMsg = "";
         int httpErrorCode = getErrorCode(httpRequest);
  
