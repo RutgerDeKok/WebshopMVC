@@ -98,7 +98,7 @@
                             <div class="col-lg-10" id="scroll75">
                                 <div id="table">
 
-
+<!--DIT IS DE TABLE!!-->
                                     <!--  <div class="menu" id="table"> -->
                                     <h2 class="page-header" align="center">
                                         Gebruikers
@@ -132,8 +132,8 @@
                                                     
 <!--                                                    EDIT KNOP! via user/update-->
                                                     <td align="left">
-                                                        <form method="post" action="/employees/users/update"
-                                                              th:action=@{/employees/users/update/}>
+                                                        <form method="post" action=employees/users/user_edit
+                                                              th:action=@{/employees/users/user_edit/}>
                                                             <button type="submit" name="userIndex"
                                                                     th:value="${status.index}">Edit</button>
                                                         </form>
