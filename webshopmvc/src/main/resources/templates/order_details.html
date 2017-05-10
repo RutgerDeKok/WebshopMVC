@@ -14,7 +14,7 @@
 </head>
 
 
-<body style="background: rgb(255, 255, 179);">
+<body sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')"  style="background: rgb(255, 255, 179);">
 	<header th:replace="navigator :: header" />
 	
 	<div class="container"  style="background: rgb(255, 255, 179);">
@@ -140,4 +140,9 @@
 
 
 </body>
+
+<body sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_ANONYMOUS')">	
+		<h1 align="center">No access</h1>
+</body>
+
 </html>

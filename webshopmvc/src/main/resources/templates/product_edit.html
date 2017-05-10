@@ -26,7 +26,7 @@
 
 </head>
 
-<body th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'ROLE_EMPLOYEE' }">
+<body sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')"  background="/images/grass.jpg">
 	
 	<header th:replace="navigator :: header" />
 	
@@ -78,8 +78,8 @@
 <!-- end employees only content -->
 
 
-<body th:unless="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
-	<h1 align="center">No access</h1>
+<body sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_ANONYMOUS')">	
+		<h1 align="center">No access</h1>
 
 
 </body>
