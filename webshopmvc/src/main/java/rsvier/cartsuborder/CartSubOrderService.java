@@ -3,6 +3,8 @@ package rsvier.cartsuborder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rsvier.product.Product;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,4 +35,11 @@ public class CartSubOrderService {
     public void createCartSubOrder(CartSubOrder cartSubOrder ){
          dao.save(cartSubOrder);
     }
+    
+    public List<CartSubOrder> getCartSubOrdersByProduct(Product product){
+    	return dao.getCartSubOrdersByProduct(product);
+    }
+    
+    
+    
 }

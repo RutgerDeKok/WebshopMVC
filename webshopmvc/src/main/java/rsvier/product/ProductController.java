@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import rsvier.cartsuborder.CartSubOrder;
+import rsvier.cartsuborder.CartSubOrderService;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,6 +26,8 @@ import java.util.Map;
 public class ProductController {
 
 	private final ProductService productService;
+	@Autowired
+	private CartSubOrderService cartSubService;
 	private ProductCategory categoryFilter;
 	// private String brandFilter = "";
 
@@ -84,16 +89,20 @@ public class ProductController {
 		List<Product> lijst = (ArrayList<Product>) request.getSession().getAttribute("lijst");
 		int prodIndex = (Integer.parseInt(choice));
 		System.out.println("prodIndex is: " + prodIndex);
-		//TODO implement the method
+		
 		Product prod = (Product)lijst.get(prodIndex);
 		System.out.println("product to be deleted id: "+prod.getId()+" name: "+prod.getName());
-		try {  // cannot delete a product if it is used as a key inside a suborder
+		
+		// delete any cartSubOrders that contain this product
+		List<CartSubOrder> subs = cartSubService.getCartSubOrdersByProduct(prod);
+		for(CartSubOrder sub: subs){
+			System.out.println("deleteing sub Order: "+sub.getId());
+			cartSubService.deleteCartSubOrder(sub);
+		}
+		
 		productService.deleteproduct(prod.getId());
 		lijst.remove(prodIndex);
-		} catch (Exception e){
-			System.out.println(e.getMessage());
-//			putProductsInSession(request.getSession());
-		}
+	
 		try {
 			response.sendRedirect("/employees/products");
 		} catch (IOException e) {

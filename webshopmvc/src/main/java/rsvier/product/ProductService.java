@@ -51,12 +51,7 @@ public class ProductService {
 
 	public void deleteproduct(Long id) {
 		productRepository.delete(id);
-	
-		for(Product prod:products){
-			if(prod.getId()==id){
-				products.remove(prod);
-			}
-		}
+		clearLocalList();
 	}
 	
 	
