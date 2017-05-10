@@ -3,6 +3,7 @@ package rsvier.order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rsvier.finalsuborder.FinalSubOrder;
+import rsvier.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,13 @@ public class OrderService {
 		dao.findAll().forEach(list::add);
 		return list;
 	}
+	
+	public List<Order> getOrdersByUser(User user){
+		List<Order> list = dao.getOrdersByUser(user);
+		return list;
+	}
+	
+	
 
 	public Order getOrder(Long id) {
 		return dao.findOne(id);
