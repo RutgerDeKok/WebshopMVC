@@ -39,7 +39,7 @@
 
 	<div class="container" >
 		<div class="row">
-			<div class="col-lg-2 navbar-left" id="table">
+			<div class="col-xs-hidden col-lg-2 navbar-left" id="table">
 				<section style="padding-left: 25px;">
 				<h2 class="page-header" >Categorie</h2>
 				<form class="form" role="form" action="#"
@@ -59,7 +59,7 @@
 				<h2 class="page-header" align="center">Producten</h2>
 				<table class="table table-striped" cellpadding="10">
 					<thead>
-						<tr>
+						<tr sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_ANONYMOUS')">
 							<th align="left">Naam</th>
 							<th align="left">Categorie</th>
 							<th align="left">Merk</th>
@@ -68,20 +68,28 @@
 							<th align="left">Informatie</th>
 							<th width="5" align="left" style="text-align: right">Aantal</th>
 							<th width="15" align="left">&nbsp;</th>
-							<th sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')"></th>
-							<th sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')"></th>
+						</tr>
+						<tr sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')">
+							<th align="left">Naam</th>
+							<th align="left">Categorie</th>
+							<th align="left">Merk</th>
+							<th align="left">Prijs</th>
+							<th align="left">Voorraad</th>
+							<th align="left">Informatie</th>
+							<th width="5" align="left" style="text-align: right">Aanpassen</th>
+							<th width="15" align="left">Verwijderen</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="element, status: ${session.lijst}">
+						<tr sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_ANONYMOUS')"
+							th:each="element, status: ${session.lijst}">
 							<td th:text="${element.name}" align="left">naam</td>
 							<td th:text="${element.category.getNL()}" align="left">1</td>
 							<td th:text="${element.brand}" align="left">merk</td>
 							<td th:text="${element.price}" align="left">prijs</td>
 							<td th:text="${element.stockCount}" align="left">voorraad</td>
 							<td th:text="${element.info}" align="left">info</td>
-							<div sec:authorize="hasRole('ROLE_CUSTOMER')">
-							<td align="left" sec:authorize="hasRole('ROLE_CUSTOMER')">
+							<td align="left">
 								<form method="post" action="/cart/add" th:action=@{/cart/add/}>
 									<input type="text" value="1" style="text-align: right" placeholder="1" size="5" name="choice"/>   <!--placeholder="1"-->
 								<td>
@@ -89,8 +97,16 @@
 								</td>
 								</form>
 							</td>
-							</div>
-							<td align="left" sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')">
+						</tr>
+						<tr sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')"
+							th:each="element, status: ${session.lijst}">
+							<td th:text="${element.name}" align="left">naam</td>
+							<td th:text="${element.category.getNL()}" align="left">1</td>
+							<td th:text="${element.brand}" align="left">merk</td>
+							<td th:text="${element.price}" align="left">prijs</td>
+							<td th:text="${element.stockCount}" align="left">voorraad</td>
+							<td th:text="${element.info}" align="left">info</td>
+							<td align="left">
 								<form method="post" action="/employees/products/update"
 									  th:action=@{/employees/products/update/}>
 									<button type="submit" name="productIndex"
@@ -99,7 +115,7 @@
 									</button>
 								</form>
 							</td>
-							<td align="left" sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')">
+							<td align="left">
 								<form method="post" action="/employees/products/delete"
 									  th:action=@{/employees/products/delete/}>
 									<button type="submit" name="delindex"

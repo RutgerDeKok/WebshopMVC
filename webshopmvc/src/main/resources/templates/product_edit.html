@@ -26,7 +26,7 @@
 
 </head>
 
-<body th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
+<body th:if="${session.currentUser!= null and session.currentUser.UserType.toString() == 'ROLE_EMPLOYEE' }">
 	
 	<header th:replace="navigator :: header" />
 	
