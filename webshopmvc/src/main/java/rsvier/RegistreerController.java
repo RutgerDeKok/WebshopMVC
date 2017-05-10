@@ -66,9 +66,14 @@ public class RegistreerController {
         session.removeAttribute("message");
         session.removeAttribute("nieuweAdress");
         System.out.println("Account gegevens worden verwerkt");
-        UserType userType = UserType.valueOf(request.getParameter("userType"));
-        System.out.println(userType.getNL());
-        User newUser = userService.registerUser(request, userType);
+        // Waarom print hij hier Klant en niet CUSTOMER?
+        String userType = request.getParameter("userType");
+        if (userType == null) {
+            userType = "CUSTOMER";
+        }
+        UserType accountType = UserType.valueOf(userType);
+        System.out.println(accountType);
+        User newUser = userService.registerUser(request, accountType);
 
         /*User nieuweUser = new User();
         

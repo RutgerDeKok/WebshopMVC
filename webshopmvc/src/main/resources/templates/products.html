@@ -31,6 +31,9 @@
 		<h2>Welkom in de Piet's Kaas Winkel</h2>
 
 		<p>Kies uw gewenste product en voeg toe aan uw winkelwagen</p>
+		<p sec:authorize="hasRole('ROLE_ADMIN')">JE BENT ADMIN</p>
+		<p sec:authorize="hasRole('ROLE_EMPLOYEE')">JE BENT MEDEWERKER</p>
+		<p sec:authorize="hasRole('ROLE_CUSTOMER')">JE BENT KLANT</p>
 	</div>
 
 
@@ -65,8 +68,8 @@
 							<th align="left">Informatie</th>
 							<th width="5" align="left" style="text-align: right">Aantal</th>
 							<th width="15" align="left">&nbsp;</th>
-							<th></th>
-							<th></th>
+							<th sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')"></th>
+							<th sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -77,6 +80,7 @@
 							<td th:text="${element.price}" align="left">prijs</td>
 							<td th:text="${element.stockCount}" align="left">voorraad</td>
 							<td th:text="${element.info}" align="left">info</td>
+							<div sec:authorize="hasRole('ROLE_CUSTOMER')">
 							<td align="left" sec:authorize="hasRole('ROLE_CUSTOMER')">
 								<form method="post" action="/cart/add" th:action=@{/cart/add/}>
 									<input type="text" value="1" style="text-align: right" placeholder="1" size="5" name="choice"/>   <!--placeholder="1"-->
@@ -85,6 +89,7 @@
 								</td>
 								</form>
 							</td>
+							</div>
 							<td align="left" sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')">
 								<form method="post" action="/employees/products/update"
 									  th:action=@{/employees/products/update/}>

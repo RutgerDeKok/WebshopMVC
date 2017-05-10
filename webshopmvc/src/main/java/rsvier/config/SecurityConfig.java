@@ -66,12 +66,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .inMemoryAuthentication()
                 .withUser("admin").password("admin").roles("ADMIN");
-        auth
+        /*auth
                 .jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery(
                         "select email,pass_hash, enabled from users where email=?")
                 .authoritiesByUsernameQuery(
-                        "select user_id, role_id from users_roles where user_id=?");
+                        "select type from users where email=?");*/
         auth.authenticationProvider(authProvider());
     }
 
