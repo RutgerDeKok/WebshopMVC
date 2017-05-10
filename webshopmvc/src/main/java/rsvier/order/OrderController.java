@@ -127,11 +127,24 @@ public class OrderController {
 	}
 	
 	
+	@RequestMapping(value = { "/orders" })
+	public String showCustommerOrders(HttpSession session) {
+		System.out.println("Show customer orders");
+
+		
+		List<Order> myOrders = orderService.getOrdersByUser((User)session.getAttribute("currentUser"));
+
+		session.setAttribute("myOrders", myOrders);
+		return "customer_orders";
+	}
+	
+	
 	
 
 	@RequestMapping(value = "/employees/orders/view", method = RequestMethod.GET)
-	public String gotoOrderEdit() {
-
+	public String gotoOrderEdit(Model model) {
+		model.addAttribute("back","employee");
+		System.out.println("back is employee");
 		return "order_details";
 	}
 	
@@ -170,90 +183,48 @@ public class OrderController {
 	}
 	
 	
+	@RequestMapping(value = "/orders/view", method = RequestMethod.GET)
+	public String gotoOrderView(Model model) {
+		model.addAttribute("back","customer");
+		System.out.println("back is customer");
+		return "order_details";
+	}
 	
-	/*
-	    Oude versie gebruikt billing address ipv delivery address, anonnieme gebruikers hebben 
-	    geen billing address, dus handiger om op de order het aflever adres te zetten. 
-	    Misschien zouden beide op de order moeten komen in een echt scenario
-	    FinalSuborders worden apart opgeslagen, dit hoeft niet,
-	    Cart subOrders worden individueel weggehaald, dit hoeft niet, gewoon de List in Cart clearen.
-	    
-	 
-	  @RequestMapping("/confirm")
-    public String confirmOrder(Model model, HttpServletRequest request, HttpSession session) {
-  
-        Cart cart=  (Cart)session.getAttribute("cart");
-        User user = (User)session.getAttribute("currentUser");
-        Address address;
-        
-        if (user.getBillingAddress()==null)
-            address= new Address();
-        else
-            address = user.getBillingAddress();
-        
-        Order order = new Order();
-        FinalSubOrder finalSubOrder; 
-        List<FinalSubOrder> finalSubOrderList= new ArrayList<>();
-        
-        
-        // CartSubOrder naar FinalSubOrders 
-        List<CartSubOrder> subOrderList = cart.getSubOrders();
-        for (CartSubOrder subOrder: subOrderList ){
-            finalSubOrder = new FinalSubOrder();
-            finalSubOrder.setPrd_name(subOrder.getProduct().getName());
-            finalSubOrder.setItem_price(subOrder.getProduct().getPrice());
-            finalSubOrder.setPrd_brand(subOrder.getProduct().getBrand());
-            finalSubOrder.setPrd_category(subOrder.getProduct().getCategory());
-            finalSubOrder.setQuantity(subOrder.getQuantity());
-            finalSubOrder.setSubTotal(subOrder.getSubTotal());
- 
-          
-            //Stock aanpassen
-            Product product = subOrder.getProduct();
-            System.out.println(finalSubOrder.getId());
-            System.out.println(finalSubOrder.getPrd_name());
-            System.out.println(product.getName());
-           
-            product.setStockCount(product.getStockCount() - finalSubOrder.getQuantity());
-            productService.updateProduct(product);
-            //FinalSuborder toevoegen in db
-            finalSubOrderService.createFinalSubOrder(finalSubOrder);
-            //deze toevoegen aan de order
-            order.addSubOrder(finalSubOrder);
-            //CartSubOrders Verwijderen
-            cartSubOrderService.deleteCartSubOrder(subOrder);
-            //Cart leegmaken
-            //cartService.removeFromCart(cart, subOrder);
-          
-        }
-            
-         // Cart naar Order en Cart leegmaken  
-         order.setDeliveryAdress(address);
-         order.setSaledate(new Date());
-         order.setTotalPrice(cart.getTotalPrice());
-         order.setUser(user);
-         orderService.createOrder(order);
-         
-         
-         // Alleen de totalPrice moet nu nog verwijderd worden, cart met adres blijft
-         cart.setTotalPrice(new BigDecimal("0"));
-         cartService.updateCart(cart);
+	
+	
 
-        model.addAttribute("address", address);
-        model.addAttribute("order", order);
-        model.addAttribute("user", user);
-        
-        return "confirm";
-        
-         // als een gebruiker is ingelogd, de gebruiker
-  // opnieuw opslaan in de dB ,cascade moett er voor zorgen dat wijzigingen 
-  // in cart en user (zoals addressen) worden oopgeslagen
- 
-        
-    }
-   
-}
-	 */
+	@RequestMapping(value = "/orders/view", method = RequestMethod.POST)
+	public @ResponseBody void viewOrder(@RequestParam("index") String index,
+			HttpSession session, HttpServletResponse response) {
+		@SuppressWarnings("unchecked")
+		List<Order> orders = (ArrayList<Order>) session.getAttribute("myOrders");
+
+		int orderIndex = (Integer.parseInt(index));
+
+		Order order = orders.get(orderIndex);
+
+		List<FinalSubOrder> subs = orderService.findSubOrders(order.getId());
+		for(FinalSubOrder sub:subs){
+			System.out.println(sub);
+		}
+		
+		String datetime = new SimpleDateFormat("dd-MMM-yyyy  hh.mm").format(order.getSaledate());
+		
+		session.setAttribute("date", datetime);
+
+		session.setAttribute("order", order);
+		session.setAttribute("subs", subs);
+		
+	
+
+		try {
+			response.sendRedirect("/orders/view");
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	
 	
 	
 	

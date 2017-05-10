@@ -58,6 +58,10 @@
 								<span th:case="${false}" sec:authentication="name"></span>
 							</a>
 						</li>
+							<li sec:authorize="isAuthenticated()">
+							<a href="#" th:href="@{/orders}">Mijn Orders</a>
+						</li>
+						
 						<li sec:authorize="isAuthenticated()">
 							<a href="#" th:href="@{/logout}">Uitloggen</a>
 						</li>

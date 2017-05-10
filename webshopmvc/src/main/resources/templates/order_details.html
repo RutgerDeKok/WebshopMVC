@@ -14,7 +14,7 @@
 </head>
 
 
-<body sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')"  style="background: rgb(255, 255, 179);">
+<body  style="background: rgb(255, 255, 179);">
 	<header th:replace="navigator :: header" />
 	
 	<div class="container"  style="background: rgb(255, 255, 179);">
@@ -124,12 +124,33 @@
   
   <div class="col-lg-4"></div>
 
-	<div class="col-lg-4">
+	<div class="col-lg-4" sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')">
 	<br>
-	<form action="/employees/orders">
+	
+	<form th:if="${back == 'employee'}"  action="/employees/orders">
 		<input type="submit" value="Terug naar overzicht" />
 	</form>
+	<form th:if="${back == 'customer'}"  action="/orders">
+		<input type="submit" value="Terug naar overzicht" />
+	</form>
+		
 	</div>
+	
+	<div class="col-lg-4" sec:authorize="hasAnyRole('ROLE_CUSTOMER')">
+	<br>
+		
+		<form   action="/orders">
+		<input type="submit" value="Terug naar overzicht" />
+	</form>
+		
+	</div>
+	
+	
+	<form  sec:authorize="hasAnyRole('ROLE_CUSTOMER')" action="/orders">
+		<input type="submit" value="Terug naar overzicht" />
+	</form>
+	
+	
 	<div class="col-lg-4"></div>
 	
 	</div> <!-- end grid row -->
