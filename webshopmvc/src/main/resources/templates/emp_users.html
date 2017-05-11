@@ -135,7 +135,12 @@
 
 
                                                     <td align="left">
-                                                        <form method="post" action="/employees/user_edit"
+                                                        <form th:if="(${element.userType.name()} != 'ADMIN'
+                                                        and
+                                                        !${#authorization.expression('hasRole(''ADMIN'')')})
+                                                        or
+                                                        ${#authorization.expression('hasRole(''ADMIN'')')}"
+                                                              method="post" action="/employees/user_edit"
                                                               th:action=@{/employees/user_edit}>
                                                             <button type="submit" name="userIndex"
                                                                     th:value="${status.index}">Edit</button>
