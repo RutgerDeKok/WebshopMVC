@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
+<!--  <head th:insert="template :: head">-->
 <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-   <body>
-       <!--hier kijken we later naar.-->
-       <h1><span th:text=" ${'message is ' + errorMsg}">T</span></h1>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>ERROR: By Tjeerd Santema</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/cart.css" rel="stylesheet" />
+<link href="css/CheckOut.css" rel="stylesheet" />
+
+</head>
+       
+   <body background="/images/background-cheese.jpg" style="text-align: center; padding: 10px;">
+      
+       <br/>
+       <h1><span th:text="${errorMsg}">U</span></h1>
+       
+       <h3>Om je bezig te houden, is hier een plaatje van een kaas</h3>
+       <img src="/images/cheeses.jpg"/>
 </body>
 </html>
