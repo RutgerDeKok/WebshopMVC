@@ -62,7 +62,7 @@
                                     <div class="form-group">
                                         <div th:each="type : ${types}" class="radio">
 
-                                            <input th
+                                            <input
                                                 th:checked="${type.getNL() == session.typeFilter.getNL() }"
                                                 type="radio" th:value="${type}" name="filter" /> <label
                                                 th:text="${type.getNL()}">-</label>

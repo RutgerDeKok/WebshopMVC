@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,18 +32,10 @@ public class UserController {
     private CartService cartService;
 
     @RequestMapping(value = {"/employees/users"}, method = RequestMethod.GET)
-    public String showUsersEmployees(Map<String, Object> model, HttpSession session) {
+    public String showUsersEmployees(Map<String, Object> model, HttpServletRequest request) {
 
-        List<User> userList = userService.findByUserType(UserType.CUSTOMER);
-        userList.addAll(userService.findByUserType(UserType.EMPLOYEE));
-        CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = currentUser.getUser();
-        if (user.getUserType()
-                .toString()
-                .equalsIgnoreCase("ROLE_ADMIN")) {
-            userList.addAll(userService.findByUserType(UserType.ADMIN));
-        }
-        session.setAttribute("users", userList);
+        request.getSession().setAttribute("users", userService.getAllUsers());
+
 //        putUsersInSession(request.getSession());
 //        model.put("types", UserType.values());
         return "emp_users";
