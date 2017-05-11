@@ -117,7 +117,8 @@
                                                     <th align="left">Delete</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <!--ALLES IS ADMIN-->
+                                            <tbody  sec:authorize="hasAnyRole('ROLE_ADMIN')">
                                                 <tr th:each="element, status: ${session.users}">
                                                     <td th:text="${element.Id}" align="left">naam</td>
                                                     <td th:text="${element.userType.getKort()}" align="left">1</td>
@@ -158,6 +159,48 @@
                                                             </button>
                                                         </form>
                                                     </td>
+                                                    
+                                                </tr>
+                                            </tbody>
+<!--                                            ALLEEN MEDEWERKER-->
+                                            <tbody sec:authorize="hasAnyRole('ROLE_EMPLOYEE')">
+                                                <tr th:each="element, status: ${session.users}">
+                                                    <td th:text="${element.Id}" align="left">naam</td>
+                                                    <td th:text="${element.userType.getKort()}" align="left">1</td>
+                                                    <td th:text="${element.getEmail()}" align="left">email</td>
+                                                    <td
+                                                        th:text="${element.getBillingAddress().getFirstName() +' '+ element.getBillingAddress().getInsertion() +' '+ element.getBillingAddress().getFamilyName()}"
+                                                        align="left">Piet</td>
+                                                    <td
+                                                        th:text="${element.getBillingAddress().getZipCode() +', '+
+                                                        element.getBillingAddress().getNumber() +' '+ element.getBillingAddress().getNumAddition() +', '+
+                                                        element.getBillingAddress().getCity()}"
+                                                        align="left">1111 AA</td>
+                                                    
+<!--                                                    EDIT KNOP! via user/update-->
+
+
+                                                    <td align="left">
+                                                        <form method="post" action="/employees/user_edit"
+                                                              th:action=@{/employees/user_edit}>
+                                                            <button type="submit" name="userIndex"
+                                                                    th:value="${status.index}" th:if="${element.userType.name() != 'ADMIN' }">Edit</button>
+                                                        </form>
+                                                    </td>
+                                                    
+<!--                                                    DELETE KNOP! via users/delete-->
+                                                    <td align="left">
+                                                        <form method="post" action="/employees/users/delete"
+                                                              th:action=@{/employees/users/delete/}>
+                                                            <button type="submit" name="delindex"
+                                                                    th:value="${status.index}" th:if="${element.userType.name() != 'ADMIN' }">
+                                                                <span class="glyphicon glyphicon-remove icon-red"
+                                                                      aria-hidden="true"></span>Delete
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                    
+                                                </tr>
                                             </tbody>
                                         </table>
                                 </div>
