@@ -64,10 +64,10 @@
 
                                             <input
                                                 th:checked="${type.getNL() == session.typeFilter.getNL() }"
-                                                type="radio" th:value="${type.name()}" name="filter" /> <label
+                                                type="radio" th:value="${type.name()}" name="filter" onchange="this.form.submit()" /> <label
                                                 th:text="${type.getNL()}">-</label>
                                         </div>
-                                        <input type="submit" value="OK - Filter" />
+                                        <!--  input type="submit" value="OK - Filter" /-->
                                     </div>
                                 </form>
                             </section>

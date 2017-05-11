@@ -65,14 +65,14 @@ body {
 
 											<input
 												th:checked="${category.getNL() == session.catFilter.getNL() }"
-												type="radio" th:value="${category}" name="filter" /> <label
+												type="radio" th:value="${category}" name="filter" onchange="this.form.submit()" /> <label
 												th:text="${category.getNL()}">-</label>
 										</div>
-										<input type="submit" value="OK - Filter" />
+										<!--  input type="submit" value="OK - Filter" /-->
 									</div>
 								</form>
 							</section>
-							<div>
+							</div>
 					</tr>
 					<tr>
 						<p>
