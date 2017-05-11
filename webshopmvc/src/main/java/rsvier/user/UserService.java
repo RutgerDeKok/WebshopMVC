@@ -29,7 +29,7 @@ public class UserService {
 		userRepository.findAll().forEach(users::add);
 		return users;
 	}
-	
+
 
 	public List<User> getUsersByType(UserType filterType) {
 
@@ -47,9 +47,8 @@ public class UserService {
 		}
 		return filteredUsers;
 	}
-	
 
-	
+
 	public User registerUser(HttpServletRequest request, UserType userType) {
 
 		User user = new User();
@@ -80,8 +79,8 @@ public class UserService {
 		return user;
 
 	}
-	
-	
+
+
 	public User getUser(Long id) {
 		return userRepository.findOne(id);
 	}
@@ -102,14 +101,14 @@ public class UserService {
 		return userRepository.findUserByEmail(email);
 	}
 
-	public void clearLocalList() {
-		users = null;
+	public List findByUserType(UserType userType) {
+		return userRepository.findByUserType(userType);
 	}
 
-public void deleteCascadeUser(Long id){
-     userRepository.delete(id);
- }
+	public void clearLocalList() {
 
+		users = null;
+	}
+	
 }
-
 	

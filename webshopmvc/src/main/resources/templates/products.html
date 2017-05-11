@@ -40,11 +40,9 @@
 					  method="post" >
 					<div class="form-group">
 						<div th:each="category : ${categories}" class="radio">
-							
-							<input th:checked="${category.getNL() == session.catFilter.getNL() }" type="radio" th:value="${category}" name="filter" />
+							<input onchange="this.form.submit" th:checked="${category.getNL() == session.catFilter.getNL() }" type="radio" th:value="${category}" name="filter" />
 							<label th:text="${category.getNL()}">-</label>
 						</div>
-						<input type="submit" value="OK" />
 					</div>
 				</form>
 				</section>
