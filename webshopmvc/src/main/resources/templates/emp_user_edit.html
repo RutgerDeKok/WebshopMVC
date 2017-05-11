@@ -16,9 +16,9 @@
 
 
         <form method="post" action="/MaakAccountR/ok" onsubmit="return checkForm(this);">
-            <fieldset>
+            <fieldset style="background:#808080;">
                 <legend>Maak Account</legend>
-                <p>Email : <input title="Vul uw Email gebruikersnaam in" type="text" placeholder=" bijvoorbeeld abc@mijnmail.nl" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" name="email" th:value="${session.users.getEmail()}"></p>
+                <p>Email : <input title="Vul uw Email gebruikersnaam in" type="text" placeholder=" bijvoorbeeld abc@mijnmail.nl" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" name="email" th:value="${session.user.getEmail()}"></p>
                 <p>Wachtwoord :  <input title="Wachtwoord moet op zijn minste bestaan uit 6 karakters met tenminste een hoofdletter en een integer (getal)" type="password" placeholder=" bijvoorbeeld Aa1234" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8" onchange="
                         this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
                         if (this.checkValidity())

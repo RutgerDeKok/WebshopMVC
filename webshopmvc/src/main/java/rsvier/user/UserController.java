@@ -112,7 +112,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "employees/users/user_edit", method = RequestMethod.POST)
-    public  String editUser(@RequestParam("delindex") String choice ,HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+    public  String editUser(@RequestParam("userIndex") String choice ,HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 
         
         System.out.println("update user methode");
@@ -126,7 +126,7 @@ public class UserController {
         
         //OPSLAAN IN DE SESSIE VAN DE OUDE GEGEVENS
         //Wachtwoord moet altijd opnieuw!
-        request.getSession().setAttribute("tempadres", users.get(Integer.parseInt(choice)).getBillingAddress());
+        request.getSession().setAttribute("tempAdres", users.get(Integer.parseInt(choice)).getBillingAddress());
         request.getSession().setAttribute("userEmail", users.get(Integer.parseInt(choice)).getEmail());
         
         //ECHT DELETEN GEBEURD HIER
@@ -141,7 +141,7 @@ public class UserController {
         
         //RESET TABLE
         request.getSession().setAttribute("users", users);
-
+        request.getSession().setAttribute("user", user);
         return "emp_user_edit";
         
     }
