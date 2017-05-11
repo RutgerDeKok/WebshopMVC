@@ -150,7 +150,12 @@
                                                     
 <!--                                                    DELETE KNOP! via users/delete-->
                                                     <td align="left">
-                                                        <form method="post" action="/employees/users/delete"
+                                                        <form th:if="(${element.userType.name()} != 'ADMIN'
+                                                        and
+                                                        !${#authorization.expression('hasRole(''ADMIN'')')})
+                                                        or
+                                                        ${#authorization.expression('hasRole(''ADMIN'')')}"
+                                                                method="post" action="/employees/users/delete"
                                                               th:action=@{/employees/users/delete/}>
                                                             <button type="submit" name="delindex"
                                                                     th:value="${status.index}">
