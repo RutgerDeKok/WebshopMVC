@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+    
+     <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+     <body sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')"  background="/images/grass.jpg">
+         <h1>Voer uw gegevens in</h1>
+
+
+        <h2 th:if="${session.message != null}">Email adres al in gebruik, maak een andere keuze</h2>
+
+
+        <form method="post" action="/MaakAccountR/ok" onsubmit="return checkForm(this);">
+            <fieldset>
+                <legend>Maak Account</legend>
+                <p>Email : <input title="Vul uw Email gebruikersnaam in" type="text" placeholder=" bijvoorbeeld abc@mijnmail.nl" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" name="email"></p>
+                <p>Wachtwoord :  <input title="Wachtwoord moet op zijn minste bestaan uit 6 karakters met tenminste een hoofdletter en een integer (getal)" type="password" placeholder=" bijvoorbeeld Aa1234" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8" onchange="
+                        this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+                        if (this.checkValidity())
+                            form.W8c.pattern = this.value;
+                                        "></p>
+                <p>Bevestig Wachtwoord: <input title="Herhaal uw wachtwoord zoals hierboven" type="password" placeholder=" Herhaling " required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8c" onchange="
+                        this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+                                               "></p><br>
+
+               
+                <p>Voornaam : <input  type="text" name="firstName" required th:value="${session.tempAdres.getFirstName()}"></p>
+                <p>Tussennaam : <input  type="text"  name="insertion" th:value="${session.tempAdres.getInsertion()}" > </p>
+                <p>Achternaam : <input  type="text"  name="lastName" required th:value="${session.tempAdres.getFamilyName()}"> </p>
+                <br>
+                <p>Straat : <input  type="text"  name="street" required th:value="${session.tempAdres.getStreet()}"> </p>
+                <p>Huisnummer : <input  type="number"  name="number" th:value="${session.tempAdres.getNumber()}" > </p>
+                <p>Toevoeging : <input  type="text"  name="addition" th:value="${session.tempAdres.getNumAddition()}" > </p>
+                <p>Postcode : <input  type="text" placeholder="1234AA"  name="zipCode" required pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}" onchange="
+                        this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+                                      "                        th:value="${session.tempAdres.getZipCode()}"> </p>
+                <p>Plaats : <input  type="text"  name="city" required th:value="${session.tempAdres.getCity()}"> </p>
+                <br>
+                <br>
+                <p>Rechten : </p> 
+                <br>
+             <div sec:authorize="hasAnyRole('ROLE_EMPLOYEE')">
+               <INPUT TYPE="radio" NAME="usertype" VALUE="COSTUMER" checked>Klant
+               <INPUT TYPE="radio" NAME="usertype" VALUE="EMPLOYEE">Medewerker
+                </div>
+               <div sec:authorize="hasAnyRole('ROLE_ADMIN')">
+               <INPUT TYPE="radio" NAME="usertype" VALUE="ADMIN">Admin
+               <INPUT TYPE="radio" NAME="usertype" VALUE="COSTUMER" checked>Klant
+               <INPUT TYPE="radio" NAME="usertype" VALUE="EMPLOYEE">Medewerker
+               </div>
+
+
+                <p><input type="submit" value="Maak Account met specifieke rechten"></p>
+                <br>
+            </fieldset>
+        </form>              
+
+
+        <!--achtergrondbody-->
+    </body>
+    
+</html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+   lang="en">
 <!--  <head th:insert="template :: head">-->
 <head>
 <meta charset="utf-8">
@@ -26,8 +27,9 @@
 
 </head>
 
-<body sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')"  background="/images/grass.jpg">
 	
+<body sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')"  background="/images/grass.jpg">
+    
 	<header th:replace="navigator :: header" />
 	
 <div id="nice_Simple_Background_a_la_Tjeerd"
