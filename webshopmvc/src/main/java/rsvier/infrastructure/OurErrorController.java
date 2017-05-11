@@ -2,21 +2,26 @@ package rsvier.infrastructure;
 
 
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+
+
+    
 @Controller
-public class ErrorController {
+public class OurErrorController implements ErrorController {
  
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
-         
-        ModelAndView errorPage = new ModelAndView("error_page.html");
+    @RequestMapping("/error")
+    public String renderErrorPage(HttpServletRequest httpRequest, Model model) {
+     
         String errorMsg = "";
+       
         int httpErrorCode = getErrorCode(httpRequest);
-        System.out.println("error code is: "+httpErrorCode);
+ 
         switch (httpErrorCode) {
             case 400: {
                 errorMsg = "Http Error Code: 400. Bad Request";
@@ -34,13 +39,24 @@ public class ErrorController {
                 errorMsg = "Http Error Code: 500. Internal Server Error";
                 break;
             }
+            default:  {
+                errorMsg = "Http Error Code: Een onbekende. Jij crashte het systeem!";
+                break;
+            }
         }
-        errorPage.addObject("errorMsg", errorMsg);
-        System.out.println("errorMsge is: "+errorMsg);
-        return errorPage;
+        model.addAttribute("errorMsg", errorMsg);
+        return "error_page";
     }
      
     private int getErrorCode(HttpServletRequest httpRequest) {
         return (Integer) httpRequest
           .getAttribute("javax.servlet.error.status_code");
     }
+
+    @Override
+    public String getErrorPath() {
+        return "redirect:/error";
+    }
+}
+
+
