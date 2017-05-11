@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ErrorController {
+public class OurErrorController {
  
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
@@ -44,3 +44,5 @@ public class ErrorController {
         return (Integer) httpRequest
           .getAttribute("javax.servlet.error.status_code");
     }
+    
+}
