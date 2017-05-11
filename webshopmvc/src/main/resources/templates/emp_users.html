@@ -64,7 +64,7 @@
 
                                             <input
                                                 th:checked="${type.getNL() == session.typeFilter.getNL() }"
-                                                type="radio" th:value="${type}" name="filter" /> <label
+                                                type="radio" th:value="${type.name()}" name="filter" /> <label
                                                 th:text="${type.getNL()}">-</label>
                                         </div>
                                         <input type="submit" value="OK - Filter" />
@@ -134,11 +134,9 @@
 <!--                                                    EDIT KNOP! via user/update-->
 
 
-
-
                                                     <td align="left">
-                                                        <form method="post" action=employees/users/user_edit
-                                                              th:action=@{/employees/users/user_edit/}>
+                                                        <form method="post" action="/employees/user_edit"
+                                                              th:action=@{/employees/user_edit}>
                                                             <button type="submit" name="userIndex"
                                                                     th:value="${status.index}">Edit</button>
                                                         </form>

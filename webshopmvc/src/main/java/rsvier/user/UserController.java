@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,9 +22,16 @@ import rsvier.cart.Cart;
 import rsvier.cart.CartService;
 import rsvier.cartsuborder.CartSubOrder;
 
+
+
+
 @Controller
 public class UserController {
 
+    @Autowired
+     PasswordEncoder passwordEncoder;
+    
+    
     @Autowired
     private UserService userService;
     private UserType typeFilter;
@@ -36,8 +44,8 @@ public class UserController {
 
         request.getSession().setAttribute("users", userService.getAllUsers());
 
-//        putUsersInSession(request.getSession());
-//        model.put("types", UserType.values());
+        putUsersInSession(request.getSession());
+        model.put("types", UserType.values());
         return "emp_users";
     }
 
@@ -111,7 +119,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "employees/users/user_edit", method = RequestMethod.POST)
+    @RequestMapping(value = "employees/user_edit", method = RequestMethod.POST)
     public  String editUser(@RequestParam("userIndex") String choice ,HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 
         
@@ -122,19 +130,18 @@ public class UserController {
         System.out.println("usersIndex is: " + userIndex);
 
         User user = (User) users.get(userIndex);
-        System.out.println("product to be deleted id: " + user.getId() + " email: " + user.getEmail());
+        System.out.println("product to be updated in employees user edit id: " + user.getId() + " email: " + user.getEmail());
         
         //OPSLAAN IN DE SESSIE VAN DE OUDE GEGEVENS
         //Wachtwoord moet altijd opnieuw!
         request.getSession().setAttribute("tempAdres", users.get(Integer.parseInt(choice)).getBillingAddress());
         request.getSession().setAttribute("userEmail", users.get(Integer.parseInt(choice)).getEmail());
         
-        //ECHT DELETEN GEBEURD HIER
-        cartService.deleteCart(cartService.getCartByUser(user));
-        userService.deleteUser(user.getId());
         
-        users.remove(userIndex);
-
+        
+       
+        userService.updateUser(user);
+        
         //MAAK EEN NIEUWE AAN MET DEZE GEGEVENS!
        //Komt in de HTML.
         
@@ -226,4 +233,45 @@ public class UserController {
         return "redirect:/employees/users";
     }
 
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    public void updateUser(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+    
+       User editUser = (User) request.getSession().getAttribute("user");
+       Address updateAddress = editUser.getBillingAddress();
+        
+       //data ophalen.
+       
+      
+       
+       
+            updateAddress.setFirstName(request.getParameter("firstName"));
+            updateAddress.setFamilyName(request.getParameter("lastName"));
+            updateAddress.setInsertion(request.getParameter("insertion"));
+            updateAddress.setCity(request.getParameter("city"));
+            updateAddress.setNumber(Integer.parseInt(request.getParameter("number")));
+            updateAddress.setNumAddition(request.getParameter("addition"));
+            updateAddress.setStreet(request.getParameter("street"));
+            updateAddress.setZipCode(request.getParameter("zipCode"));
+       
+             editUser.setEmail(request.getParameter("email"));
+             
+             System.out.println(passwordEncoder);
+             
+             editUser.setPassHash(passwordEncoder.encode(request.getParameter("W8")));
+             
+             
+             
+       
+       
+       
+       userService.updateUser(editUser);
+       
+        try {
+           response.sendRedirect("/employees/users");
+          } catch (IOException e) {
+           System.out.println(e.getMessage());
+            }
+ 
+    }
 }
+

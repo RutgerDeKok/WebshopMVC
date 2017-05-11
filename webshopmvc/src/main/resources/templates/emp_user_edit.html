@@ -15,7 +15,7 @@
         <h2 th:if="${session.message != null}">Email adres al in gebruik, maak een andere keuze</h2>
 
 
-        <form method="post" action="/MaakAccountR/ok" onsubmit="return checkForm(this);">
+        <form method="post" action="/updateUser" onsubmit="return checkForm(this);">
             <fieldset style="background:#808080;">
                 <legend>Maak Account</legend>
                 <p>Email : <input title="Vul uw Email gebruikersnaam in" type="text" placeholder=" bijvoorbeeld abc@mijnmail.nl" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" name="email" th:value="${session.user.getEmail()}"></p>
@@ -50,7 +50,7 @@
                 </div>
                <div sec:authorize="hasAnyRole('ROLE_ADMIN')">
                <INPUT TYPE="radio" NAME="usertype" VALUE="ADMIN">Admin
-               <INPUT TYPE="radio" NAME="usertype" VALUE="COSTUMER" checked>Klant
+               <INPUT TYPE="radio" NAME="usertype" VALUE="CUSTOMER" checked>Klant
                <INPUT TYPE="radio" NAME="usertype" VALUE="EMPLOYEE">Medewerker
                </div>
 
