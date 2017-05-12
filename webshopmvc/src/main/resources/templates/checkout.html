@@ -14,7 +14,11 @@
 
 #scroll30 {
  	height: 30vh;
-    overflow-y: scroll;
+    overflow-y: auto;
+}
+
+#row-spacing {
+	margin-bottom: 30px;
 }
 
 </style>
@@ -25,151 +29,94 @@
 </head>
 <body background="/images/background-cheese.jpg">
 	<header th:replace="navigator :: header" />
-
-	<!-- content -->
-	<div align="center">
-		<h2>Afrekenen</h2>
-	</div>
-	
-	<div class="col-lg-1" > 
-	</div>
-	<div class="col-lg-10" id="scroll30">
-	<div id="table" >
-
-		<table class="table table-hover">
-			<thead>
-				<tr class="center middle">
-					<th>Nummer</th>
-					<th>Product</th>
-					<th>Aantal</th>
-					<th>Stukprijs</th>
-					<th>Totaalprijs</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="element , status: ${session.cart.getSubOrders()}">
-					<td class="center middle" th:text="${status.index+1}"></td>
-					<td class="center middle" th:text="${element.product.getName()}"></td>
-					<td class="center middle" th:text="${element.getQuantity()}"></td>
-					<td class="center middle" th:text="${element.product.getPrice()}"></td>
-					<td class="center middle" th:text="${element.getSubTotal()}"></td>
-			</tbody>
-			<tfoot>
-				<tr>
-					<td colspan="3"></td>
-					<td class="text-right"><strong>Totaal: </strong></td>
-					<td class="text-left" th:text="${session.cart.getTotalPrice()}"></td>
-				</tr>
-			</tfoot>
-		</table>
-	</div>
-	</div>
-	<table>
-
-		<td th:unless="${session.currentUser==null}">
-			<div id="gegevens">
-				<h3>Factuuradres</h3>
-				<p th:with="billAdd = ${session.currentUser.getBillingAddress()}">
-					Voornaam: <span class="center middle"
-						th:text="${billAdd.getFirstName()}">Tjeerd</span><br />
-					Tussenvoegsel: <span class="center middle"
-						th:text="${billAdd.getInsertion()}">Boomstraat</span><br />
-					Achternaam: <span class="center middle"
-						th:text="${billAdd.getFamilyName()}">56</span><br /> Adres: <span
-						class="center middle" th:text="${billAdd.getStreet()}">7209
-						LS</span><br /> Huisnummer: <span class="center middle"
-						th:text="${billAdd.getNumber()}">>27</span><br /> toevoeging: <span
-						class="center middle" th:text="${billAdd.getNumAddition()}">>27</span><br />
-					Postcode: <span class="center middle"
-						th:text="${billAdd.getZipCode()}">27</span><br /> Stad: <span
-						class="center middle" th:text="${billAdd.getCity()}">27</span><br />
-				<p>
+	<div class="container">
+		<div class="row" id="row-spacing">
+			<div class="col-lg-2">
 				<div id="button">
-					<a href="/wijzigAdres?origin=checkout&address=billing">Wijzig</a>
-				</div>
-
-			</div>
-		</td>
-
-		<td th:unless="${session.currentUser==null}">
-
-			<div>
-				<div id="button">
-					<a href="/copy_adres"><div>Kopieer factuuradres</div>
-						<div>naar afleveradres</div></a>
+					<a href="/cart" style="font-size:140%">Terug naar winkelwagen</a>
 				</div>
 			</div>
-		</td>
-
-
-		<td th:with="delAdd = ${session.cart.getDeliveryAdress()}">
-			<div id="gegevens">
-				<h3>Afleveradres</h3>
-				<p>
-					Voornaam: <span class="center middle"
-						th:text="${delAdd.getFirstName()}">Tjeerd</span><br />
-					Tussenvoegsel: <span class="center middle"
-						th:text="${delAdd.getInsertion()}">Boomstraat</span><br />
-					Achternaam: <span class="center middle"
-						th:text="${delAdd.getFamilyName()}">56</span><br /> Adres: <span
-						class="center middle" th:text="${delAdd.getStreet()}">7209
-						LS</span><br /> Huisnummer: <span class="center middle"
-						th:text="${delAdd.getNumber()}">>27</span><br /> toevoeging: <span
-						class="center middle" th:text="${delAdd.getNumAddition()}">>27</span><br />
-					Postcode: <span class="center middle"
-						th:text="${delAdd.getZipCode()}">27</span><br /> Stad: <span
-						class="center middle" th:text="${delAdd.getCity()}">27</span><br />
-				<p>
-				<p id="popup"></p>
-
-
-
-
+			<div class="col-lg-3 col-lg-offset-7">
+				<th:block th:with="emptyAddress=(${session.cart?.getDeliveryAddress().isEmpty()} or ${session.address?.isEmpty()})">
+					<input th:text="${session.address?.isEmpty()}">
+					<input th:text="${session.cart?.getDeliveryAddress().isEmpty()}">
+					<input th:text="emptyAdress">
+				</th:block>
+				<th:block>
+					<div th:if="${session.cart?.getDeliveryAddress().isEmpty()}" id="button">
+						<h4>U moet nog een afleveradres opgeven.</h4>
+					</div>
+					<div th:unless="${session.cart?.getDeliveryAddress().isEmpty()} or ${session.address?.isEmpty()}" id="button">
+						<a href="/confirm" style="font-size:140%">Afrekenen</a>
+					</div>
+				</th:block>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-10 col-lg-offset-1" id="scroll30">
+				<table class="table table-striped" style="background-color:#D9EDF7">
+					<thead>
+						<tr>
+							<h2>Uw bestelling</h2>
+						</tr>
+						<tr class="center middle">
+							<th>Nummer</th>
+							<th>Product</th>
+							<th>Aantal</th>
+							<th>Stukprijs</th>
+							<th>Totaalprijs</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="element , status: ${session.cart.getSubOrders()}">
+							<td class="center middle" th:text="${status.index+1}"></td>
+							<td class="center middle" th:text="${element.product.getName()}"></td>
+							<td class="center middle" th:text="${element.getQuantity()}"></td>
+							<td class="center middle" th:text="${element.product.getPrice()}"></td>
+							<td class="center middle" th:text="${element.getSubTotal()}"></td>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="4" class="text-right"><strong>Totaal bestelling: </strong></td>
+							<td class="text-left" th:text="${session.cart.getTotalPrice()}"></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-10 col-lg-offset-1">
+				<table class="table table-striped" style="background-color:#D9EDF7"
+					   th:unless="${session.cart==null}">
+					<thead>
+						<h2>Afleveradres</h2>
+					</thead>
+					<tbody th:with="deliveryAddress = ${session.cart.getDeliveryAddress()}">
+					<tr>
+						<td class="center middle" th:text="'Voornaam: ' + ${deliveryAddress.getFirstName()}"></td>
+						<td class="center middle" th:text="'Tussenvoegsel: ' + ${deliveryAddress.getInsertion()}"</td>
+						<td class="center middle" th:text="'Achternaam: ' + ${deliveryAddress.getFamilyName()}"></td>
+					</tr>
+					<tr>
+						<td class="center middle" th:text="'Straatnaam: ' + ${deliveryAddress.getStreet()}"></td>
+						<td class="center middle" th:text="'Huisnummer: ' + ${deliveryAddress.getNumber()}"></td>
+						<td class="center middle" th:text="'Huisnr. toevoeging: ' + ${deliveryAddress.getNumAddition()}"></td>
+					</tr>
+					<tr>
+						<td class="center middle" th:text="'Postcode: ' + ${deliveryAddress.getZipCode()}"></td>
+						<td class="center middle" th:text="'Stad: ' + ${deliveryAddress.getCity()}"></td>
+						<td>&nbsp</td>
+					</tr>
+					</tbody>
+				</table>
 				<div id="button">
 					<a href="/wijzig-adres?origin=checkout&address=delivery">Wijzig</a>
 				</div>
-
 			</div>
-		</td>
-		<td>
-
-			<div id="button">
-				<a href="/cart" style="font-size:140%">Terug naar Winkelwagen</a>
-			</div>
-
-
-			<div th:if="${session.cart.getDeliveryAdress().getFirstName()==null}">
-				<div id="gegevens">
-					<h3>
-						Eerst afleveradress <br> invullen voor u <br> kunt afrekenen
-					</h3>
-				</div>
-
-				<div id="button">
-					<a style="font-size:140%">Afrekenen</a>
-				</div>
-			</div>
-
-			<div>
-			<div>
-				<br>
-			</div>
-			<div
-				th:unless="${session.cart.getDeliveryAdress().getFirstName()==null}"
-				id="button">
-				<a href="/confirm" style="font-size:140%">Afrekenen</a>
-			</div>
-
-
-		</td>
-	</table>
-
-
-	<!-- javascript import -->
+		</div>
+	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-
 </body>
-
 </html>

@@ -39,7 +39,7 @@
 
 		<table>
 
-			<td th:with="delAdd = ${session.cart.getDeliveryAdress()}">
+			<td th:with="delAdd = ${session.cart.getDeliveryAddress()}">
 
 				<h3>Afleveradres</h3>
 				<p  style="font-size: 130%;">
@@ -102,7 +102,7 @@
 					<td class="center middle" th:text="${element.getQuantity()}"></td>
 					<td class="center middle" th:text="${element.getItem_price()}"></td>
 					<td class="center middle" th:text="${element.getSubTotal()}"></td>
-			
+				</tr>
 				</tbody>
 			<tfoot>
 				<tr>

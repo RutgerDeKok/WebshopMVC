@@ -58,7 +58,7 @@
 								<span th:case="${false}" sec:authentication="name"></span>
 							</a>
 						</li>
-							<li sec:authorize="isAuthenticated()">
+							<li sec:authorize="hasRole('ROLE_CUSTOMER')">
 							<a href="#" th:href="@{/orders}">Mijn Orders</a>
 						</li>
 						

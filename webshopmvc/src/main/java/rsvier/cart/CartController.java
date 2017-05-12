@@ -130,6 +130,8 @@ public class CartController {
 		}
 		
 //		session.setAttribute("address", address);
+		Cart cart = (Cart) session.getAttribute("cart");
+		System.out.println("Leeg? " + cart.getDeliveryAddress().isEmpty());
 		return "checkout";
 	}
 	
@@ -137,8 +139,8 @@ public class CartController {
 
 	private void checkForBillingAddress(HttpSession session) {
 		Cart cart = (Cart) session.getAttribute("cart");
-		if(cart.getDeliveryAdress()==null){
-			cart.setDeliveryAdress(new Address());
+		if(cart.getDeliveryAddress()==null){
+			cart.setDeliveryAddress(new Address());
 		}
 		
 	}

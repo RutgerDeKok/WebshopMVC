@@ -1,6 +1,7 @@
 package rsvier.address;
 
 import javax.persistence.*;
+import java.lang.reflect.Field;
 
 @Entity
 @Table(name = "Addresses")
@@ -126,12 +127,24 @@ public class Address {
 		this.city = city;
 	}
         
-        @Override
-        public String toString() {
-            return firstName + " " + insertion + " " + familyName + "\n" 
-                 + street + " " + number + " " + numAddition + "\n"
-                 + zipCode + " " + city;
-        }
+	@Override
+    public String toString() {
+        return firstName + " " + insertion + " " + familyName + "\n"
+             + street + " " + number + " " + numAddition + "\n"
+             + zipCode + " " + city;
+    }
+
+    public boolean isEmpty() {
+		for (Field f : getClass().getDeclaredFields())
+			try {
+				if (f.get(this) != null && f.get(this).equals(0))
+					System.out.println(f.getName() + f.get(this));
+                    return false;
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		return true;
+	}
 
 }
 
