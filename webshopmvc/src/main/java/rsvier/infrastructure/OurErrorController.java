@@ -47,7 +47,7 @@ public class OurErrorController implements ErrorController {
         model.addAttribute("errorMsg", errorMsg);
         return "error_page";
     }
-     
+     //geen verschil met de yesterday versie.
     private int getErrorCode(HttpServletRequest httpRequest) {
         return (Integer) httpRequest
           .getAttribute("javax.servlet.error.status_code");
