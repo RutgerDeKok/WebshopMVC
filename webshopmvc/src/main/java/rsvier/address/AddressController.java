@@ -44,7 +44,7 @@ public class AddressController {
 		session.setAttribute("origin", origin);
 		System.out.println("Address type is: " + addressType);
 		if (addressType.equals("delivery")) {
-			session.setAttribute("address", ((Cart) session.getAttribute("cart")).getDeliveryAdress());
+			session.setAttribute("address", ((Cart) session.getAttribute("cart")).getDeliveryAddress());
 		} else if (addressType.equals("billing")) {
 			session.setAttribute("address", ((User) session.getAttribute("currentUser")).getBillingAddress());
 		} 
@@ -63,17 +63,17 @@ public class AddressController {
 	public String copyAdres(HttpSession session) {
 		checkAddressInCart(session);
 		Cart cart = (Cart) session.getAttribute("cart");
-		Address billingyAdd = ((User) session.getAttribute("currentUser")).getBillingAddress();
-		Address deliveryAdd = cart.getDeliveryAdress();
+		Address billingAdd = ((User) session.getAttribute("currentUser")).getBillingAddress();
+		Address deliveryAdd = cart.getDeliveryAddress();
 
-		deliveryAdd.setCity(billingyAdd.getCity());
-		deliveryAdd.setFamilyName(billingyAdd.getFamilyName());
-		deliveryAdd.setFirstName(billingyAdd.getFirstName());
-		deliveryAdd.setInsertion(billingyAdd.getInsertion());
-		deliveryAdd.setNumAddition(billingyAdd.getNumAddition());
-		deliveryAdd.setNumber(billingyAdd.getNumber());
-		deliveryAdd.setStreet(billingyAdd.getStreet());
-		deliveryAdd.setZipCode(billingyAdd.getZipCode());
+		deliveryAdd.setCity(billingAdd.getCity());
+		deliveryAdd.setFamilyName(billingAdd.getFamilyName());
+		deliveryAdd.setFirstName(billingAdd.getFirstName());
+		deliveryAdd.setInsertion(billingAdd.getInsertion());
+		deliveryAdd.setNumAddition(billingAdd.getNumAddition());
+		deliveryAdd.setNumber(billingAdd.getNumber());
+		deliveryAdd.setStreet(billingAdd.getStreet());
+		deliveryAdd.setZipCode(billingAdd.getZipCode());
 		
 		addressService.updateAddress(deliveryAdd);
 
@@ -84,8 +84,8 @@ public class AddressController {
 
 	private void checkAddressInCart(HttpSession session) {
 		Cart cart = (Cart) session.getAttribute("cart");
-		if (cart.getDeliveryAdress() == null) {
-			cart.setDeliveryAdress(new Address());
+		if (cart.getDeliveryAddress() == null) {
+			cart.setDeliveryAddress(new Address());
 			//niet nodig, zit al in de sessie
 //			session.setAttribute("cart", cart);
 		}
@@ -112,6 +112,10 @@ public class AddressController {
 		if(request.getSession().getAttribute("currentUser")!=null){
 			System.out.println("Gegevens worden opgeslagen in DB");
 			addressService.updateAddress(updateAddress);
+		}
+		else {
+			((Cart)request.getSession().getAttribute("cart")).setDeliveryAddress(updateAddress);
+			System.out.println("Delivery adres: " + ((Cart)request.getSession().getAttribute("cart")).getDeliveryAddress().toString());
 		}
 		/* nu het adres is aangepast kan de referentie "address" in de sessie
 		 weg. Het addresss is immers ook al gerefereerd in de cart (delivery) of user

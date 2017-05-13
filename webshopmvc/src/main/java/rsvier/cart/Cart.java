@@ -27,7 +27,7 @@ public class Cart implements Serializable {
 	@OneToOne
 	private User user;
 	@OneToOne(cascade = CascadeType.ALL)
-	private Address deliveryAdress;
+	private Address deliveryAddress;
 	@OneToMany(cascade=CascadeType.ALL)
 	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "cart_id")
@@ -39,10 +39,10 @@ public class Cart implements Serializable {
 	public Cart() {
 	}
 
-    public Cart(long id, User user, Address deliveryAdress, BigDecimal totalPrice) {
+    public Cart(long id, User user, Address deliveryAddress, BigDecimal totalPrice) {
         this.id = id;
         this.user = user;
-        this.deliveryAdress = deliveryAdress;
+        this.deliveryAddress = deliveryAddress;
         this.totalPrice = totalPrice;
     }
  
@@ -70,12 +70,12 @@ public class Cart implements Serializable {
 		this.user = user;
 	}
 
-	public Address getDeliveryAdress() {
-		return deliveryAdress;
+	public Address getDeliveryAddress() {
+		return deliveryAddress;
 	}
 
-	public void setDeliveryAdress(Address deliveryAdress) {
-		this.deliveryAdress = deliveryAdress;
+	public void setDeliveryAddress(Address deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
 	}
 
 	public void addSubOrder(CartSubOrder subOrder) {
@@ -112,5 +112,7 @@ public class Cart implements Serializable {
 	protected void emptyCart() {
 		subOrders.clear();
 	}
+
+
 
 }

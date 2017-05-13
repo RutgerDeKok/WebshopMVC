@@ -55,18 +55,15 @@ public class OrderController {
 
 		Cart cart = (Cart) session.getAttribute("cart");
 		User user = (User) session.getAttribute("currentUser");
-		Address address = cart.getDeliveryAdress();
-	
+		Address address = cart.getDeliveryAddress();
 
 		Order order = new Order();
-		List<FinalSubOrder> finalSubOrderList = new ArrayList<>();
-		order.setSubOrder(finalSubOrderList);
 		
 		// CartSubOrder naar FinalSubOrders
 		List<CartSubOrder> subOrderList = cart.getSubOrders();
 		for (CartSubOrder subOrder : subOrderList) {
 			
-			finalSubOrderList.add(new FinalSubOrder(subOrder));
+			order.getSubOrders().add(new FinalSubOrder(subOrder));
 
 			// Stock aanpassen
 			Product product = subOrder.getProduct();
@@ -101,6 +98,7 @@ public class OrderController {
 		model.addAttribute("address", address);
 		model.addAttribute("order", order);
 		model.addAttribute("user", user);
+		session.setAttribute("order", order);
 		
 		
 		productService.clearLocalList();

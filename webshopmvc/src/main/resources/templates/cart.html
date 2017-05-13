@@ -12,48 +12,45 @@
 </head>
 <body background="/images/background-cheese.jpg">
 	<header th:replace="navigator :: header" />
-
-	<!-- content -->
 	<div align="center">
 		<h2>Uw winkelwagen</h2>
 	</div>
 	<br>
 	<br>
 	<p>
-	<div class="col-lg-1"></div>
-	<div class="col-lg-10" id="table">
-		<table class="table table-hover">
-			<thead>
-				<tr class="center middle">
-					<th>Nummer</th>
-					<th>Product</th>
-					<th>Aantal</th>
-					<th>Stukprijs</th>
-					<th>Totaalprijs</th>
-					<th>Verwijder Bestelling</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="element, status : ${session.cart.getSubOrders()}">
-					<td class="center middle" th:text="${status.index+1}"></td>
-					<td class="center middle" th:text="${element.product.getName()}"></td>
-					<td class="center middle" th:text="${element.getQuantity()}"></td>
-					<td class="center middle" th:text="${element.product.getPrice()}"></td>
-					<td class="center middle" th:text="${element.getSubTotal()}"></td>
-					<td class="center middle"><a href="/cart/delete"
-						th:href=@{/cart/delete?subOrderIndex={subOrderIndex}(subOrderIndex=${status.index})}><span
-							class="glyphicon glyphicon-remove icon-red" aria-hidden="true"></span></a></td>
-				</tr>
-			</tbody>
-			<tfoot>
-				<tr>
-					<td colspan="3"></td>
-					<td class="text-right"><strong>Totaal: </strong></td>
-					<td class="text-left" th:text="${session.cart.totalPrice}"></td>
-				</tr>
-			</tfoot>
-		</table>
-	
+	<div class="container">
+		<div class="col-lg-10 col-lg-offset-1">
+			<table class="table table-striped" style="background-color:#D9EDF7">
+				<thead>
+					<tr class="center middle">
+						<th>Nummer</th>
+						<th>Product</th>
+						<th>Aantal</th>
+						<th>Stukprijs</th>
+						<th>Totaalprijs</th>
+						<th>Verwijder product</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="element, status : ${session.cart.getSubOrders()}">
+						<td class="center middle" th:text="${status.index+1}"></td>
+						<td class="center middle" th:text="${element.product.getName()}"></td>
+						<td class="center middle" th:text="${element.getQuantity()}"></td>
+						<td class="center middle" th:text="${element.product.getPrice()}"></td>
+						<td class="center middle" th:text="${element.getSubTotal()}"></td>
+						<td class="center middle"><a href="/cart/delete"
+							th:href=@{/cart/delete?subOrderIndex={subOrderIndex}(subOrderIndex=${status.index})}><span
+								class="glyphicon glyphicon-remove icon-red" aria-hidden="true"></span></a></td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4" class="text-right"><strong>Totaal bestelling: </strong></td>
+						<td class="text-left" th:text="${session.cart.getTotalPrice()}"></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
 	</div>
 	<p>
 	<br>
@@ -63,7 +60,7 @@
 	
 	<div class="col-lg-4">
 	</div>
-	<div id="button"  class="col-lg-2">
+	<div id="button"  class="col-lg-2" th:unless="${session.cart?.getSubOrders() == null}">
 		<a href="/checkout" ><font size="5">Afrekenen</font></a>
 	</div>
 	<div id="button"  class="col-lg-3">
