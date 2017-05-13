@@ -113,9 +113,10 @@ public class AddressController {
 			System.out.println("Gegevens worden opgeslagen in DB");
 			addressService.updateAddress(updateAddress);
 		}
-		/*else {
+		else {
 			((Cart)request.getSession().getAttribute("cart")).setDeliveryAddress(updateAddress);
-		}*/
+			System.out.println("Delivery adres: " + ((Cart)request.getSession().getAttribute("cart")).getDeliveryAddress().toString());
+		}
 		/* nu het adres is aangepast kan de referentie "address" in de sessie
 		 weg. Het addresss is immers ook al gerefereerd in de cart (delivery) of user
 		 (billing)*/

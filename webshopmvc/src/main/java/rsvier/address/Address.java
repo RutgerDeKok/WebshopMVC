@@ -9,7 +9,7 @@ public class Address {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id; 
+	private Long id;
 	@Column(length = 50, nullable = false)
 	private String firstName;
 	@Column(length = 50)
@@ -19,7 +19,7 @@ public class Address {
 	@Column(length = 50, nullable = false)
 	private String street;
 	@Column(length = 5)
-	private int number;
+	private Integer number;
 	@Column(length = 10)
 	private String numAddition;
 	@Column(length = 10)
@@ -32,7 +32,7 @@ public class Address {
 
     
   
-    public Address(long id, String firstName, String insertion, String familyName, String street, int number, String numAddition, String zipCode, String city) {
+    public Address(Long id, String firstName, String insertion, String familyName, String street, Integer number, String numAddition, String zipCode, String city) {
         this.id = id;
         this.firstName = firstName;
         this.insertion = insertion;
@@ -95,11 +95,11 @@ public class Address {
 		this.street = street;
 	}
 
-	public int getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 
@@ -137,9 +137,9 @@ public class Address {
     public boolean isEmpty() {
 		for (Field f : getClass().getDeclaredFields())
 			try {
-				if (f.get(this) != null && f.get(this).equals(0))
-					System.out.println(f.getName() + f.get(this));
-                    return false;
+				if (f.get(this) != null) {
+					return false;
+				}
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}

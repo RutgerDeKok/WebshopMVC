@@ -37,16 +37,11 @@
 				</div>
 			</div>
 			<div class="col-lg-3 col-lg-offset-7">
-				<th:block th:with="emptyAddress=(${session.cart?.getDeliveryAddress().isEmpty()} or ${session.address?.isEmpty()})">
-					<input th:text="${session.address?.isEmpty()}">
-					<input th:text="${session.cart?.getDeliveryAddress().isEmpty()}">
-					<input th:text="emptyAdress">
-				</th:block>
 				<th:block>
 					<div th:if="${session.cart?.getDeliveryAddress().isEmpty()}" id="button">
 						<h4>U moet nog een afleveradres opgeven.</h4>
 					</div>
-					<div th:unless="${session.cart?.getDeliveryAddress().isEmpty()} or ${session.address?.isEmpty()}" id="button">
+					<div th:unless="${session.cart?.getDeliveryAddress().isEmpty()}" id="button">
 						<a href="/confirm" style="font-size:140%">Afrekenen</a>
 					</div>
 				</th:block>

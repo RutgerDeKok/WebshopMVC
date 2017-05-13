@@ -60,7 +60,7 @@
 	
 	<div class="col-lg-4">
 	</div>
-	<div id="button"  class="col-lg-2">
+	<div id="button"  class="col-lg-2" th:unless="${session.cart?.getSubOrders() == null}">
 		<a href="/checkout" ><font size="5">Afrekenen</font></a>
 	</div>
 	<div id="button"  class="col-lg-3">
