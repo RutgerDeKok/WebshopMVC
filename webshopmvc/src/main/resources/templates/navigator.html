@@ -52,10 +52,12 @@
 								aria-hidden="true"></span>
 							</a></li>
 						<li th:switch="${#authorization.expression('isAnonymous()')}">
-							<a>
-								Welkom,
-								<span th:case="${true}">gast</span>
-								<span th:case="${false}" sec:authentication="name"></span>
+						
+							<a th:case="${true}">
+								Welkom gast
+								</a>
+								<a th:case="${false}"  href="#"	th:href="@{/mijn-gegevens.html}">Welkom&nbsp;
+								<span sec:authentication="name" ></span>
 							</a>
 						</li>
 							<li sec:authorize="isAuthenticated()">
