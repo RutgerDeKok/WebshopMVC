@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ import rsvier.address.Address;
 import rsvier.cart.Cart;
 import rsvier.cart.CartService;
 import rsvier.cartsuborder.CartSubOrder;
+
 
 
 
@@ -242,8 +244,7 @@ public class UserController {
        //data ophalen.
        
       
-       
-       
+      
             updateAddress.setFirstName(request.getParameter("firstName"));
             updateAddress.setFamilyName(request.getParameter("lastName"));
             updateAddress.setInsertion(request.getParameter("insertion"));
@@ -256,12 +257,14 @@ public class UserController {
              editUser.setEmail(request.getParameter("email"));
              
              System.out.println(passwordEncoder);
+             if(request.getParameter("W8")!=null && !request.getParameter("W8").equals("X!@#12z")){
+            	 
+            	 System.out.println("Updating password");
+            	 editUser.setPassHash(passwordEncoder.encode(request.getParameter("W8")));
+             }
              
-             editUser.setPassHash(passwordEncoder.encode(request.getParameter("W8")));
              
-             
-             
-       
+                
        
        
        userService.updateUser(editUser);
@@ -273,5 +276,57 @@ public class UserController {
             }
  
     }
+    
+    
+    
+    @RequestMapping(value = {"/mijn-gegevens"}, method = RequestMethod.GET)
+    public String userDetails(Map<String, Object> model, HttpServletRequest request) {
+    	
+    	User user = (User) request.getSession().getAttribute("currentUser");
+    
+    	model.put("address", user.getBillingAddress());
+    	model.put("email", user.getEmail());
+  
+        return "user_details";
+    }
+    
+    @RequestMapping(value = "/mijn-gegevens", method = RequestMethod.POST)
+    public void updateCurrentUser(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+    	System.out.println("updating mijn gegevens");
+       User editUser = (User) request.getSession().getAttribute("currentUser");
+       Address updateAddress = editUser.getBillingAddress();
+        
+       //data ophalen.
+      
+      
+            updateAddress.setFirstName(request.getParameter("firstName"));
+            updateAddress.setFamilyName(request.getParameter("lastName"));
+            updateAddress.setInsertion(request.getParameter("insertion"));
+            updateAddress.setCity(request.getParameter("city"));
+            updateAddress.setNumber(Integer.parseInt(request.getParameter("number")));
+            updateAddress.setNumAddition(request.getParameter("addition"));
+            updateAddress.setStreet(request.getParameter("street"));
+            updateAddress.setZipCode(request.getParameter("zipCode"));
+       
+             editUser.setEmail(request.getParameter("email"));
+            
+             if(!request.getParameter("passnew").equals("X!@#12z")){
+            	 
+            	 System.out.println("Updating password");
+            	 editUser.setPassHash(passwordEncoder.encode(request.getParameter("passnew")));
+             }
+                
+       userService.updateUser(editUser);
+       
+        try {
+           response.sendRedirect("/products");
+          } catch (IOException e) {
+           System.out.println(e.getMessage());
+            }
+ 
+    }
+    
+    
+    
 }
 
