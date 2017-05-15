@@ -60,7 +60,7 @@ public class AddressController {
 
 
 	@RequestMapping(value = "/copy_adres", method = RequestMethod.GET)
-	public String copyAdres(HttpSession session) {
+	public void copyAdres(HttpSession session, HttpServletResponse response) {
 		checkAddressInCart(session);
 		Cart cart = (Cart) session.getAttribute("cart");
 		Address billingAdd = ((User) session.getAttribute("currentUser")).getBillingAddress();
@@ -75,19 +75,27 @@ public class AddressController {
 		deliveryAdd.setStreet(billingAdd.getStreet());
 		deliveryAdd.setZipCode(billingAdd.getZipCode());
 		
+		System.out.println("Updating delivery address id: "+ deliveryAdd.getId());
+		
 		addressService.updateAddress(deliveryAdd);
 
 		session.setAttribute("cart", cart);
 
-		return "/checkout";
+//		return "/checkout";
+//		return "/wijzig-adres?origin=x&address=delivery";
+		
+		
+		try {
+			response.sendRedirect("/wijzig-adres?origin=checkout&address=delivery");
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private void checkAddressInCart(HttpSession session) {
 		Cart cart = (Cart) session.getAttribute("cart");
 		if (cart.getDeliveryAddress() == null) {
 			cart.setDeliveryAddress(new Address());
-			//niet nodig, zit al in de sessie
-//			session.setAttribute("cart", cart);
 		}
 	}
 

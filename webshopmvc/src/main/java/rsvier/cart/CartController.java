@@ -139,6 +139,7 @@ public class CartController {
 
 	private void checkForBillingAddress(HttpSession session) {
 		Cart cart = (Cart) session.getAttribute("cart");
+		System.out.println("checking for billing address, it is: "+cart.getDeliveryAddress());
 		if(cart.getDeliveryAddress()==null){
 			cart.setDeliveryAddress(new Address());
 		}

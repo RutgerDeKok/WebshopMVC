@@ -10,6 +10,23 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" />
 <link href="css/cart.css" rel="stylesheet" />
 <link href="css/CheckOut.css" rel="stylesheet" />
+
+<style>
+
+#but {
+    border-radius: 15px;
+    background: #ffffcc;
+    border: 2px solid #ffaa00;
+    padding: 10px; 
+    width: 190px;
+    height:60px;
+       
+}
+
+
+
+</style>
+
 </head>
 
 <body background="/images/background-cheese.jpg">
@@ -19,6 +36,13 @@
 		th:with="address = ${session.address}">
 		
 	 	<h3>Voer uw adresgegevens in</h3>
+	 	<br>
+	 	<label id="but" th:unless="${session.currentUser==null}" >
+					<a href="/copy_adres"><div>Kopieer factuuradres</div>
+						<div>naar afleveradres</div></a>
+						<br>
+				</label>
+				
 		<form method="post" action="/maak-adres/ok/">
 		
 			<label><b>Naam </b></label> <input type="text"
