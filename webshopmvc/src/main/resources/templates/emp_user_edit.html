@@ -8,7 +8,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-     <body sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')"  background="/images/grass.jpg">
+     <body sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')"  bgcolor=#edd6c0>
          <h1>Maak een nieuwe wachtwoord en verander eventueel andere gegevens</h1>
 
 
@@ -16,15 +16,15 @@
 
 
         <form method="post" action="/updateUser" onsubmit="return checkForm(this);">
-            <fieldset style="background:#808080;">
+            <fieldset >
                 <legend>Maak Account</legend>
                 <p>Email : <input title="Vul uw Email gebruikersnaam in" type="text" placeholder=" bijvoorbeeld abc@mijnmail.nl" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" name="email" th:value="${session.user.getEmail()}"></p>
-                <p>Wachtwoord :  <input title="Wachtwoord moet op zijn minste bestaan uit 6 karakters met tenminste een hoofdletter en een integer (getal)" type="password" placeholder=" bijvoorbeeld Aa1234" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8" onchange="
+                <p th:if="(${session.currentUser.userType.name()} == 'ADMIN')">Wachtwoord :  <input title="Wachtwoord moet op zijn minste bestaan uit 6 karakters met tenminste een hoofdletter en een integer (getal)" type="password" value ="X!@#12z" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8" onchange="
                         this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
                         if (this.checkValidity())
                             form.W8c.pattern = this.value;
                                         "></p>
-                <p>Bevestig Wachtwoord: <input title="Herhaal uw wachtwoord zoals hierboven" type="password" placeholder=" Herhaling " required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8c" onchange="
+                <p th:if="(${session.currentUser.userType.name()} == 'ADMIN')">Bevestig Wachtwoord: <input title="Herhaal uw wachtwoord zoals hierboven" type="password" value ="X!@#12z" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="W8c" onchange="
                         this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
                                                "></p><br>
 
@@ -40,7 +40,6 @@
                         this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
                                       "                        th:value="${session.tempAdres.getZipCode()}"> </p>
                 <p>Plaats : <input  type="text"  name="city" required th:value="${session.tempAdres.getCity()}"> </p>
-                <br>
                 <br>
                 <p>Rechten : </p> 
                 <br>

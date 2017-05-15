@@ -257,8 +257,12 @@ public class UserController {
              editUser.setEmail(request.getParameter("email"));
              
              System.out.println(passwordEncoder);
+             if(request.getParameter("W8")!=null && !request.getParameter("W8").equals("X!@#12z")){
+            	 
+            	 System.out.println("Updating password");
+            	 editUser.setPassHash(passwordEncoder.encode(request.getParameter("W8")));
+             }
              
-             editUser.setPassHash(passwordEncoder.encode(request.getParameter("W8")));
              
                 
        

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+    <title>Gebruiker aanpassen</title>
+
+        <style>
+
+            form {
+                border: 3px solid #f1f1f1;
+            }
+
+            input[type=text], input[type=password] {
+                width: 400px;
+                padding: 5px 5px;
+                margin: 5px 5px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+            }
+
+            button {
+                background-color: #ff8c1a;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                cursor: pointer;
+                width: 480px;
+            }
+
+            button:hover {
+                opacity: 0.8;
+            }
+            
+               label {
+       
+                  width: 150px;
+              
+            }
+
+
+            .cancelbtn {
+                width: 480px;
+                padding: 10px 50px;
+                background-color: #058401;
+            }
+
+        
+
+         
+
+
+            .container {
+                padding: 10px;
+            }
+
+
+            span.psw {
+                float: right;
+                padding-top: 10px;
+            }
+            
+            #passbox {
+					display: none;
+			}
+
+
+            /* Change styles for span and cancel button on extra small screens */
+            @media screen and (max-width: 300px) {
+                span.psw {
+                   display: block;
+                   float: none;
+                }
+
+                .cancelbtn {
+                    width: 500%;
+                }
+
+            }
+
+        </style>
+        
+        
+        <script type="text/javascript">
+	function toggle_vis() {
+    		var e = document.getElementById('passbox');
+    		    		   
+    		   if(e.style.display == 'block'){
+    		      e.style.display = 'none';}
+    		   else{
+    		      e.style.display = 'block';}
+    		}
+	
+
+            function closeWindow() {
+                setTimeout("window.close()", 500);
+            }
+
+        </script>
+
+    </head>
+
+    <body bgcolor=#edd6c0>
+
+
+
+
+	<div class="container">
+		<form  method="post" action="/mijn-gegevens" >
+				
+		
+                <label><b>Email : </b></label> <input type="text" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" name="email" th:value="${email}"><br> 
+                             
+                <label><b>Voornaam : </b></label> <input  type="text" name="firstName" required th:value="${address.getFirstName()}"><br> 
+                <label><b>Tussenvoegsel : </b></label> <input  type="text"  name="insertion" th:value="${address.getInsertion()}" > <br> 
+                <label><b>Achternaam : </b></label> <input  type="text"  name="lastName" required th:value="${address.getFamilyName()}"> <br> 
+                <br>
+                <label><b>Straat : </b></label> <input  type="text"  name="street" required th:value="${address.getStreet()}"> <br> 
+                <label><b>Huisnummer : </b></label> <input  type="number"  name="number" th:value="${address.getNumber()}" > <br> 
+                <label><b>Toevoeging : </b></label> <input  type="text"  name="addition" th:value="${address.getNumAddition()}" > <br> 
+                <label><b>Postcode : </b></label> <input  type="text"   name="zipCode" required pattern="[1-9][0-9]{3}\s?[a-zA-Z]{2}" onchange="
+                        this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+                                      "                        th:value="${address.getZipCode()}"> <br> 
+                <label><b>Plaats : </b></label> <input  type="text"  name="city" required th:value="${address.getCity()}"> <br> 
+     
+                <br>
+                <br> </b></label> <input type="checkbox"
+				id="myCheck" onclick="toggle_vis();"> Wijzig wachtwoord <br>
+				
+			<div id="passbox">
+				<label><b> Nieuw Wachtwoord : </b></label> <input
+						title="Wachtwoord moet op zijn minste bestaan uit 6 karakters met tenminste een hoofdletter en een integer (getal)"
+						type="password"  value ="X!@#12z" required
+						pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="passnew"
+						onchange="
+                        this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+                        if (this.checkValidity())
+                            form.passnew2.pattern = this.value;
+                                        ">
+				<br>  <label><b> Bevestig NieuwWachtwoord: </b></label> <input
+						title="Herhaal uw wachtwoord zoals hierboven" type="password"
+						  name="passnew2" value ="X!@#12z" 
+						onchange="
+                        this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+                                               ">
+				<br>  
+			</div>
+                <br>
+         
+			<button type="submit">Aanpassen</button>
+
+
+		</form>
+
+        
+
+        </div>
+
+
+        <div class="container" style="background-color: #eaeaea">
+
+            <a href="http://localhost:8080/" target="blank">
+                <button type="button" class="cancelbtn">Terug</button>
+        </div>
+
+    </body>
+          
+        </form>              
+
+
+       
+    </body>
+    
+</html>
