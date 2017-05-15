@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+   lang="en">
+
+<!--  <head th:insert="template :: head">-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orders</title>
+<link href="/../css/bootstrap.min.css" rel="stylesheet">
+<link href="/../css/Kaasmenu.css" rel="stylesheet">
+<link href="/../css/welcome.css" rel="stylesheet">
+
+<style type="text/css">
+
+#scroll75 {
+ 	height: 75vh;
+    overflow-y: scroll;
+}
+
+body { 
+	
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+
+</style>
+</head>
+
+<body sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')"
+	background="/images/grass.jpg">
+
+
+
+
+		<header th:replace="navigator :: header" />
+
+		<div id="hoofd">
+			<h2>Order Overzicht</h2>
+		</div>
+
+		<div class="container">
+		
+			<div class="row">
+			<!--  
+				<div class="col-lg-2 navbar-left">
+				<table>
+					<tr>
+						<div  id="table">
+							<section style="padding-left: 25px;">
+								<h3 class="page-header">Categorie</h3>
+								<form class="form" role="form" action="#"
+									th:action="@{/employees/products/filter}"
+									th:object="${formobject}" method="post">
+									<div class="form-group">
+										<div th:each="category : ${categories}" class="radio">
+
+											<input
+												th:checked="${category.getNL() == session.catFilter.getNL() }"
+												type="radio" th:value="${category}" name="filter" /> <label
+												th:text="${category.getNL()}">-</label>
+										</div>
+										<input type="submit" value="OK - Filter" />
+									</div>
+								</form>
+							</section>
+							<div>
+					</tr>
+					<tr>
+						<p>
+							<br> <br>
+						<div id="button" style="padding: 15px 0px;">
+							<a href="/employees/products/new"><font size="5">Nieuw
+									Product</font></a>
+						</div>
+						</p>
+
+
+
+					</tr>
+				</table>
+				</div>
+				<div class="col-lg-1"></div>
+				-->
+				
+				<div class="col-lg-12" id="scroll75" >
+				<div id="table">
+
+
+					<!--  <div class="menu" id="table"> -->
+					<h2 class="page-header" align="center">
+						Overzicht
+						</h3>
+						<table class="table table-striped" cellpadding="10">
+							<!--<table class="table table-bordered" cellpadding="10">-->
+							<thead>
+								<tr>
+									<th align="left">Id</th>
+									<th align="left">Datum</th>
+									<th align="left">Tot. Price</th>
+									<th align="left">Naam</th>
+									<th align="left">Postcode</th>
+									<th align="left">Nummer</th>
+									<th align="left">Plaats</th>
+									<th align="left">View</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="element, status: ${session.orders}">
+									<td th:text="${element.getId()}" align="left">id</td>
+									<td th:text="${element.getOrderDate()}" align="left">xx/xx/xx</td>
+									<td th:text="${element.getTotalPrice()}" align="left">0</td>
+									<td th:text="${element.getFirstName() +' '+ element.getInsertion() +' '+ element.getFamilyName()}" align="left">Piet</td>
+									<td th:text="${element.getZipCode()}" align="left">1111 AA</td>
+									<td th:text="${element.getNumber() +' '+ element.getNumAddition()}" align="left">x</td>
+									<td th:text="${element.getCity()}" align="left">Kasel</td>
+									<td align="left">
+										<form method="post" action="/employees/orders/view"
+											th:action=@{/employees/orders/view/}>
+											<button type="submit" name="index"
+												th:value="${status.index}">View
+											</button>
+										</form>
+									</td>
+							</tbody>
+						</table>
+				</div>
+				</div>
+			</div>
+			<!--end row -->
+		</div>
+		<!--end container -->
+
+	</body>
+	<!-- end employees only content -->
+
+
+	<body sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_ANONYMOUS')">	
+		<h1 align="center">No access</h1>
+
+	
+</body>
+</html>

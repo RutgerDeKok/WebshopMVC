@@ -1,15 +1,7 @@
 package rsvier.product;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "products")
@@ -34,7 +26,11 @@ public class Product {
 	
 	public Product(){
 	}
-	
+
+	public Product(long id, String name, String brand, ProductCategory category, String info, BigDecimal price, int stockCount) {
+		this.id=id; this.name=name; this.brand=brand; this.category=category; this.info=info; this.price=price; this.stockCount=stockCount;
+	}
+
 	public long getId() {
 		return id;
 	}

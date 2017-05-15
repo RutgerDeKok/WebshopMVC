@@ -1,11 +1,7 @@
 package rsvier.address;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.lang.reflect.Field;
 
 @Entity
 @Table(name = "Addresses")
@@ -13,7 +9,7 @@ public class Address {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id; 
+	private Long id;
 	@Column(length = 50, nullable = false)
 	private String firstName;
 	@Column(length = 50)
@@ -23,17 +19,39 @@ public class Address {
 	@Column(length = 50, nullable = false)
 	private String street;
 	@Column(length = 5)
-	private int number;
+	private Integer number;
 	@Column(length = 10)
 	private String numAddition;
 	@Column(length = 10)
 	private String zipCode;
 	@Column(length = 50, nullable = false)
 	private String city;
-
+        
 	public Address(){
 	}
+
+    
+  
+    public Address(Long id, String firstName, String insertion, String familyName, String street, Integer number, String numAddition, String zipCode, String city) {
+        this.id = id;
+        this.firstName = firstName;
+        this.insertion = insertion;
+        this.familyName = familyName;
+        this.street = street;
+        this.number = number;
+        this.numAddition = numAddition;
+        this.zipCode = zipCode;
+        this.city = city;
+    }
 	
+//         public User getUser() {
+//          return user;
+//        }
+
+//       public void setUser(User user) {
+//           this.user = user;
+//       }
+       
         public long getId() {
 		return id;
 	}
@@ -77,11 +95,11 @@ public class Address {
 		this.street = street;
 	}
 
-	public int getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 
@@ -109,12 +127,24 @@ public class Address {
 		this.city = city;
 	}
         
-        @Override
-        public String toString() {
-            return firstName + " " + insertion + " " + familyName + "\n" 
-                 + street + " " + number + " " + numAddition + "\n"
-                 + zipCode + " " + city;
-        }
+	@Override
+    public String toString() {
+        return firstName + " " + insertion + " " + familyName + "\n"
+             + street + " " + number + " " + numAddition + "\n"
+             + zipCode + " " + city;
+    }
+
+    public boolean isEmpty() {
+		for (Field f : getClass().getDeclaredFields())
+			try {
+				if (f.get(this) != null) {
+					return false;
+				}
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		return true;
+	}
 
 }
 

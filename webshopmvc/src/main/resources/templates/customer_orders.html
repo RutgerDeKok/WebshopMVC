@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--  <head th:insert="template :: head">-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orders</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/Kaasmenu.css" rel="stylesheet">
+<link href="/css/welcome.css" rel="stylesheet">
+
+<style type="text/css">
+
+#scroll75 {
+ 	height: 75vh;
+    overflow-y: scroll;
+}
+
+body { 
+	
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+
+</style>
+</head>
+
+<body background="/images/background-cheese.jpg">
+
+
+		<header th:replace="navigator :: header" />
+
+		<div id="hoofd">
+			<h2>Order Overzicht</h2>
+		</div>
+
+		<div class="container">
+		
+			<div class="row">
+		
+				
+				<div class="col-lg-12" id="scroll75" >
+				<div id="table">
+
+
+					<!--  <div class="menu" id="table"> -->
+					<h2 class="page-header" align="center">
+						Overzicht
+						</h3>
+						<table class="table table-striped" cellpadding="10">
+							<!--<table class="table table-bordered" cellpadding="10">-->
+							<thead>
+								<tr>
+									<th align="left">Id</th>
+									<th align="left">Datum</th>
+									<th align="left">Tot. Price</th>
+									<th align="left">Naam</th>
+									<th align="left">Postcode</th>
+									<th align="left">Nummer</th>
+									<th align="left">Plaats</th>
+									<th align="left">View</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="element, status: ${session.myOrders}">
+									<td th:text="${element.getId()}" align="left">id</td>
+									<td th:text="${element.getOrderDate()}" align="left">xx/xx/xx</td>
+									<td th:text="${element.getTotalPrice()}" align="left">0</td>
+									<td th:text="${element.getFirstName() +' '+ element.getInsertion() +' '+ element.getFamilyName()}" align="left">Piet</td>
+									<td th:text="${element.getZipCode()}" align="left">1111 AA</td>
+									<td th:text="${element.getNumber() +' '+ element.getNumAddition()}" align="left">x</td>
+									<td th:text="${element.getCity()}" align="left">Kasel</td>
+									<td align="left">
+										<form method="post" action="/orders/view"
+											th:action=@{/orders/view/}>
+											<button type="submit" name="index"
+												th:value="${status.index}">View
+											</button>
+										</form>
+									</td>
+							</tbody>
+						</table>
+				</div>
+				</div>
+			</div>
+			<!--end row -->
+		</div>
+		<!--end container -->
+
+	</body>
+	<!-- end employees only content -->
+
+
+</html></html>

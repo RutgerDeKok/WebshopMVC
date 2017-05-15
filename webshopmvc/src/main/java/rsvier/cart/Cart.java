@@ -1,37 +1,33 @@
 package rsvier.cart;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 import rsvier.address.Address;
 import rsvier.cartsuborder.CartSubOrder;
 import rsvier.user.User;
 
-
+import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "carts")
-public class Cart {
+@Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS, value = "session")
+public class Cart implements Serializable {
 
 	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@OneToOne
 	private User user;
 	@OneToOne(cascade = CascadeType.ALL)
-	private Address deliveryAdress;
+	private Address deliveryAddress;
 	@OneToMany(cascade=CascadeType.ALL)
 	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "cart_id")
@@ -39,9 +35,24 @@ public class Cart {
 	@Column(length = 10)
 	private BigDecimal totalPrice;
 
+
 	public Cart() {
 	}
 
+    public Cart(long id, User user, Address deliveryAddress, BigDecimal totalPrice) {
+        this.id = id;
+        this.user = user;
+        this.deliveryAddress = deliveryAddress;
+        this.totalPrice = totalPrice;
+    }
+ 
+//	public Cart(long id, User user) {
+//		this.id = id; this.user = user;
+//	}
+
+	public String toString() {
+		return "Aantal producten: " + subOrders.size() + ", totaal: " + totalPrice;
+	}
 
 	public User getUser() {
 		return user;
@@ -59,12 +70,12 @@ public class Cart {
 		this.user = user;
 	}
 
-	public Address getDeliveryAdress() {
-		return deliveryAdress;
+	public Address getDeliveryAddress() {
+		return deliveryAddress;
 	}
 
-	public void setDeliveryAdress(Address deliveryAdress) {
-		this.deliveryAdress = deliveryAdress;
+	public void setDeliveryAddress(Address deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
 	}
 
 	public void addSubOrder(CartSubOrder subOrder) {
@@ -83,26 +94,25 @@ public class Cart {
 		return totalPrice;
 	}
 
-	/*
-	 * @Jurjen Volgens mij is setTotalPrice niet nodig, maar kan het beter
-	 * vervangen worden door een functie die de totaalprijs berekent
-	 */
 	public void setTotalPrice(BigDecimal totalPrice) {
-            if (this.totalPrice == null) {
-                this.totalPrice = new BigDecimal(0);
-            }
-            this.totalPrice = this.totalPrice.add(totalPrice);
+        if (this.totalPrice == null) {
+            this.totalPrice = new BigDecimal(0);
         }
+		this.totalPrice = this.totalPrice.add(totalPrice);
+	}
         
-        public void calculateTotalPrice() {
-            for (CartSubOrder cso : subOrders) {
-                BigDecimal subTotal = cso.getTotalPrice();
-                setTotalPrice(subTotal);
-            }
-        }
+    public BigDecimal calculateTotalPrice() {
+    	totalPrice = BigDecimal.ZERO;
+         for (CartSubOrder sub : subOrders) {
+             totalPrice= totalPrice.add(sub.getSubTotal()); 
+         }
+         return totalPrice;
+	}
 
 	protected void emptyCart() {
 		subOrders.clear();
 	}
+
+
 
 }

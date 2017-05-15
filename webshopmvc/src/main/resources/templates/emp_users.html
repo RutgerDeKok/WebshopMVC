@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+
+    <!--  <head th:insert="template :: head">-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Gebruikers</title>
+        <link href="/../css/bootstrap.min.css" rel="stylesheet">
+        <link href="/../css/Kaasmenu.css" rel="stylesheet">
+        <link href="/../css/welcome.css" rel="stylesheet">
+
+        <style type="text/css">
+            #button {
+                padding: 10px;
+                margin: 10px;
+                background: rgb(50, 50, 50);
+                -webkit-box-shadow: rgb(30, 30, 30) 5px 5px 5px;
+                -webkit-border-radius: 10px;
+                color: whitesmoke;
+                text-align: center;
+                -webkit-transition: -webkit-box-shadow 0.3s;
+            }
+
+            #scroll75 {
+                height: 75vh;
+                overflow-y: scroll;
+            }
+
+            body {
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center;
+            }
+        </style>
+    </head>
+    <body sec:authorize="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')"
+          background="/images/grass.jpg">
+
+
+        <header th:replace="navigator :: header" />
+
+        <div id="hoofd">
+            <h2>Overzicht Gebruikers</h2>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 navbar-left">
+                    <table>
+<!--                        DIT IS DE FILTER RADIO KNOP-->
+                        <tr>
+                        <div id="table">
+                            <section style="padding-left: 25px;">
+                                <h3 class="page-header">Categorie</h3>
+                                <form class="form" role="form" action="#"
+                                      th:action="@{/employees/users/filter}"
+                                      th:object="${formobject}" method="post">
+                                    <div class="form-group">
+                                        <div th:each="type : ${types}" class="radio">
+
+                                            <input
+                                                th:checked="${type.getNL() == session.typeFilter.getNL() }"
+                                                type="radio" th:value="${type.name()}" name="filter" onchange="this.form.submit()" /> <label
+                                                th:text="${type.getNL()}">-</label>
+                                        </div>
+                                        <!--  input type="submit" value="OK - Filter" /-->
+                                    </div>
+                                </form>
+                            </section>
+                            <div>
+                                </tr>
+                                <tr>
+                                <p>
+                                    <br> <br>
+                                   
+                                    
+                                <div id="button" style="padding: 15px 0px;">
+                                    <a href="/user_new"><font size="5">Nieuwe
+                                        Gebruiker</font></a>
+                                </div>
+                                
+                                </p>
+
+
+
+                                </tr>
+                                </table>
+                            </div>
+                            <div class="col-lg-1"></div>
+
+                            <div class="col-lg-10" id="scroll75">
+                                <div id="table">
+
+                                <!--DIT IS DE TABLE!!-->
+                                    <!--  <div class="menu" id="table"> -->
+                                    <h2 class="page-header" align="center">
+                                        Gebruikers
+                                        </h3>
+                                        <table class="table table-striped" cellpadding="10">
+                                            <!--<table class="table table-bordered" cellpadding="10">-->
+                                            <thead>
+                                                <tr>
+                                                    <th align="left">Id</th>
+                                                    <th align="left">Type</th>
+                                                    <th align="left">Email</th>
+                                                    <th align="left">Naam</th>
+                                                    <th align="left">Adres gegevens</th>
+                                                    <th align="left">Edit</th>
+                                                    <th align="left">Delete</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody>
+                                                <tr th:each="element, status: ${session.users}">
+                                                    <td th:text="${element.Id}" align="left">naam</td>
+                                                    <td th:text="${element.userType.getKort()}" align="left">1</td>
+                                                    <td th:text="${element.getEmail()}" align="left">email</td>
+                                                    <td
+                                                        th:text="${element.getBillingAddress().getFirstName() +' '+ element.getBillingAddress().getInsertion() +' '+ element.getBillingAddress().getFamilyName()}"
+                                                        align="left">Piet</td>
+                                                    <td
+                                                        th:text="${element.getBillingAddress().getZipCode() +', '+
+                                                        element.getBillingAddress().getNumber() +' '+ element.getBillingAddress().getNumAddition() +', '+
+                                                        element.getBillingAddress().getCity()}"
+                                                        align="left">1111 AA</td>
+                                                    
+<!--                                                    EDIT KNOP! via user/update-->
+
+
+                                                    <td align="left">
+                                                        <form th:if="(${element.userType.name()} != 'ADMIN'
+                                                        and
+                                                        !${#authorization.expression('hasRole(''ADMIN'')')})
+                                                        or
+                                                        ${#authorization.expression('hasRole(''ADMIN'')')}"
+                                                              method="post" action="/employees/user_edit"
+                                                              th:action=@{/employees/user_edit}>
+                                                            <button type="submit" name="userIndex"
+                                                                    th:value="${status.index}">Edit</button>
+                                                        </form>
+                                                    </td>
+                                                    
+<!--                                                    DELETE KNOP! via users/delete-->
+                                                    <td align="left">
+                                                        <form th:if="(${element.userType.name()} != 'ADMIN'
+                                                        and
+                                                        !${#authorization.expression('hasRole(''ADMIN'')')})
+                                                        or
+                                                        ${#authorization.expression('hasRole(''ADMIN'')')}"
+                                                                method="post" action="/employees/users/delete"
+                                                              th:action=@{/employees/users/delete/}>
+                                                            <button type="submit" name="delindex"
+                                                                    th:value="${status.index}">
+                                                                <span class="glyphicon glyphicon-remove icon-red"
+                                                                      aria-hidden="true"></span>Delete
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                    
+                                                </tr>
+                                            </tbody>
+                                       
+                                            
+                                        </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end row -->
+                </div>
+                <!--end container -->
+
+                </body>
+                <!-- end employees only content -->
+
+
+                <!--<body
+                        th:unless="${session.currentUser!= null and session.currentUser.UserType.toString() == 'EMPLOYEE' }">
+                        <h1 align="center">No access</h1>
+                
+                
+                </body>-->
+                </html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+   lang="en">
+<!--  <head th:insert="template :: head">-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edit Product</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/cart.css" rel="stylesheet" />
+<link href="css/CheckOut.css" rel="stylesheet" />
+
+<style type="text/css">
+#button{
+    padding: 10px;
+    margin: 10px;
+    background: rgb(50,50,50);
+    -webkit-box-shadow: rgb(30,30,30) 5px 5px 5px;
+    -webkit-border-radius: 10px;
+   color: whitesmoke;
+   text-align: center;
+   -webkit-transition: -webkit-box-shadow 0.3s; 
+}
+</style>
+
+</head>
+
+	
+<body sec:authorize="hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')"  background="/images/grass.jpg">
+    
+	<header th:replace="navigator :: header" />
+	
+<div id="nice_Simple_Background_a_la_Tjeerd"
+		th:with="product = ${session.product}">
+		
+	 	<h3>Voer de product gegevens in</h3>
+		<form method="post" action="/updateProduct/ok/">
+		
+			<label><b>Naam </b></label> <input type="text"
+				th:value="${product.getName()}"
+				 name="name" required><br /> 
+			
+			<label><b>Merk</b></label> <input type="text"
+				th:value="${product.getBrand()}" 
+				name="brand"> <br /> 
+			
+			<label><b>Prijs</b></label> <input type="text"
+				th:value="${product.getPrice()}" 
+				name="price"> <br /> 
+			
+			<label><b>voorraad</b></label><input type="number"
+				th:value="${product.getStockCount()}"
+				 name="stock" required><br /> 
+				
+			<label><b>informatie</b></label><br> <input type="text"
+		
+				th:value="${product.getInfo()}"
+				 name="info" style="width: 800px" ><br />
+			
+			<label><b>Categorie</b></label> <select th:value="${product.category}" 
+				name="cat" required> 
+				   <option th:each="category : ${categories}"
+				          th:text="${category.getNL()}"
+				          th:value="${category}"
+				          th:selected="${product.category.toString() == category.toString() }">
+				   </option>
+				   
+				</select><br />
+				 
+			<br>
+			<br>
+
+			<button type="submit">Voeg toe</button>
+		</form> 
+	</div>
+
+</body>
+<!-- end employees only content -->
+
+
+<body sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_ANONYMOUS')">	
+		<h1 align="center">No access</h1>
+
+
+</body>
+</html>

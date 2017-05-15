@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<style>
+form {
+	border: 3px solid #f1f1f1;
+}
+
+button {
+	background-color: #058401;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+}
+
+button:hover {
+	opacity: 0.8;
+}
+
+.imgcontainer {
+	text-align: center;
+	margin: 24px 0 12px 0;
+}
+
+img.avatar {
+	width: 15%;
+	border-radius: 55%;
+	border: 3px solid #058401;
+}
+
+.container {
+	padding: 30px;
+}
+
+span.psw {
+	float: right;
+	padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+	span.psw {
+		display: block;
+		float: none;
+	}
+	.cancelbtn {
+		width: 500%;
+	}
+}
+</style>
+<script>
+	window.onunload = function() {
+		window.opener.location.reload();
+	};
+
+	function Success() {
+		window.close();
+	}
+</script>
+</head>
+<body bgcolor=#edd6c0>
+	<div class="imgcontainer">
+		<img src="/images/Edwin.png" alt="Boer Piet" class="avatar">
+	</div>
+	<div sec:authorize="isAnonymous()">
+			<h2 style = "align:center; vertical-align:middle;">Login onjuist</h2>
+			<button onclick="window.location.href='/login'">Probeer Opnieuw</button>
+	</div>
+	<div sec:authorize="isAuthenticated()">
+		<h2 style = "align:center; vertical-align:middle;">Login succesvol</h2>
+		<button onclick="Success()">OK </button>
+	</div>
+</body>
+</html>
+

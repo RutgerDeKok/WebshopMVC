@@ -1,19 +1,11 @@
 package rsvier.cartsuborder;
 
-import java.math.BigDecimal;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-
 import rsvier.product.Product;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 
 @Entity
@@ -32,6 +24,15 @@ public class CartSubOrder {
 	private BigDecimal subTotal;
 
 	public CartSubOrder() {
+	}
+
+	public CartSubOrder(long id, Product product, int quantity) {
+		this.id = id; this.product = product; this.quantity = quantity;
+	}
+	
+	public CartSubOrder(Product product, int quantity) {
+		this.product = product; this.quantity = quantity;
+		calculateSubTotal();
 	}
 
 	public long getId() {
@@ -58,14 +59,21 @@ public class CartSubOrder {
 		this.quantity = quantity;
 	}
 
-	public BigDecimal getTotalPrice() {
+	public BigDecimal getSubTotal() {
 		return subTotal;
 	}
 
 	public void setSubTotal(BigDecimal price, int quantity) {
 		subTotal = price.multiply(new BigDecimal(quantity));
 		subTotal.setScale(2);
+		
 	}
+
+	public void calculateSubTotal() {
+		subTotal = product.getPrice().multiply(new BigDecimal(quantity));
+	}
+
+	
 
 	@Override
 	public String toString() {
@@ -79,11 +87,5 @@ public class CartSubOrder {
 		return result;
 	}
 
-	// this method was used in the persistence test to quickly
-	// add some numbers to a subOrder
-	public void setTotalPrice(BigDecimal bigDecimal) {
-		subTotal = bigDecimal;
-
-	}
 
 }

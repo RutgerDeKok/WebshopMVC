@@ -1,81 +1,1 @@
-package rsvier.user;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import rsvier.address.Address;
-
-
-
-@Entity
-@Table(name = "users")
-public class User {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private String email;
-	private String passHash;
-	@Column(name = "type")
-	@Enumerated(EnumType.STRING) // komt in de tabel als string, alternatief is
-									// ORDINAL, komt als index (int)
-	private UserType UserType; // Enum
-	@OneToOne(cascade = CascadeType.ALL)
-	private Address billingAddress;
-
-	public User() {
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/*
-	 * @Jurjen get en set PassHash: vraag me af of dit nodig is wordt toch
-	 * afgehandeld door PassHasher.java?
-	 */
-	public String getPassHash() {
-		return passHash;
-	}
-
-	public void setPassHash(String passHash) {
-		this.passHash = passHash;
-	}
-
-	public UserType getUserType() {
-		return UserType;
-	}
-
-	public void setUserType(UserType userType) {
-		UserType = userType;
-	}
-
-	public Address getBillingAddress() {
-		return billingAddress;
-	}
-
-	public void setBillingAdress(Address billingAddress) {
-		this.billingAddress = billingAddress;
-	}
-
-}
+package rsvier.user;import javax.persistence.*;import org.hibernate.annotations.Type;import rsvier.address.Address;import org.hibernate.annotations.Fetch;import org.hibernate.annotations.FetchMode;@Entity@Table(name = "users")public class User {	@Id	@GeneratedValue(strategy = GenerationType.IDENTITY)	private long id;	private String email;	private String passHash;		@Column(name = "type")	@Enumerated(EnumType.STRING) // komt in de tabel als string, alternatief is	private UserType userType; // ENUM	@OneToOne(cascade = CascadeType.ALL)	@Fetch(FetchMode.JOIN)	private Address billingAddress;	@Type(type = "true_false")	private boolean enabled;	public User() {	}    public User(long id, String email, String passHash, UserType userType, Address billingAddress) {        this.id = id;        this.email = email;        this.passHash = passHash;        this.userType = userType;        this.billingAddress = billingAddress;    }	public long getId() {		return id;	}	public void setId(long id) {		this.id = id;	}	public String getEmail() {		return email;	}	public void setEmail(String email) {		this.email = email;	}	public String getPassHash() {		return passHash;	}	public void setPassHash(String passHash) {		this.passHash = passHash;	}	public UserType getUserType() {		return userType;	}	public void setUserType(UserType userType) {		this.userType = userType;	}	public Address getBillingAddress() {		return billingAddress;	}	public void setBillingAddress(Address billingAddress) {		this.billingAddress = billingAddress;	}	public boolean isEnabled() {		return enabled;	}	public void setEnabled(boolean enabled) {		this.enabled = enabled;	}    @Override    public String toString() {        return "User [id=" + id + ", email=" + email + ", passHash=" + passHash + ", userType=" + userType                + ", billingAddress=" + billingAddress + ", enabled=" + enabled+ "]";    }                }
