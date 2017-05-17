@@ -32,8 +32,8 @@ public class Address {
 
     
   
-    public Address(Long id, String firstName, String insertion, String familyName, String street, Integer number, String numAddition, String zipCode, String city) {
-        this.id = id;
+    public Address(String firstName, String insertion, String familyName, String street, Integer number, String numAddition, String zipCode, String city) {
+       
         this.firstName = firstName;
         this.insertion = insertion;
         this.familyName = familyName;

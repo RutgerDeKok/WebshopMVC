@@ -120,7 +120,7 @@ public class CartController {
 	@RequestMapping("/checkout")
 	public String checkout(HttpSession session) {
 		checkForCart(session);
-		checkForBillingAddress(session);
+		checkForDeliveryAddress(session);
 //		Address address;
 		
 		User user = (User) session.getAttribute("currentUser");
@@ -137,9 +137,9 @@ public class CartController {
 	
 	
 
-	private void checkForBillingAddress(HttpSession session) {
+	private void checkForDeliveryAddress(HttpSession session) {
 		Cart cart = (Cart) session.getAttribute("cart");
-		System.out.println("checking for billing address, it is: "+cart.getDeliveryAddress());
+		System.out.println("checking for delivery address, it is: "+cart.getDeliveryAddress());
 		if(cart.getDeliveryAddress()==null){
 			cart.setDeliveryAddress(new Address());
 		}

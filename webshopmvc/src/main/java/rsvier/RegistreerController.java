@@ -119,6 +119,10 @@ public class RegistreerController {
         newCart.setUser(newUser);
         //Geeft cart zelfde id als de nieuwe user (om parrallel te lopen gemak)
         newCart.setId(newUser.getId());
+        
+        newCart.setDeliveryAddress(new Address("","","","",0,"","",""));
+        
+        
         //sla de cart op
         cartService.createCart(newCart);
         //check

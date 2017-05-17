@@ -68,6 +68,7 @@ public class ProductController {
 		}
 	}
 	
+	
 	@RequestMapping(value = "employees/products/filter", method = RequestMethod.POST)
 	public @ResponseBody void filterProductsEdit(@RequestParam("filter") String radioWaarde,  HttpServletRequest request, HttpServletResponse response) {		
 
